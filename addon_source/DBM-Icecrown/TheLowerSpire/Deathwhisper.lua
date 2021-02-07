@@ -56,13 +56,20 @@ mod:AddBoolOption("SetIconOnDeformedFanatic", true)
 mod:AddBoolOption("SetIconOnEmpoweredAdherent", false)
 mod:AddBoolOption("ShieldHealthFrame", true, "misc")
 mod:RemoveOption("HealthFrame")
-
+mod:AddBoolOption("RaidWarningAboutAdds", false, "announce")
 
 local lastDD	= 0
 local dominateMindTargets	= {}
 local dominateMindIcon 	= 6
 local deformedFanatic
 local empoweredAdherent
+local timeBeforeAddsCome
+local ADDS_SIDE_BOTH = 0
+local ADDS_SIDE_LEFT = 1
+local ADDS_SIDE_RIGHT = 2
+local ADDS_SIDE_GATES = 3
+local addsSide = ADDS_SIDE_BOTH
+local lowBossHealthAddsWarningDisabled = false
 
 function mod:OnCombatStart(delay)
 	if self.Options.ShieldHealthFrame then
@@ -71,16 +78,24 @@ function mod:OnCombatStart(delay)
 		self:ScheduleMethod(0.5, "CreateShildHPFrame")
 	end		
 	berserkTimer:Start(-delay)
-	timerAdds:Start(7)
-	warnAddsSoon:Schedule(4)			-- 3sec pre-warning on start
-	self:ScheduleMethod(7, "addsTimer")
+	timerAdds:Start(5)
+	warnAddsSoon:Schedule(2)			-- 3sec pre-warning on start
+	self:ScheduleMethod(2, "raidWarningAboutAdds")
+	timeBeforeAddsCome = 3
+	self:ScheduleMethod(5, "addsTimer")
 	if not mod:IsDifficulty("normal10") then
-		timerDominateMindCD:Start(30)		-- Sometimes 1 fails at the start, then the next will be applied 70 secs after start ?? :S
+		timerDominateMindCD:Start(27)		-- Sometimes 1 fails at the start, then the next will be applied 70 secs after start ?? :S
 	end
 	table.wipe(dominateMindTargets)
 	dominateMindIcon = 6
 	deformedFanatic = nil
 	empoweredAdherent = nil
+	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("normal10") then
+		addsSide = ADDS_SIDE_LEFT
+	else
+		addsSide = ADDS_SIDE_BOTH
+	end	
+	lowBossHealthAddsWarningDisabled = false
 end
 
 function mod:OnCombatEnd()
@@ -107,6 +122,47 @@ do	-- add the additional Shield Bar
 	end
 	function mod:CreateShildHPFrame()
 		DBM.BossHealth:AddBoss(getShieldPercent, L.ShieldPercent)
+	end
+end
+
+function mod:sendRaidWarningAboutAdds(text)
+	if DBM:GetRaidRank() >= 1 and self.Options.RaidWarningAboutAdds then
+		SendChatMessage(text, "RAID_WARNING", nil, nil) 	
+	end
+end
+
+function mod:raidWarningAboutAdds()
+	if timeBeforeAddsCome == 3 then
+		if addsSide == ADDS_SIDE_BOTH then
+			self:sendRaidWarningAboutAdds(L.RaidWarningAdds3Both) 	
+		elseif addsSide == ADDS_SIDE_LEFT then
+			addsSide = ADDS_SIDE_RIGHT
+			self:sendRaidWarningAboutAdds(L.RaidWarningAdds3Left) 	
+		elseif addsSide == ADDS_SIDE_RIGHT then
+			addsSide = ADDS_SIDE_LEFT
+			self:sendRaidWarningAboutAdds(L.RaidWarningAdds3Right) 	
+		elseif addsSide == ADDS_SIDE_GATES then
+			self:sendRaidWarningAboutAdds(L.RaidWarningAdds3Gates) 	
+		end
+		
+		self:ScheduleMethod(1, "raidWarningAboutAdds")
+		timeBeforeAddsCome = 2
+	elseif timeBeforeAddsCome == 2 then
+		self:sendRaidWarningAboutAdds(L.RaidWarningAdds2)
+		self:ScheduleMethod(1, "raidWarningAboutAdds")
+		timeBeforeAddsCome = 1
+	elseif timeBeforeAddsCome == 1 then
+		self:sendRaidWarningAboutAdds(L.RaidWarningAdds1)
+		self:ScheduleMethod(1, "raidWarningAboutAdds")
+		timeBeforeAddsCome = 0
+	elseif timeBeforeAddsCome == 0 then
+		self:sendRaidWarningAboutAdds(L.RaidWarningAdds0)
+		timeBeforeAddsCome = 3
+		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+			self:ScheduleMethod(42, "raidWarningAboutAdds")
+		else
+			self:ScheduleMethod(57, "raidWarningAboutAdds")
+		end
 	end
 end
 
@@ -191,10 +247,20 @@ end
 function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(70842) then
 		warnPhase2:Show()
-		if mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25") then
-			timerAdds:Cancel()
-			warnAddsSoon:Cancel()
-			self:UnscheduleMethod("addsTimer")
+		self:UnscheduleMethod("addsTimer")
+		self:UnscheduleMethod("raidWarningAboutAdds")
+		timerAdds:Cancel()
+		warnAddsSoon:Cancel()
+		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+			self:ScheduleMethod(45, "addsTimer")
+			timerAdds:Start(45)
+			warnAddsSoon:Schedule(42)
+			self:ScheduleMethod(42, "raidWarningAboutAdds")
+			if mod:IsDifficulty("heroic10") then
+				addsSide = ADDS_SIDE_GATES
+			else
+				addsSide = ADDS_SIDE_BOTH --ADDS_SIDE_LEFT - seems to be randomized, no longer can be said for sure
+			end
 		end
 	end
 end
@@ -253,5 +319,13 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellReanimatedFanatic or msg:find(L.YellReanimatedFanatic) then
 		warnReanimating:Show()
+	end
+end
+
+--values subject to tuning depending on dps and his health pool
+function mod:UNIT_HEALTH(uId)
+	if (not lowBossHealthAddsWarningDisabled) and (self:GetUnitCreatureId(uId) == 36855) and (UnitHealth(uId) / UnitHealthMax(uId) <= 0.20) then
+		self:UnscheduleMethod("raidWarningAboutAdds")
+		lowBossHealthAddsWarningDisabled = true
 	end
 end
