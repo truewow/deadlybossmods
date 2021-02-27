@@ -42,15 +42,7 @@ local specWarnDarkMartyrdom			= mod:NewSpecialWarningMove(72499, mod:IsMelee())
 local specWarnFrostbolt				= mod:NewSpecialWarningInterupt(72007, false)
 local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", not mod:IsTank())
 
-local timerAdds
-local difficulty = GetInstanceDifficulty()
-
-if difficulty == 3 or difficulty == 4 then
-	timerAdds = mod:NewTimer(45, "TimerAdds", 61131)
-else
-	timerAdds = mod:NewTimer(60, "TimerAdds", 61131)
-end
-
+local timerAdds = mod:NewTimer(60, "TimerAdds", 61131)
 local timerDominateMind				= mod:NewBuffActiveTimer(12, 71289)
 local timerDominateMindCD			= mod:NewCDTimer(40, 71289)
 local timerSummonSpiritCD			= mod:NewCDTimer(10, 71426, nil, false)
@@ -91,14 +83,14 @@ function mod:OnCombatStart(delay)
 	timeBeforeAddsCome = 3
 	timerAdds:Start(5)
 	self:ScheduleMethod(5, "addsTimer")
-	if not mod:IsDifficulty("normal10") then
+	if not mod:IsRaidDifficulty("normal10") then
 		timerDominateMindCD:Start(27)		-- Sometimes 1 fails at the start, then the next will be applied 70 secs after start ?? :S
 	end
 	table.wipe(dominateMindTargets)
 	dominateMindIcon = 6
 	deformedFanatic = nil
 	empoweredAdherent = nil
-	if mod:IsDifficulty("heroic10", "normal10") then
+	if mod:IsRaidDifficulty("heroic10", "normal10") then
 		addsSide = ADDS_SIDE_LEFT
 	else
 		addsSide = ADDS_SIDE_BOTH
@@ -166,7 +158,7 @@ function mod:raidWarningAboutAdds()
 	elseif timeBeforeAddsCome == 0 then
 		self:sendRaidWarningAboutAdds(L.RaidWarningAdds0)
 		timeBeforeAddsCome = 3
-		if mod:IsDifficulty("heroic10", "heroic25") then
+		if mod:IsRaidDifficulty("heroic10", "heroic25") then
 			self:ScheduleMethod(42, "raidWarningAboutAdds")
 		else
 			self:ScheduleMethod(57, "raidWarningAboutAdds")
@@ -177,7 +169,7 @@ end
 function mod:addsTimer()
 	timerAdds:Cancel()
 	warnAddsSoon:Cancel()
-	if mod:IsDifficulty("heroic10", "heroic25") then
+	if mod:IsRaidDifficulty("heroic10", "heroic25") then
 		warnAddsSoon:Schedule(40)	-- 5 secs prewarning
 		self:ScheduleMethod(45, "addsTimer")
 		timerAdds:Start(45)
@@ -222,7 +214,7 @@ do
 				dominateMindIcon = dominateMindIcon - 1
 			end
 			self:Unschedule(showDominateMindWarning)
-			if mod:IsDifficulty("heroic10", "normal25") or (mod:IsDifficulty("heroic25") and #dominateMindTargets >= 3) then
+			if mod:IsRaidDifficulty("heroic10", "normal25") or (mod:IsRaidDifficulty("heroic25") and #dominateMindTargets >= 3) then
 				showDominateMindWarning()
 			else
 				self:Schedule(0.9, showDominateMindWarning)
@@ -242,9 +234,9 @@ do
 		elseif args:IsSpellID(71204) then
 			warnTouchInsignificance:Show(args.spellName, args.destName, args.amount or 1)
 			timerTouchInsignificance:Start(args.destName)
-			if args:IsPlayer() and (args.amount or 1) >= 3 and mod:IsDifficulty("normal10", "normal25") then
+			if args:IsPlayer() and (args.amount or 1) >= 3 and mod:IsRaidDifficulty("normal10", "normal25") then
 				specWarnTouchInsignificance:Show(args.amount)
-			elseif args:IsPlayer() and (args.amount or 1) >= 5 and mod:IsDifficulty("heroic10", "heroic25") then
+			elseif args:IsPlayer() and (args.amount or 1) >= 5 and mod:IsRaidDifficulty("heroic10", "heroic25") then
 				specWarnTouchInsignificance:Show(args.amount)
 			end
 		end
@@ -259,12 +251,12 @@ function mod:SPELL_AURA_REMOVED(args)
 		self:UnscheduleMethod("raidWarningAboutAdds")
 		timerAdds:Cancel()
 		warnAddsSoon:Cancel()
-		if mod:IsDifficulty("heroic10", "heroic25") then
+		if mod:IsRaidDifficulty("heroic10", "heroic25") then
 			self:ScheduleMethod(45, "addsTimer")
 			timerAdds:Start(45)
 			warnAddsSoon:Schedule(42)
 			self:ScheduleMethod(42, "raidWarningAboutAdds")
-			if mod:IsDifficulty("heroic10") then
+			if mod:IsRaidDifficulty("heroic10") then
 				addsSide = ADDS_SIDE_GATES
 			else
 				addsSide = ADDS_SIDE_BOTH --ADDS_SIDE_LEFT - seems to be randomized, no longer can be said for sure
