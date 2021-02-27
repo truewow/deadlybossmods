@@ -2478,8 +2478,33 @@ function bossModPrototype:GetDifficulty()
 	end
 end 
 
+function bossModPrototype:GetRaidDifficulty()
+	local difficulty = GetInstanceDifficulty()
+	if difficulty == 1 then
+		return "normal10"
+	elseif difficulty == 2 then
+		return "normal25"
+	elseif difficulty == 3 then
+		return "heroic10"
+	elseif difficulty == 4 then
+		return "heroic25"
+	else
+		return "unknown"
+	end
+end
+
 function bossModPrototype:IsDifficulty(...)
 	local diff = self:GetDifficulty()
+	for i = 1, select("#", ...) do
+		if diff == select(i, ...) then
+			return true
+		end
+	end
+	return false
+end
+
+function bossModPrototype:IsRaidDifficulty(...)
+	local diff = self:GetRaidDifficulty()
 	for i = 1, select("#", ...) do
 		if diff == select(i, ...) then
 			return true
