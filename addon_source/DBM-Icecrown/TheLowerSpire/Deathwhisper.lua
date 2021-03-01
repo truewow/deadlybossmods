@@ -47,7 +47,7 @@ local timerDominateMind				= mod:NewBuffActiveTimer(12, 71289)
 local timerDominateMindCD			= mod:NewCDTimer(40, 71289)
 local timerSummonSpiritCD			= mod:NewCDTimer(12, 71426, nil, false)
 local timerFrostboltCast			= mod:NewCastTimer(4, 72007)
-local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, mod:IsTank() or mod:IsHealer())
+local timerTouchInsignificance		= mod:NewTargetTimer(7, 71204, nil, mod:IsTank() or mod:IsHealer())
 
 local berserkTimer					= mod:NewBerserkTimer(600)
 
