@@ -49,7 +49,7 @@ function mod:OnCombatStart(delay)
 	timerSpecial:Start(-delay)
 	warnSpecial:Schedule(40-delay)
 	timerAchieve:Start(-delay)
-	if self:IsDifficulty("heroic10", "heroic25") then
+	if mod:IsRaidDifficulty("heroic10", "heroic25") then
 		enrageTimer:Start(360-delay)
 	else
 		enrageTimer:Start(480-delay)

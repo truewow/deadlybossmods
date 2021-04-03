@@ -117,10 +117,10 @@ do
 	function setIncinerateTarget(mod, target, name)
 		incinerateTarget = target
 		healed = 0
-		maxAbsorb = mod:IsDifficulty("heroic25") and 85000 or
-					mod:IsDifficulty("heroic10") and 40000 or
-					mod:IsDifficulty("normal25") and 60000 or
-					mod:IsDifficulty("normal10") and 30000 or 0
+		maxAbsorb = mod:IsRaidDifficulty("heroic25") and 85000 or
+					mod:IsRaidDifficulty("heroic10") and 40000 or
+					mod:IsRaidDifficulty("normal25") and 60000 or
+					mod:IsRaidDifficulty("normal10") and 30000 or 0
 		DBM.BossHealth:RemoveBoss(getShieldHP)
 		DBM.BossHealth:AddBoss(getShieldHP, L.IncinerateTarget:format(name))
 	end

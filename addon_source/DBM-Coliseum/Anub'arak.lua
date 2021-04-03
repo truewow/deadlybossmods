@@ -74,7 +74,7 @@ function mod:OnCombatStart(delay)
 	timerSubmerge:Start(80-delay)
 	enrageTimer:Start(-delay)
 	timerFreezingSlash:Start(-delay)
-	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+	if mod:IsRaidDifficulty("heroic10", "heroic25") then
 		timerShadowStrike:Start()
 		preWarnShadowStrike:Schedule(25.5-delay)
 		self:ScheduleMethod(30.5-delay, "ShadowStrike")
@@ -140,7 +140,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		if self.Options.SetIconsOnPCold then
 			table.insert(PColdTargets, DBM:GetRaidUnitId(args.destName))
-			if ((mod:IsDifficulty("normal25") or mod:IsDifficulty("heroic25")) and #PColdTargets >= 5) or ((mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10")) and #PColdTargets >= 2) then
+			if (mod:IsRaidDifficulty("normal25", "heroic25") and #PColdTargets >= 5) or (mod:IsRaidDifficulty("normal10", "heroic10") and #PColdTargets >= 2) then
 				self:SetPcoldIcons()--Sort and fire as early as possible once we have all targets.
 			end
 		end
@@ -178,7 +178,7 @@ function mod:SPELL_CAST_START(args)
 		if self.Options.RemoveHealthBuffsInP3 then
 			mod:ScheduleMethod(0.1, "RemoveBuffs")
 		end
-		if mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25") then
+		if mod:IsRaidDifficulty("normal10", "normal25") then
 			timerAdds:Cancel() 
 			warnAdds:Cancel() 
 			self:UnscheduleMethod("Adds")
@@ -208,7 +208,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		warnSubmergeSoon:Schedule(65)
 		specWarnSubmergeSoon:Schedule(65)
 		timerSubmerge:Start()
-		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+		if mod:IsRaidDifficulty("heroic10", "heroic25") then
 			timerShadowStrike:Stop()
 			preWarnShadowStrike:Cancel()
 			self:UnscheduleMethod("ShadowStrike")
