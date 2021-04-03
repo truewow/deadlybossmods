@@ -112,7 +112,7 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)--We use spell cast success for debuff timers in case it gets resisted by a player we still get CD timer for next one
 	if args:IsSpellID(74792) then
-		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+		if mod:IsRaidDifficulty("heroic10", "heroic25")then
 			timerShadowConsumptionCD:Start(20)
 		else
 			timerShadowConsumptionCD:Start()
@@ -121,7 +121,7 @@ function mod:SPELL_CAST_SUCCESS(args)--We use spell cast success for debuff time
 			self:SendSync("ShadowCD")
 		end
 	elseif args:IsSpellID(74562) then
-		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+		if mod:IsRaidDifficulty("heroic10", "heroic25") then
 			timerFieryConsumptionCD:Start(20)
 		else
 			timerFieryConsumptionCD:Start()
@@ -216,7 +216,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		warnPhase2:Show()
 		timerShadowBreathCD:Start(25)
 		timerShadowConsumptionCD:Start(20)--not exact, 15 seconds from tank aggro, but easier to add 5 seconds to it as a estimate timer than trying to detect this
-		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then --These i'm not sure if they start regardless of drake aggro, or if it should be moved too.
+		if mod:IsRaidDifficulty("heroic10", "heroic25") then --These i'm not sure if they start regardless of drake aggro, or if it should be moved too.
 			timerTwilightCutterCD:Start(30)
 		else
 			timerTwilightCutterCD:Start(35)
@@ -280,7 +280,7 @@ function mod:OnSync(msg, target)
 		end
 	elseif msg == "ShadowCD" then
 		if self.Options.AnnounceAlternatePhase then
-			if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+			if mod:IsRaidDifficulty("heroic10", "heroic25") then
 				timerShadowConsumptionCD:Start(20)
 			else
 				timerShadowConsumptionCD:Start()
@@ -288,7 +288,7 @@ function mod:OnSync(msg, target)
 		end
 	elseif msg == "FieryCD" then
 		if self.Options.AnnounceAlternatePhase then
-			if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+			if mod:IsRaidDifficulty("heroic10", "heroic25") then
 				timerFieryConsumptionCD:Start(20)
 			else
 				timerFieryConsumptionCD:Start()
