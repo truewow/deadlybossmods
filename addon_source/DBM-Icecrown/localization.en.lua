@@ -115,9 +115,12 @@ L:SetWarningLocalization{
 L:SetOptionLocalization{
 	WarnImpale			= "Announce $spell:69062 targets",
 	AchievementBoned	= "Show timer for Boned achievement",
-	SetIconOnImpale		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69062)
+	SetIconOnImpale		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69062),
+	RaidWarningAboutBonestorm = "Warn raid about coming bonestorm\n(requires promoted status)"
 }
-
+L:SetMiscLocalization{
+	RaidWarningBonestorm = "Away from boss!"
+}
 -------------------------
 --  Lady Deathwhisper  --
 -------------------------
@@ -147,7 +150,8 @@ L:SetOptionLocalization{
 	WarnTouchInsignificance		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(71204, GetSpellInfo(71204) or "unknown"),	
 	SetIconOnDominateMind		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71289),
 	SetIconOnDeformedFanatic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70900),
-	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901)
+	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
+	RaidWarningAboutAdds		= "Warn raid about adds\n(requires promoted status)"
 }
 
 L:SetMiscLocalization{
@@ -156,7 +160,14 @@ L:SetMiscLocalization{
 	ShieldPercent			= "Mana Barrier",--Translate Spell id 70842
 	Fanatic1				= "Cult Fanatic",
 	Fanatic2				= "Deformed Fanatic",
-	Fanatic3				= "Reanimated Fanatic"
+	Fanatic3				= "Reanimated Fanatic",
+	RaidWarningAdds3Both	= "New adds in 3",
+	RaidWarningAdds3Left	= "<<< Adds on left in 3",
+	RaidWarningAdds3Right	= ">>> Adds on right in 3",
+	RaidWarningAdds3Gates	= "Add at gates in 3",
+	RaidWarningAdds2		= "2",
+	RaidWarningAdds1		= "1",
+	RaidWarningAdds0		= "Kill adds!"
 }
 
 ----------------------
@@ -323,13 +334,46 @@ L:SetOptionLocalization{
 	GooArrow					= "Show DBM arrow when $spell:72295 is near you",
 	SpecWarnUnboundPlague		= "Show special warning for $spell:72856 transfer",
 	SpecWarnNextPlageSelf		= "Show special warning when you are the next $spell:72856 target",
-	BypassLatencyCheck			= "Don't use latency based sync check for $spell:72295\n(only use this if you're having problems otherwise)"
+	BypassLatencyCheck			= "Don't use latency based sync check for $spell:72295\n(only use this if you're having problems otherwise)",
+	SayAboutPhase3				= "Say outloud about coming phase 3",
+	WhisperToGaseousBloatTarget = "Whisper to target of orange ooze to run away",
+	RaidWarningStopDpsOn83Percent = "/rw Stop DPS at 83% (heroic mode only)",
+	SayGooSoon					= "Say \"Malleable Goo soon\""
 }
 
 L:SetMiscLocalization{
 	YellPull		= "Good news, everyone! I think I've perfected a plague that will destroy all life on Azeroth!",
 	YellMalleable	= "Malleable Goo on me!",
-	YellUnbound		= "Unbound Plague on me!"
+	YellUnbound		= "Unbound Plague on me!",
+	SayPhase3		= "Phase 3 soon, make sure there will be no ooze",
+	SayOrangeOoze	= "Run away from ooze!",
+	SayStopDps      = "Stop DPS on boss!",
+	SayGooSoonText	= "Malleable Goo soon"
+}
+
+----------------------
+-- DecayingColossus --
+----------------------
+L = DBM:GetModLocalization("DecayingColossus")
+
+L:SetGeneralLocalization{
+	name = "DecayingColossus"
+}
+
+L:SetTimerLocalization{
+	
+}
+
+L:SetWarningLocalization{
+	
+}
+
+L:SetOptionLocalization{
+	
+}
+
+L:SetMiscLocalization{
+	
 }
 
 ----------------------------
@@ -362,7 +406,8 @@ L:SetOptionLocalization{
 	ActivePrinceIcon		= "Set icon on the empowered Prince (skull)",
 	RangeFrame				= "Show range frame (12 yards)",
 	VortexArrow				= "Show DBM arrow when $spell:72037 is near you",
-	BypassLatencyCheck		= "Don't use latency based sync check for $spell:72037\n(only use this if you're having problems otherwise)"
+	BypassLatencyCheck		= "Don't use latency based sync check for $spell:72037\n(only use this if you're having problems otherwise)",
+	YellOnBomb				= "Yell when Kinetic Bomb appears"
 }
 
 L:SetMiscLocalization{
@@ -392,12 +437,24 @@ L:SetOptionLocalization{
 	SwarmingShadowsIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71266),
 	BloodMirrorIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70838),
 	RangeFrame				= "Show range frame (8 yards)",
-	YellOnFrenzy			= "Yell on $spell:71474"
+	YellOnFrenzy			= "Yell on $spell:71474",
+	WhisperToLinked			= "Whisper to linked players to run to each other",
+	WhisperToFire			= "Whisper to targets of $spell:71266",
+	SayToFire				= "Tell to fire target to run to wall",
+	SayToLinked				= "Tell to linked people to run to each other"
 }
 
 L:SetMiscLocalization{
 	SwarmingShadows			= "Shadows amass and swarm around (%S+)!",
-	YellFrenzy				= "I'm hungry!"
+	YellFrenzy				= "I'm hungry!",
+	WhisperLinked			= "Run to linked player!",
+	WhisperFire				= "You have fire, run to wall!",
+	SayFire					= "%s run, you have fire!",
+	SayLinked10				= "%s and %s come together!",
+	SayLinked25				= "%s, %s and %s come together!",
+	SayLinked10self			= "%s come to me!",
+	SayLlinked25self		= "%s and %s come to me!",
+	SayPact					= "%s come together"
 }
 
 -----------------------------
@@ -434,6 +491,81 @@ L:SetMiscLocalization{
 	YellKill		= "I AM RENEWED! Ysera grant me the favor to lay these foul creatures to rest!",
 	YellPortals		= "I have opened a portal into the Dream. Your salvation lies within, heroes...",
 	YellPhase2		= "My strength is returning. Press on, heroes!"--Need to confirm this is when adds spawn faster (phase 2) before used in mod
+}
+
+------------------
+--   Rimefang   --
+------------------
+L = DBM:GetModLocalization("Rimefang")
+
+L:SetGeneralLocalization{
+	name = "Rimefang"
+}
+
+L:SetTimerLocalization{
+	
+}
+
+L:SetWarningLocalization{
+	
+}
+
+L:SetOptionLocalization{
+	
+}
+
+L:SetMiscLocalization{
+	
+}
+
+------------------
+-- Spinestalker --
+------------------
+L = DBM:GetModLocalization("Spinestalker")
+
+L:SetGeneralLocalization{
+	name = "Spinestalker"
+}
+
+L:SetTimerLocalization{
+	
+}
+
+L:SetWarningLocalization{
+	
+}
+
+L:SetOptionLocalization{
+	
+}
+
+L:SetMiscLocalization{
+	
+}
+
+------------------
+--    Valkyr    --
+------------------
+L = DBM:GetModLocalization("Valkyr")
+
+L:SetGeneralLocalization{
+	name = "Valkyr"
+}
+
+L:SetTimerLocalization{
+	
+}
+
+L:SetWarningLocalization{
+	
+}
+
+L:SetOptionLocalization{
+	
+}
+
+L:SetMiscLocalization{
+	
 }
 
 ------------------
@@ -474,7 +606,13 @@ L:SetOptionLocalization{
 	SetIconOnUnchainedMagic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69762),
 	ClearIconsOnAirphase	= "Clear all icons before air phase",
 	AchievementCheck		= "Announce 'All You Can Eat' achievement warnings to raid\n(requires promoted status)",
-	RangeFrame				= "Show raid icon based range frame (10 normal, 20 heroic)"
+	RangeFrame				= "Show raid icon based range frame (10 normal, 20 heroic)",
+	WhisperToBeacon			= "Whisper to tomb targets",
+	WhisperToUnchained		= "Whisper to unchained magic targets (for every stack above 4 on normal, 2 on heroic difficulty)",
+	WhisperToChilledToTheBone="Whisper to chilled to the bone targets with 10+ stacks on normal, 7+ on heroic difficulty",
+	LogUnchained			= "Report players with unchained magic stacks (5+ on normal, 3+ on heroic difficulty)",
+	LogChilled				= "Report players with chilled to the bone stacks (10+ on normal, 7+ on heroic difficulty)",
+	SayToBeacon				= "Tell who's beacon in phase 3"
 }
 
 L:SetMiscLocalization{
@@ -485,7 +623,12 @@ L:SetMiscLocalization{
 	BeaconIconSet		= "Frost Beacon icon {rt%d} set on %s",
 	AchievementWarning	= "Warning: %s has 5 stacks of Mystic Buffet",
 	AchievementFailed	= ">> ACHIEVEMENT FAILED: %s has %d stacks of Mystic Buffet <<",
-	YellPull			= "You are fools to have come to this place. The icy winds of Northrend will consume your souls!"--Not currently in use.
+	YellPull			= "You are fools to have come to this place. The icy winds of Northrend will consume your souls!",--Not currently in use.
+	WhisperBeacon		= "Tomb on you, move!",
+	WhisperUnchained	= "Stop casting, you have debuff!",
+	WhisperUnchainedRemind = "Stop casting! You have %d stack(s) of debuff!",
+	WhisperChilledToTheBone="Stop attack, press Esc - don't stack debuff!",
+	SayBeacon			= "%s run, you're tomb beacon!"
 }
 
 ---------------------
@@ -508,14 +651,17 @@ L:SetWarningLocalization{
 	WarnNecroticPlagueJump	= "Necrotic Plague jumped to >%s<",
 	SpecWarnPALGrabbed		= "Paladin Healer %s has been grabbed",
 	SpecWarnPRIGrabbed		= "Priest Healer %s has been grabbed",
-	SpecWarnValkyrLow		= "Valkyr below 55%"
+	SpecWarnValkyrLow		= "Valkyr below 55%",
 }
 
 L:SetTimerLocalization{
 	TimerCombatStart	= "Combat starts",
 	TimerRoleplay		= "Roleplay",
 	PhaseTransition		= "Phase transition",
-	TimerNecroticPlagueCleanse = "Cleanse Necrotic Plague"
+	TimerNecroticPlagueCleanse = "Cleanse Necrotic Plague",
+	TimerVileSpiritActivation = "Vile Spirits Activation",
+	TimerDefile1Ends	= "Defile 1 disappears",
+	TimerDefile2Ends	= "Defile 2 disappears"
 }
 
 L:SetOptionLocalization{
@@ -533,6 +679,9 @@ L:SetOptionLocalization{
 	SpecWarnDefileNear		= "Show special warning for $spell:72762 near you",
 	SpecWarnTrapNear		= "Show special warning for $spell:73539 near you",
 	YellOnDefile			= "Yell on $spell:72762",
+	WhisperToDefileTarget	= "Whisper to the target of the $spell:72762",
+	WhisperToShadowTrapTarget	= "Whisper to the target of the $spell:72762",
+	SayWhoHasNecroticPlague	= "Say who has Necrotic Plague out loud",
 	YellOnTrap				= "Yell on $spell:73539",
 	DefileIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72762),
 	NecroticPlagueIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73912),
@@ -545,12 +694,15 @@ L:SetOptionLocalization{
 	LKBugWorkaround			= "Don't use latency based sync check for defile/shadow trap\n(Default on until a bug in sync check is worked out)",
 	AnnounceValkGrabs		= "Announce Val'kyr Shadowguard grab targets to raid chat\n(requires announce to be enabled and promoted status)",
 	SpecWarnValkyrLow		= "Show special warning when Valkyr is below 55% HP",
-	AnnouncePlagueStack		= "Announce $spell:73912 stacks to raid (10 stacks, every 5 after 10)\n(requires promoted status)"
+	AnnouncePlagueStack		= "Announce $spell:73912 stacks to raid (10 stacks, every 5 after 10)\n(requires promoted status)",
+	SayDefileIn3			= "Say \"Defile in 3, spread\"",
+	SayVileSpiritsGoBehindLK= "Say \"Go behind LK\" when Vile Spirits are coming"
 }
 
 L:SetMiscLocalization{
 	LKPull					= "So the Light's vaunted justice has finally arrived? Shall I lay down Frostmourne and throw myself at your mercy, Fordring?",
 	YellDefile				= "Defile on me!",
+	YellNecroticPlague      = "Necrotic Plague on %s",
 	YellTrap				= "Shadow Trap on me!",
 	YellValk				= "I've been grabbed!",
 	LKRoleplay				= "Is it truly righteousness that drives you? I wonder...",
@@ -558,5 +710,9 @@ L:SetMiscLocalization{
 	ValkGrabbedIcon			= "Valkyr Shadowguard {rt%d} grabbed %s",
 	ValkGrabbed				= "Valkyr Shadowguard grabbed %s",
 	PlagueStackWarning		= "Warning: %s has %d stacks of Necrotic Plague",
-	AchievementCompleted	= ">> ACHIEVEMENT COMPLETE: %s has %d stacks of Necrotic Plague <<"
+	AchievementCompleted	= ">> ACHIEVEMENT COMPLETE: %s has %d stacks of Necrotic Plague <<",
+	WhisperDefile			= "Defile on you, run away!",
+	WhisperShadowTrap		= "Shadow trap on you, run away!",
+	SayDefileIn3Text		= "Defile in 3, spread!",
+	SayVileSpiritsGoBehindLKText= "Behind LK"
 }

@@ -17,7 +17,8 @@ mod:RegisterEvents(
 	"SPELL_DAMAGE",
 	"CHAT_MSG_MONSTER_YELL",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
-	"UNIT_HEALTH"
+	"UNIT_HEALTH",
+	"SPELL_AURA_APPLIED_DOSE"
 )
 
 local warnPhase2Soon				= mod:NewAnnounce("WarnPhase2Soon", 2)
@@ -29,22 +30,25 @@ local warningFieryConsumption		= mod:NewTargetAnnounce(74562, 4)
 local warningMeteor					= mod:NewSpellAnnounce(74648, 3)
 local warningShadowBreath			= mod:NewSpellAnnounce(75954, 2, nil, mod:IsTank() or mod:IsHealer())
 local warningFieryBreath			= mod:NewSpellAnnounce(74526, 2, nil, mod:IsTank() or mod:IsHealer())
-local warningTwilightCutter			= mod:NewAnnounce("TwilightCutterCast", 4, 77844)
+-- local warningTwilightCutter			= mod:NewAnnounce("TwilightCutterCast", 4, 77844)
 
 local specWarnShadowConsumption		= mod:NewSpecialWarningRun(74792)
 local specWarnFieryConsumption		= mod:NewSpecialWarningRun(74562)
 local specWarnMeteorStrike			= mod:NewSpecialWarningMove(75952)
-local specWarnTwilightCutter		= mod:NewSpecialWarningSpell(77844)
+-- local specWarnTwilightCutter		= mod:NewSpecialWarningSpell(77844)
 
 local timerShadowConsumptionCD		= mod:NewNextTimer(25, 74792)
 local timerFieryConsumptionCD		= mod:NewNextTimer(25, 74562)
-local timerMeteorCD					= mod:NewNextTimer(40, 74648)
-local timerMeteorCast				= mod:NewCastTimer(7, 74648)--7-8 seconds from boss yell the meteor impacts.
-local timerTwilightCutterCast		= mod:NewCastTimer(5, 77844)
-local timerTwilightCutter			= mod:NewBuffActiveTimer(10, 77844)
-local timerTwilightCutterCD			= mod:NewNextTimer(15, 77844)
-local timerShadowBreathCD			= mod:NewCDTimer(19, 75954, nil, mod:IsTank() or mod:IsHealer())--Same as debuff timers, same CD, can be merged into 1.
-local timerFieryBreathCD			= mod:NewCDTimer(19, 74526, nil, mod:IsTank() or mod:IsHealer())--But unique icons are nice pertaining to phase you're in ;)
+local timerMeteorCD					= mod:NewNextTimer(45, 74648)
+local timerMeteorCast				= mod:NewCastTimer(5, 74648)--7-8 seconds from boss yell the meteor impacts.
+-- local timerTwilightCutterCast		= mod:NewCastTimer(5, 77844)
+-- local timerTwilightCutter			= mod:NewBuffActiveTimer(10, 77844)
+-- local timerTwilightCutterCD			= mod:NewNextTimer(30, 77844)
+local timerShadowBreathCD			= mod:NewCDTimer(13, 75954, nil, mod:IsTank() or mod:IsHealer())--Same as debuff timers, same CD, can be merged into 1.
+local timerFieryBreathCD			= mod:NewCDTimer(13, 74526, nil, mod:IsTank() or mod:IsHealer())--But unique icons are nice pertaining to phase you're in ;)
+local timerCutterTrueWow			= mod:NewTimer(60, "TimerCutter", 77844)
+local timerCutterOff				= mod:NewTimer(9, "Cutter Off in")
+local timerInfernoDead				= mod:NewTimer(38, "Inferno Dead")
 
 local berserkTimer					= mod:NewBerserkTimer(480)
 
@@ -54,18 +58,32 @@ mod:AddBoolOption("YellOnConsumption", true, "announce")
 mod:AddBoolOption("AnnounceAlternatePhase", true, "announce")
 mod:AddBoolOption("WhisperOnConsumption", false, "announce")
 mod:AddBoolOption("SetIconOnConsumption", true)
+mod:AddBoolOption("RaidWarningAboutCutter", false, "announce")
 
 local warned_preP2 = false
 local warned_preP3 = false
 local lastflame = 0
 local lastshroud = 0
 local phases = {}
+local timeBeforeCutter
+local FIRST_WARNING_DELAY = 5
+
 
 function mod:LocationChecker()
 	if GetTime() - lastshroud < 6 then
 		DBM.BossHealth:RemoveBoss(39863)--you took damage from twilight realm recently so remove the physical boss from health frame.
 	else
 		DBM.BossHealth:RemoveBoss(40142)--you have not taken damage from twilight realm so remove twilight boss health bar.
+	end
+end
+
+function mod:sendRaidWarningAboutCutter(text)
+	if self.Options.RaidWarningAboutCutter  then
+		if DBM:GetRaidRank() >= 1 then
+			SendChatMessage(text, "RAID_WARNING", nil, nil) 	
+		else
+			SendChatMessage(text, "SAY", nil, nil) 	
+		end
 	end
 end
 
@@ -95,10 +113,29 @@ function mod:OnCombatStart(delay)--These may still need retuning too, log i had 
 	lastshroud = 0
 	berserkTimer:Start(-delay)
 	timerMeteorCD:Start(20-delay)
-	timerFieryConsumptionCD:Start(15-delay)
+	timerFieryConsumptionCD:Start(18-delay)
 	timerFieryBreathCD:Start(10-delay)
 	updateHealthFrame(1)
+	timeBeforeCutter = FIRST_WARNING_DELAY
 end
+
+function mod:raidWarningAboutCutter()
+	if timeBeforeCutter == FIRST_WARNING_DELAY then
+		self:sendRaidWarningAboutCutter(L.RaidWarningCutterStart:format(FIRST_WARNING_DELAY))	
+		self:ScheduleMethod(1, "raidWarningAboutCutter")
+		timeBeforeCutter = timeBeforeCutter - 1
+	elseif timeBeforeCutter > 0 then
+		self:sendRaidWarningAboutCutter(L.RaidWarningCutterNumber:format(timeBeforeCutter)) 	
+		self:ScheduleMethod(1, "raidWarningAboutCutter")
+		timeBeforeCutter = timeBeforeCutter - 1
+	else
+		self:ScheduleMethod(30 - FIRST_WARNING_DELAY, "raidWarningAboutCutter")
+		timeBeforeCutter = FIRST_WARNING_DELAY
+		timerCutterTrueWow:Start(30)
+		timerCutterOff:Start()
+	end
+end
+
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(74806, 75954, 75955, 75956) then
@@ -112,19 +149,19 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)--We use spell cast success for debuff timers in case it gets resisted by a player we still get CD timer for next one
 	if args:IsSpellID(74792) then
-		if mod:IsRaidDifficulty("heroic10", "heroic25")then
-			timerShadowConsumptionCD:Start(20)
+		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+			timerShadowConsumptionCD:Start(25)
 		else
-			timerShadowConsumptionCD:Start()
+			timerShadowConsumptionCD:Start(25)
 		end
 		if mod:LatencyCheck() then
 			self:SendSync("ShadowCD")
 		end
 	elseif args:IsSpellID(74562) then
-		if mod:IsRaidDifficulty("heroic10", "heroic25") then
-			timerFieryConsumptionCD:Start(20)
+		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+			timerFieryConsumptionCD:Start(25)
 		else
-			timerFieryConsumptionCD:Start()
+			timerFieryConsumptionCD:Start(25)
 		end
 		if mod:LatencyCheck() then
 			self:SendSync("FieryCD")
@@ -136,9 +173,19 @@ function mod:SPELL_AURA_APPLIED(args)--We don't use spell cast success for actua
 	if args:IsSpellID(74792) then
 		if not self.Options.AnnounceAlternatePhase then
 			warningShadowConsumption:Show(args.destName)
-			if DBM:GetRaidRank() >= 1 and self.Options.WhisperOnConsumption then
+			if DBM:GetRaidRank() >= 2 and self.Options.WhisperOnConsumption then
 				SendChatMessage(L.WhisperConsumption, "WHISPER", "COMMON", args.destName)
 			end
+		end
+		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+      time_of_last_consumption = GetTime()
+			timerShadowConsumptionCD:Start(TIME_BETWEEN_CONSUMPTIONS)
+		else
+      time_of_last_consumption = GetTime()
+			timerShadowConsumptionCD:Start(TIME_BETWEEN_CONSUMPTIONS)
+		end
+		if mod:LatencyCheck() then
+			self:SendSync("ShadowCD")
 		end
 		if mod:LatencyCheck() then
 			self:SendSync("ShadowTarget", args.destName)
@@ -150,15 +197,29 @@ function mod:SPELL_AURA_APPLIED(args)--We don't use spell cast success for actua
 				SendChatMessage(L.YellConsumption, "SAY")
 			end
 		end
+		if self.Options.WhisperOnConsumption then
+			self:SendWhisper(L.WhisperMarked, args.destName)
+		end
 		if self.Options.SetIconOnConsumption then
 			self:SetIcon(args.destName, 7)
 		end
 	elseif args:IsSpellID(74562) then
+		if self.Options.WhisperOnConsumption then
+			self:SendWhisper(L.WhisperMarked, args.destName)
+		end
 		if not self.Options.AnnounceAlternatePhase then
 			warningFieryConsumption:Show(args.destName)
-			if DBM:GetRaidRank() >= 1 and self.Options.WhisperOnConsumption then
+			if DBM:GetRaidRank() >= 2 and self.Options.WhisperOnConsumption then
 				SendChatMessage(L.WhisperCombustion, "WHISPER", "COMMON", args.destName)
 			end
+		end
+		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+			timerFieryConsumptionCD:Start(TIME_BETWEEN_COMBUSTIONS)
+		else
+			timerFieryConsumptionCD:Start(TIME_BETWEEN_COMBUSTIONS)
+		end
+		if mod:LatencyCheck() then
+			self:SendSync("FieryCD")
 		end
 		if mod:LatencyCheck() then
 			self:SendSync("FieryTarget", args.destName)
@@ -170,14 +231,32 @@ function mod:SPELL_AURA_APPLIED(args)--We don't use spell cast success for actua
 				SendChatMessage(L.YellCombustion, "SAY")
 			end
 		end
+		if self.Options.WhisperOnConsumption then
+			self:SendWhisper(L.WhisperMarked, args.destName)
+		end
 		if self.Options.SetIconOnConsumption then
 			self:SetIcon(args.destName, 8)
 		end
 	end
 end
 
+function mod:SPELL_AURA_APPLIED_DOSE(args)
+	if args:IsSpellID(74567) then
+		if self.Options.WhisperOnConsumption and ((args.amount or 1) > 3) then
+			SendChatMessage(string.format("%d stacks of combustion on %s", args.amount or 1, args.destName or ""), "RAID", nil, nil)
+		end
+	elseif args:IsSpellID(74795) then
+		if self.Options.WhisperOnConsumption and ((args.amount or 1) > 3) then
+			SendChatMessage(string.format("%d stacks of consumption on %s", args.amount or 1, args.destName or ""), "RAID", nil, nil)
+		end
+	end
+end
+
 function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(74792) then
+		if self.Options.WhisperOnConsumption then
+			self:SendWhisper(L.WhisperMarked, args.destName)
+		end
 		if self.Options.SetIconOnConsumption then
 			self:SetIcon(args.destName, 0)
 		end
@@ -214,13 +293,10 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerMeteorCD:Cancel()
 		timerFieryConsumptionCD:Cancel()
 		warnPhase2:Show()
-		timerShadowBreathCD:Start(25)
+		timerShadowBreathCD:Start(15)
 		timerShadowConsumptionCD:Start(20)--not exact, 15 seconds from tank aggro, but easier to add 5 seconds to it as a estimate timer than trying to detect this
-		if mod:IsRaidDifficulty("heroic10", "heroic25") then --These i'm not sure if they start regardless of drake aggro, or if it should be moved too.
-			timerTwilightCutterCD:Start(30)
-		else
-			timerTwilightCutterCD:Start(35)
-		end
+		self:ScheduleMethod(40 - FIRST_WARNING_DELAY, "raidWarningAboutCutter")
+		timerCutterTrueWow:Start(40)
 	elseif msg == L.Phase3 or msg:find(L.Phase3) then
 		self:SendSync("Phase3")
 	elseif msg == L.MeteorCast or msg:find(L.MeteorCast) then--There is no CLEU cast trigger for meteor, only yell
@@ -237,32 +313,37 @@ end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg == L.twilightcutter or msg:find(L.twilightcutter) then
-			specWarnTwilightCutter:Schedule(5)
+		--	specWarnTwilightCutter:Schedule(5)
 		if not self.Options.AnnounceAlternatePhase then
-			warningTwilightCutter:Show()
-			timerTwilightCutterCast:Start()
-			timerTwilightCutter:Schedule(5)--Delay it since it happens 5 seconds after the emote
-			timerTwilightCutterCD:Schedule(15)
+			-- warningTwilightCutter:Show()
+			-- timerTwilightCutterCast:Start()
+			-- timerTwilightCutter:Schedule(5)--Delay it since it happens 5 seconds after the emote
+			timerCutterTrueWow:Start(30)
 		end
-		if mod:LatencyCheck() then
-			self:SendSync("TwilightCutter")
-		end
+		-- if mod:LatencyCheck() then
+		-- 	self:SendSync("TwilightCutter")
+		-- end
 	end
 end
 
 function mod:OnSync(msg, target)
+	--[[
 	if msg == "TwilightCutter" then
 		if self.Options.AnnounceAlternatePhase then
 			warningTwilightCutter:Show()
 			timerTwilightCutterCast:Start()
 			timerTwilightCutter:Schedule(5)--Delay it since it happens 5 seconds after the emote
-			timerTwilightCutterCD:Schedule(15)
+			timerCutterTrueWow:Start(30)
 		end
-	elseif msg == "Meteor" then
+	else]]
+	if msg == "Meteor" then
 		if self.Options.AnnounceAlternatePhase then
 			warningMeteor:Show()
 			timerMeteorCast:Start()
 			timerMeteorCD:Start()
+		end
+		if mod:IsDifficulty("heroic25") then
+			timerInfernoDead:Start()
 		end
 	elseif msg == "ShadowTarget" then
 		if self.Options.AnnounceAlternatePhase then
@@ -280,24 +361,25 @@ function mod:OnSync(msg, target)
 		end
 	elseif msg == "ShadowCD" then
 		if self.Options.AnnounceAlternatePhase then
-			if mod:IsRaidDifficulty("heroic10", "heroic25") then
-				timerShadowConsumptionCD:Start(20)
+			if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+				timerShadowConsumptionCD:Start(25)
 			else
-				timerShadowConsumptionCD:Start()
+				timerShadowConsumptionCD:Start(25)
 			end
 		end
 	elseif msg == "FieryCD" then
 		if self.Options.AnnounceAlternatePhase then
-			if mod:IsRaidDifficulty("heroic10", "heroic25") then
-				timerFieryConsumptionCD:Start(20)
+			if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+				timerFieryConsumptionCD:Start(25)
 			else
-				timerFieryConsumptionCD:Start()
+				timerFieryConsumptionCD:Start(25)
 			end
 		end
 	elseif msg == "Phase3" then
 		updateHealthFrame(3)
 		warnPhase3:Show()
 		timerMeteorCD:Start(30) --These i'm not sure if they start regardless of drake aggro, or if it varies as well.
+			timerInfernoDead:Start()
 		timerFieryConsumptionCD:Start(20)--not exact, 15 seconds from tank aggro, but easier to add 5 seconds to it as a estimate timer than trying to detect this
 	end
 end

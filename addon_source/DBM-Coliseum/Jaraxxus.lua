@@ -55,6 +55,9 @@ mod:AddBoolOption("LegionFlameWhisper", false, "announce")
 mod:AddBoolOption("LegionFlameRunSound", true)
 mod:AddBoolOption("LegionFlameIcon", true)
 mod:AddBoolOption("IncinerateFleshIcon", true)
+mod:AddBoolOption("LegionFlameSay", false, "announce")
+mod:AddBoolOption("RaidWarningIncinerateFlesh", false, "announce")
+mod:AddBoolOption("WhisperToIncinerateFlesh", false, "announce")
 
 mod:RemoveOption("HealthFrame")
 mod:AddBoolOption("IncinerateShieldFrame", true, "misc")
@@ -117,10 +120,10 @@ do
 	function setIncinerateTarget(mod, target, name)
 		incinerateTarget = target
 		healed = 0
-		maxAbsorb = mod:IsRaidDifficulty("heroic25") and 85000 or
-					mod:IsRaidDifficulty("heroic10") and 40000 or
-					mod:IsRaidDifficulty("normal25") and 60000 or
-					mod:IsRaidDifficulty("normal10") and 30000 or 0
+		maxAbsorb = mod:IsDifficulty("heroic25") and 85000 or
+					mod:IsDifficulty("heroic10") and 40000 or
+					mod:IsDifficulty("normal25") and 60000 or
+					mod:IsDifficulty("normal10") and 30000 or 0
 		DBM.BossHealth:RemoveBoss(getShieldHP)
 		DBM.BossHealth:AddBoss(getShieldHP, L.IncinerateTarget:format(name))
 	end
@@ -141,6 +144,12 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.IncinerateFleshIcon then
 			self:SetIcon(args.destName, 8, 15)
 		end
+		if self.Options.RaidWarningIncinerateFlesh then
+			SendChatMessage(L.RWIncinerateFlesh:format(args.destName), "RAID_WARNING")
+		end
+		if self.Options.WhisperToIncinerateFlesh then
+			self:SendWhisper(L.WhisperIncinerateFlesh, args.destName)
+		end
 		if args:IsPlayer() then
 			specWarnFlesh:Show()
 		end
@@ -159,6 +168,10 @@ function mod:SPELL_AURA_APPLIED(args)
 		end		
 		if self.Options.LegionFlameIcon then
 			self:SetIcon(args.destName, 7, 8)
+		end
+		if self.Options.LegionFlameSay then
+			SendChatMessage(L.SayFlame:format(targetname), "SAY")
+
 		end
 		if DBM:GetRaidRank() >= 1 and self.Options.LegionFlameWhisper then
 			self:SendWhisper(L.WhisperFlame, targetname)

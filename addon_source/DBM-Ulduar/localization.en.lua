@@ -277,7 +277,8 @@ L:SetOptionLocalization{
 
 L:SetMiscLocalization{
 	YellKill	= "I... I am released from his grasp... at last.",
-	YellCloud	= "Storm Cloud on me!"
+	YellCloud	= "Storm Cloud on me!",
+	SayBitingCold = "%s, move, got %d stack(s)!"
 }
 
 --------------
@@ -400,7 +401,8 @@ L:SetOptionLocalization{
 	ShockBlastWarningInP4	= "Show special warning for $spell:63631 in Phase 4",
 	RangeFrame				= "Show range frame in Phase 1 (6 yards)",
 	SetIconOnNapalm			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(65026),
-	SetIconOnPlasmaBlast	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(62997)
+	SetIconOnPlasmaBlast	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(62997),
+	WarnBlast				= "Yell to warn about blast"
 }
 
 L:SetMiscLocalization{
@@ -408,11 +410,12 @@ L:SetMiscLocalization{
 	MobPhase2		= "VX-001",
 	MobPhase3		= "Aerial Command Unit",
 	YellPull		= "We haven't much time, friends! You're going to help me test out my latest and greatest creation. Now, before you change your minds, remember that you kind of owe it to me after the mess you made with the XT-002.",	
-	YellHardPull	= "Self-destruct sequence initiated",
+	YellHardPull		= "This area will self-destruct in ten minutes.",
 	YellPhase2		= "WONDERFUL! Positively marvelous results! Hull integrity at 98.9 percent! Barely a dent! Moving right along.",
 	YellPhase3		= "Thank you, friends! Your efforts have yielded some fantastic data! Now, where did I put-- oh, there it is.",
 	YellPhase4		= "Preliminary testing phase complete. Now comes the true test!",
-	LootMsg			= "([^%s]+).*Hitem:(%d+)"
+	LootMsg			= "([^%s]+).*Hitem:(%d+)",
+	YellWarnBlast	= "Run away, it's gonna blow!"
 }
 
 ---------------------
@@ -466,7 +469,8 @@ L:SetMiscLocalization{
 	YellPull 			= "The time to strike at the head of the beast will soon be upon us! Focus your anger and hatred on his minions!",
 	YellPhase2	 		= "I am the lucid dream.",
 	Sara 				= "Sara",
-	WarningYellSqueeze	= "Squeeze on me! Help me!"
+	WarningYellSqueeze	= "Squeeze on me! Help me!",
+	WarningYellMalady		= "Malady on Me! Move Away!"
 }
 
 L:SetWarningLocalization{

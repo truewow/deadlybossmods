@@ -27,7 +27,7 @@ mod:AddBoolOption("ArachnophobiaTimer", true, "timer")
 
 
 function mod:OnCombatStart(delay)
-	if mod:IsRaidDifficulty("normal25") then
+	if mod:IsDifficulty("heroic25") then
 		timerLocustIn:Start(90 - delay)
 		warningLocustSoon:Schedule(80 - delay)
 	else
@@ -41,7 +41,7 @@ function mod:SPELL_CAST_START(args)
 		warningLocustNow:Show()
 		specialWarningLocust:Show()
 		timerLocustIn:Stop()
-		if mod:IsRaidDifficulty("normal25") then
+		if mod:IsDifficulty("heroic25") then
 			timerLocustFade:Start(26)
 		else
 			timerLocustFade:Start(19)

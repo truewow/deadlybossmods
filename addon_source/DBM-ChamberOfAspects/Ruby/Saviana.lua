@@ -22,7 +22,7 @@ local specWarnTranq			= mod:NewSpecialWarning("SpecialWarningTranq", mod:CanRemo
 
 local timerBeacon			= mod:NewBuffActiveTimer(5, 74453)
 local timerConflag			= mod:NewBuffActiveTimer(5, 74456)
-local timerConflagCD		= mod:NewNextTimer(50, 74452)
+local timerConflagCD		= mod:NewNextTimer(60, 74452)
 local timerBreath			= mod:NewCDTimer(25, 74404, nil, mod:IsTank() or mod:IsHealer())
 local timerEnrage			= mod:NewBuffActiveTimer(10, 78722)
 

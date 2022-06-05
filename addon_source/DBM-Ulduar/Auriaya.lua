@@ -34,12 +34,13 @@ local specWarnBlast		= mod:NewSpecialWarning("SpecWarnBlast", canInterrupt)
 local specWarnVoid 		= mod:NewSpecialWarningMove(64675)
 
 local enrageTimer		= mod:NewBerserkTimer(600)
-local timerDefender 	= mod:NewTimer(35, "timerDefender")
+local timerDefender 	= mod:NewTimer(34, "timerDefender")
 local timerFear			= mod:NewCastTimer(64386)
-local timerNextFear 	= mod:NewNextTimer(35.5, 64386)
+local timerNextFear 	= mod:NewNextTimer(30, 64386)
 local timerNextSwarm 	= mod:NewNextTimer(36, 64396)
-local timerNextSonic 	= mod:NewNextTimer(27, 64688)
+local timerNextSonic 	= mod:NewNextTimer(50, 64688)
 local timerSonic		= mod:NewCastTimer(64688)
+local timerSentinelBlast          = mod:NewTimer(30, "Sentinel Blast",64678)
 
 mod:AddBoolOption("HealthFrame", true)
 
@@ -47,16 +48,18 @@ local isFeared			= false
 local catLives = 9
 
 function mod:OnCombatStart(delay)
-	catLives = 9
 	enrageTimer:Start(-delay)
-	timerNextFear:Start(40-delay)
-	timerNextSonic:Start(60-delay)
-	timerDefender:Start(60-delay)
+	timerNextFear:Start(29-delay)
+	timerNextSonic:Start(47-delay)
+	timerDefender:Start(40-delay)
+	timerSentinelBlast:Start(23-delay)
+	catLives = 9
 end
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(64678, 64389) then -- Sentinel Blast
 		specWarnBlast:Show()
+		timerSentinelBlast:Start()
 	elseif args:IsSpellID(64386) then -- Terrifying Screech
 		warnFear:Show()
 		timerFear:Start()

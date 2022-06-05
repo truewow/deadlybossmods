@@ -55,6 +55,7 @@ local timerMadness 					= mod:NewCastTimer(60, 64059)
 local timerCastDeafeningRoar		= mod:NewCastTimer(2.3, 64189)
 local timerNextDeafeningRoar		= mod:NewNextTimer(30, 64189)
 local timerAchieve					= mod:NewAchievementTimer(420, 3012, "TimerSpeedKill")
+local timerbrainportal			= mod:NewTimer (60, "Brain Portals Open")
 
 mod:AddBoolOption("ShowSaraHealth")
 mod:AddBoolOption("SetIconOnFearTarget")
@@ -88,6 +89,7 @@ function mod:FervorTarget()
 	if not targetname then return end
 	if targetname == UnitName("player") then
 		specWarnFervorCast:Show()
+	SendChatMessage("Fervor on me!", "SAY")
 	end
 end
 
@@ -141,11 +143,14 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnBrainLink:Show()
 		end
 		mod:ScheduleMethod(0.2, "warnBrainLink")
-	elseif args:IsSpellID(63830, 63881) then   -- Malady of the Mind (Death Coil) 
+	elseif args:IsSpellID(63830, 63881) then      -- Malady of the Mind (Death Coil) 
 		if self.Options.SetIconOnFearTarget then
-			self:SetIcon(args.destName, 8, 30) 
+			self:SetIcon(args.destName, 8, 30)
 		end
-		local uId = DBM:GetRaidUnitId(args.destName) 
+		local uId = DBM:GetRaidUnitId(args.destName)
+ 			 if args:IsPlayer() then 
+  			 SendChatMessage(L.WarningYellMalady, "SAY") 
+		end
 		if uId then 
 			local inRange = CheckInteractDistance(uId, 2)
 			local x, y = GetPlayerMapPosition(uId)
@@ -174,9 +179,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then 
 			specWarnFervor:Show()
 		end
-	elseif args:IsSpellID(63894) then	-- Shadowy Barrier of Yogg-Saron (this is happens when p2 starts)
+	elseif args:IsSpellID(63894, 64775) then	-- Shadowy Barrier of Yogg-Saron (this is happens when p2 starts)
 		phase = 2
-		brainportal:Start(60)
+		timerbrainportal:Start(60)
 		warnBrainPortalSoon:Schedule(57)
 		specWarnBrainPortalSoon:Schedule(57)
 		warnP2:Show()

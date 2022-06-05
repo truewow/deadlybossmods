@@ -27,6 +27,7 @@ local timerBrand			= mod:NewBuffActiveTimer(10, 74505)
 
 mod:AddBoolOption("SetIconOnBrand", true)
 mod:AddBoolOption("RangeFrame")
+mod:AddBoolOption("WhisperOnBaltharus", false, "announce")
 
 local warnedSplit1	= false
 local warnedSplit2	= false
@@ -40,6 +41,7 @@ local function showBrandWarning()
 end
 
 function mod:OnCombatStart(delay)
+	timerWhirlwind:Show(15)
 	warnedSplit1 = false
 	warnedSplit2 = false
 	warnedSplit3 = false
@@ -67,7 +69,7 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(75125) then
 		warnWhirlwind:Show()
-		timerWhirlwind:Show()
+		timerWhirlwind:Show(24)
 	elseif args:IsSpellID(74505) then
 		brandTargets[#brandTargets + 1] = args.destName
 		if args:IsPlayer() then
@@ -79,6 +81,9 @@ function mod:SPELL_AURA_APPLIED(args)
 				brandIcon = 8
 			end
 			self:SetIcon(args.destName, brandIcon, 10)
+			if self.Options.WhisperOnBaltharus then
+				self:SendWhisper(L.WhisperMarked, args.destName)
+			end
 			brandIcon = brandIcon - 1
 		end
 		self:Unschedule(showBrandWarning)
@@ -87,7 +92,7 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:UNIT_HEALTH(uId)
-	if (mod:IsRaidDifficulty("normal25", "heroic25")) then
+	if (mod:IsDifficulty("normal25") or mod:IsDifficulty("heroic25")) then
 		if not warnedSplit1 and self:GetUnitCreatureId(uId) == 39751 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.70 then
 			warnedSplit1 = true
 			warningSplitSoon:Show()

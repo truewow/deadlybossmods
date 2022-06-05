@@ -28,7 +28,7 @@ local warnRuneofBlood		= mod:NewTargetAnnounce(72410, 3, nil, mod:IsTank() or mo
 local specwarnMark			= mod:NewSpecialWarningTarget(72444, false)
 local specwarnRuneofBlood	= mod:NewSpecialWarningTarget(72410, mod:IsTank())
 
-local timerCombatStart		= mod:NewTimer(48, "TimerCombatStart", 2457)
+local timerCombatStart		= mod:NewTimer(42, "TimerCombatStart", 2457)
 local timerRuneofBlood		= mod:NewNextTimer(20, 72410, nil, mod:IsTank() or mod:IsHealer())
 local timerBoilingBlood		= mod:NewNextTimer(15.5, 72441)
 local timerBloodNova		= mod:NewNextTimer(20, 73058)
@@ -59,7 +59,7 @@ function mod:OnCombatStart(delay)
 		DBM.BossHealth:AddBoss(37813, L.name)
 		self:ScheduleMethod(0.5, "CreateBossRPFrame")
 	end
-	if mod:IsRaidDifficulty("normal10", "normal25") then
+	if mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25") then
 		enrageTimer:Start(-delay)
 	else
 		enrageTimer:Start(360-delay)
@@ -152,7 +152,7 @@ do
 	end
 	
 	mod:RegisterOnUpdateHandler(function(self)
-		if self.Options.BeastIcons and (DBM:GetRaidRank() > 0 and not (iconsSet == 5 and mod:IsRaidDifficulty("normal25", "heroic25") or iconsSet == 2 and mod:IsRaidDifficulty("normal10", "heroic10"))) then
+		if self.Options.BeastIcons and (DBM:GetRaidRank() > 0 and not (iconsSet == 5 and self:IsDifficulty("normal25", "heroic25") or iconsSet == 2 and self:IsDifficulty("normal10", "heroic10"))) then
 			for i = 1, GetNumRaidMembers() do
 				local uId = "raid"..i.."target"
 				local guid = UnitGUID(uId)
@@ -178,7 +178,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			boilingBloodIcon = boilingBloodIcon - 1
 		end
 		self:Unschedule(warnBoilingBloodTargets)
-		if #boilingBloodTargets >= 3 then	-- Boiling Blood
+		if (mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10")) or ((mod:IsDifficulty("normal25") or mod:IsDifficulty("heroic25")) and #boilingBloodTargets >= 3) then	-- Boiling Blood
 			warnBoilingBloodTargets()
 		else
 			self:Schedule(0.3, warnBoilingBloodTargets)

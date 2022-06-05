@@ -79,8 +79,11 @@ L:SetTimerLocalization{
 }
 
 L:SetMiscLocalization{
-	WhisperFlame		= "Legion Flame on you",
-	IncinerateTarget	= "Incinerate Flesh: %s"
+	WhisperFlame				= "Legion Flame on you",
+	IncinerateTarget			= "Incinerate Flesh: %s",
+	SayFlame					= "%s run, you have flames!",
+	RWIncinerateFlesh			= "%s {skull} has incinerate flesh, heal him!",
+	WhisperIncinerateFlesh		= "Come closer to healers, they need to overheal you"
 }
 
 L:SetOptionLocalization{
@@ -95,7 +98,10 @@ L:SetOptionLocalization{
 	LegionFlameIcon				= "Set icons on Legion Flame targets",
 	LegionFlameWhisper			= "Send whisper to Legion Flame targets",
 	LegionFlameRunSound			= "Play sound on Legion Flame",
-	IncinerateShieldFrame		= "Show boss health with a health bar for Incinerate Flesh"
+	IncinerateShieldFrame		= "Show boss health with a health bar for Incinerate Flesh",
+	LegionFlameSay				= "Tell Legion Flame targets to run",
+	RaidWarningIncinerateFlesh	= "Raid warning about incinerate flesh target",
+	WhisperToIncinerateFlesh	= "Whisper to incinerate flesh target"
 }
 
 L:SetMiscLocalization{

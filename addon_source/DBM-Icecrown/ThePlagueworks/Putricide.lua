@@ -14,7 +14,8 @@ mod:RegisterEvents(
 	"SPELL_AURA_APPLIED_DOSE",
 	"SPELL_AURA_REFRESH",
 	"SPELL_AURA_REMOVED",
-	"UNIT_HEALTH"
+	"UNIT_HEALTH",
+	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
 
 local warnSlimePuddle				= mod:NewSpellAnnounce(70341, 2)
@@ -46,8 +47,8 @@ local specWarnUnboundPlague			= mod:NewSpecialWarningYou(72856)		-- Heroic Abili
 local timerGaseousBloat				= mod:NewTargetTimer(20, 70672)			-- Duration of debuff
 local timerSlimePuddleCD			= mod:NewCDTimer(35, 70341)				-- Approx
 local timerUnstableExperimentCD		= mod:NewNextTimer(38, 70351)			-- Used every 38 seconds exactly except after phase changes
-local timerChokingGasBombCD			= mod:NewNextTimer(35.5, 71255)
-local timerMalleableGooCD			= mod:NewCDTimer(25, 72295)
+local timerChokingGasBombCD			= mod:NewNextTimer(35, 71255) -- On Truewow it's between 35 and 40 seconds
+local timerMalleableGooCD			= mod:NewCDTimer(25, 72295) -- On Truewow it's between 21 and 26 seconds since start of phase 2 and between 25 and 30 seconds after first Malleable Goo is cast
 local timerTearGas					= mod:NewBuffActiveTimer(16, 71615)
 local timerPotions					= mod:NewBuffActiveTimer(30, 73122)
 local timerMutatedPlagueCD			= mod:NewCDTimer(10, 72451)				-- 10 to 11
@@ -68,14 +69,18 @@ mod:AddBoolOption("MalleableGooIcon")
 mod:AddBoolOption("UnboundPlagueIcon")					-- icon on the player with active buff
 mod:AddBoolOption("GooArrow")
 mod:AddBoolOption("YellOnMalleableGoo", true, "announce")
-mod:AddBoolOption("YellOnUnbound", true, "announce")
+mod:AddBoolOption("YellOnUnbound", false, "announce")
 mod:AddBoolOption("BypassLatencyCheck", false)--Use old scan method without syncing or latency check (less reliable but not dependant on other DBM users in raid)
+mod:AddBoolOption("SayAboutPhase3", false, "announce")
+mod:AddBoolOption("WhisperToGaseousBloatTarget", false, "announce")
+mod:AddBoolOption("SayGooSoon", false, "announce")
 
 local warned_preP2 = false
 local warned_preP3 = false
 local spamPuddle = 0
 local spamGas = 0
 local phase = 0
+
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
@@ -85,7 +90,7 @@ function mod:OnCombatStart(delay)
 	warned_preP2 = false
 	warned_preP3 = false
 	phase = 1
-	if mod:IsRaidDifficulty("heroic10", "heroic25") then
+	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 		timerUnboundPlagueCD:Start(10-delay)
 	end
 end
@@ -100,10 +105,12 @@ end
 
 function mod:OldMalleableGooTarget()
 	local targetname = self:GetBossTarget(36678)
-	if not targetname then return end
-		if self.Options.MalleableGooIcon then
-			self:SetIcon(targetname, 6, 10)
-		end
+	if not targetname then
+		return
+	end
+	if self.Options.MalleableGooIcon then
+		self:SetIcon(targetname, 6, 10)
+	end
 	if targetname == UnitName("player") then
 		specWarnMalleableGoo:Show()
 		if self.Options.YellOnMalleableGoo then
@@ -128,6 +135,18 @@ function mod:OldMalleableGooTarget()
 	end
 end
 
+function mod:startMalleableGooTimer(cdTime)
+	timerMalleableGooCD:Cancel()
+	timerMalleableGooCD:Start(cdTime)
+	self:UnscheduleMethod("WarnSayGooSoon")
+	self:ScheduleMethod(cdTime - 3, "WarnSayGooSoon")
+end
+function mod:cancelMalleableGooTimer()
+	timerMalleableGooCD:Cancel()
+	self:UnscheduleMethod("WarnSayGooSoon")
+end
+
+
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(70351, 71966, 71967, 71968) then
 		warnUnstableExperimentSoon:Cancel()
@@ -138,28 +157,44 @@ function mod:SPELL_CAST_START(args)
 		warnTearGas:Show()
 		warnUnstableExperimentSoon:Cancel()
 		timerUnstableExperimentCD:Cancel()
-		timerMalleableGooCD:Cancel()
-		timerSlimePuddleCD:Cancel()
+		self:cancelMalleableGooTimer()
+		--timerMalleableGooCD:Cancel()
+		--timerSlimePuddleCD:Cancel()
 		timerChokingGasBombCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
 	elseif args:IsSpellID(72842, 72843) then		--Volatile Experiment (heroic phase change begin)
 		warnVolatileExperiment:Show()
 		warnUnstableExperimentSoon:Cancel()
 		timerUnstableExperimentCD:Cancel()
-		timerMalleableGooCD:Cancel()
+		self:cancelMalleableGooTimer()
+		--timerMalleableGooCD:Cancel()
 		timerSlimePuddleCD:Cancel()
 		timerChokingGasBombCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
 	elseif args:IsSpellID(72851, 72852) then		--Create Concoction (Heroic phase change end)
-		if mod:IsRaidDifficulty("heroic10", "heroic25") then
-			self:ScheduleMethod(40, "NextPhase")	--May need slight tweaking +- a second or two
+		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+		timerSlimePuddleCD:Cancel()
+		warnVolatileExperiment:Show()
+		warnUnstableExperimentSoon:Cancel()
+		timerUnstableExperimentCD:Cancel()
+		timerChokingGasBombCD:Cancel()
+			self:startMalleableGooTimer(30)
+			timerUnboundPlagueCD:Start(50)
+			self:ScheduleMethod(30, "NextPhase")	--May need slight tweaking +- a second or two
 			timerPotions:Start()
 		end
 	elseif args:IsSpellID(73121, 73122) then		--Guzzle Potions (Heroic phase change end)
-		if mod:IsRaidDifficulty("heroic10") then
-			self:ScheduleMethod(40, "NextPhase")	--May need slight tweaking +- a second or two
+		timerSlimePuddleCD:Cancel()
+		warnVolatileExperiment:Show()
+		warnUnstableExperimentSoon:Cancel()
+		timerUnstableExperimentCD:Cancel()
+		timerChokingGasBombCD:Cancel()
+		if mod:IsDifficulty("heroic10") then
+			self:startMalleableGooTimer(30)
+			self:ScheduleMethod(30, "NextPhase")	--May need slight tweaking +- a second or two
 			timerPotions:Start()
-		elseif mod:IsRaidDifficulty("heroic25") then
+		elseif mod:IsDifficulty("heroic25") then
+			self:startMalleableGooTimer(30)
 			self:ScheduleMethod(30, "NextPhase")
 			timerPotions:Start(20)
 		end
@@ -171,17 +206,25 @@ function mod:NextPhase()
 	if phase == 2 then
 		warnUnstableExperimentSoon:Schedule(15)
 		timerUnstableExperimentCD:Start(20)
-		timerSlimePuddleCD:Start(10)
-		timerMalleableGooCD:Start(5)
-		timerChokingGasBombCD:Start(15)
-		if mod:IsRaidDifficulty("heroic10", "heroic25") then
-			timerUnboundPlagueCD:Start(50)
-		end
+		timerSlimePuddleCD:Start(12)
+		--timerMalleableGooCD:Start(5)
+		--timerMalleableGooCD:Start(21) -- On Truewow first Malleable Goo is cast between 21 and 26 seconds
+		timerChokingGasBombCD:Start(16)
+		self:startMalleableGooTimer(25)
+		--if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+		--else
+		--	self:startMalleableGooTimer(21)
+		--end
 	elseif phase == 3 then
-		timerSlimePuddleCD:Start(15)
-		timerMalleableGooCD:Start(9)
-		timerChokingGasBombCD:Start(12)
-		if mod:IsRaidDifficulty("heroic10", "heroic25") then
+		--timerSlimePuddleCD:Start(15)
+		--timerMalleableGooCD:Start(9)
+		timerSlimePuddleCD:Start(timerSlimePuddleCD:GetTime() + 30) --On Truewow all events are postponed by 30 seconds
+		--timerMalleableGooCD:Start(timerMalleableGooCD:GetTime() + 30)
+		self:startMalleableGooTimer(25)
+		timerChokingGasBombCD:Start(30)
+		timerMutatedPlagueCD:Start(3)
+
+		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 			timerUnboundPlagueCD:Start(50)
 		end
 	end
@@ -190,11 +233,12 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(70341) and GetTime() - spamPuddle > 5 then
 		warnSlimePuddle:Show()
-		if phase == 3 then
-			timerSlimePuddleCD:Start(20)--In phase 3 it's faster
-		else
-			timerSlimePuddleCD:Start()
-		end
+		-- if phase == 3 then
+		-- 	timerSlimePuddleCD:Start(20)--In phase 3 it's faster
+		-- else
+		-- 	timerSlimePuddleCD:Start()
+		-- end
+		timerSlimePuddleCD:Start()
 		spamPuddle = GetTime()
 	elseif args:IsSpellID(71255) then
 		warnChokingGasBomb:Show()
@@ -203,13 +247,18 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args:IsSpellID(72855, 72856, 70911) then
 		timerUnboundPlagueCD:Start()
 	elseif args:IsSpellID(72615, 72295, 74280, 74281) then
+		--Malleable Goo timer won't start because there are no events in combat log on Truewow
 		warnMalleableGoo:Show()
 		specWarnMalleableGooCast:Show()
-		if mod:IsRaidDifficulty("heroic10", "heroic25") then
-			timerMalleableGooCD:Start(20)
+		
+		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+			self:startMalleableGooTimer(20)
+			--timerMalleableGooCD:Start(20)
 		else
-			timerMalleableGooCD:Start()
+			self:startMalleableGooTimer(25)
+			-- timerMalleableGooCD:Start()
 		end
+		
 		if self.Options.BypassLatencyCheck then
 			self:ScheduleMethod(0.1, "OldMalleableGooTarget")
 		else
@@ -217,6 +266,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		end
 	end
 end
+
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(70447, 72836, 72837, 72838) then--Green Slime
@@ -238,6 +288,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		if self.Options.GaseousBloatIcon then
 			self:SetIcon(args.destName, 7, 20)
+		end
+		if self.Options.WhisperToGaseousBloatTarget then
+			self:SendWhisper(L.SayOrangeOoze, args.destName)
 		end
 	elseif args:IsSpellID(71615, 71618) then	--71615 used in 10 and 25 normal, 71618?
 		timerTearGas:Start()
@@ -317,12 +370,49 @@ end
 function mod:UNIT_HEALTH(uId)
 	if phase == 1 and not warned_preP2 and self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.83 then
 		warned_preP2 = true
-		warnPhase2Soon:Show()	
+		warnPhase2Soon:Show()
+		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+			if self.Options.RaidWarningStopDpsOn83Percent then
+				if DBM:GetRaidRank() >= 1 then
+					SendChatMessage(L.SayStopDps, "RAID_WARNING", nil, nil)
+					SendChatMessage(L.SayStopDps, "SAY", nil, nil)
+					SendChatMessage(L.SayStopDps, "YELL", nil, nil)
+					SendChatMessage(L.SayStopDps, "RAID_WARNING", nil, nil)
+					SendChatMessage(L.SayStopDps, "SAY", nil, nil)
+					SendChatMessage(L.SayStopDps, "YELL", nil, nil)
+					SendChatMessage(L.SayStopDps, "RAID_WARNING", nil, nil)
+					SendChatMessage(L.SayStopDps, "SAY", nil, nil)
+					SendChatMessage(L.SayStopDps, "YELL", nil, nil)
+				end
+			end
+		end
 	elseif phase == 2 and not warned_preP3 and self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.38 then
 		warned_preP3 = true
-		warnPhase3Soon:Show()	
+		if self.Options.SayAboutPhase3 then
+			SendChatMessage(L.SayPhase3, "SAY")
+		end
+		warnPhase3Soon:Show()
 	end
 end
+
+function mod:WarnSayGooSoon()
+	if self.Options.SayGooSoon then
+		SendChatMessage(L.SayGooSoonText, "SAY")
+		if DBM:GetRaidRank() > 0 then
+			SendChatMessage(L.SayGooSoonText, "RAID_WARNING")
+		end
+		SendChatMessage(L.SayGooSoonText, "SAY")
+		if DBM:GetRaidRank() > 0 then
+			SendChatMessage(L.SayGooSoonText, "RAID_WARNING")
+		end
+	end
+end
+
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
+	if string.find(msg, "Malleable Goo") then
+		self:startMalleableGooTimer(25)
+	end
+end 
 
 function mod:OnSync(msg, target)
 	if msg == "GooOn" then

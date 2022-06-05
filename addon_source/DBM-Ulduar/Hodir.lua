@@ -27,15 +27,16 @@ mod:AddBoolOption("YellOnStormCloud", true, "announce")
 local enrageTimer			= mod:NewBerserkTimer(475)
 local timerFlashFreeze		= mod:NewCastTimer(9, 61968)
 local timerFrozenBlows		= mod:NewBuffActiveTimer(20, 63512)
-local timerFlashFrCD		= mod:NewCDTimer(50, 61968)
+local timerFlashFrCD		= mod:NewCDTimer(38, 61968)
 local timerAchieve			= mod:NewAchievementTimer(179, 3182, "TimerSpeedKill")
+local timerMoveOntoSnow		= mod:NewTimer(5, "Move on to Snow in")
 
 mod:AddBoolOption("SetIconOnStormCloud")
 
 function mod:OnCombatStart(delay)
 	enrageTimer:Start(-delay)
 	timerAchieve:Start()
-	timerFlashFrCD:Start(-delay)
+	timerFlashFrCD:Start(45-delay)
 end
 
 function mod:SPELL_CAST_START(args)
@@ -43,6 +44,7 @@ function mod:SPELL_CAST_START(args)
 		timerFlashFreeze:Start()
 		warnFlashFreeze:Show()
 		timerFlashFrCD:Start()
+		timerMoveOntoSnow:Start()
 		if self.Options.PlaySoundOnFlashFreeze then
 			PlaySoundFile("Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav")
 		end
@@ -60,6 +62,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.SetIconOnStormCloud then 
 			self:SetIcon(args.destName, 8, 6)
 		end
+	elseif args:IsSpellID(62038, 62188) and args:IsDestTypePlayer() then
+		SendChatMessage(L.SayBitingCold:format(args.destName, args.amount or 1), "SAY")
 	end
 end
 

@@ -101,7 +101,7 @@ function mod:OnCombatStart(delay)
 	DreadscaleDead = false
 	AcidmawDead = false
 	specWarnSilence:Schedule(37-delay)
-	if mod:IsRaidDifficulty("heroic10", "heroic25") then
+	if self:IsDifficulty("heroic10", "heroic25") then
 		timerNextBoss:Start(175 - delay)
 		timerNextBoss:Schedule(170)
 	end
@@ -206,7 +206,7 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 	if args:IsSpellID(67477, 66331, 67478, 67479) then		-- Impale
 		timerNextImpale:Start()
 		warnImpaleOn:Show(args.destName)
-		if (args.amount >= 3 and not mod:IsRaidDifficulty("heroic10", "heroic25") ) or ( args.amount >= 2 and mod:IsRaidDifficulty("heroic10", "heroic25") ) then 
+		if (args.amount >= 3 and not self:IsDifficulty("heroic10", "heroic25") ) or ( args.amount >= 2 and self:IsDifficulty("heroic10", "heroic25") ) then 
 			if args:IsPlayer() then
 				specWarnImpale3:Show(args.amount)
 			end
@@ -312,7 +312,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		end
 	elseif msg == L.Phase3 or msg:find(L.Phase3) then
 		updateHealthFrame(3)
-		if mod:IsRaidDifficulty("heroic10", "heroic25") then
+		if self:IsDifficulty("heroic10", "heroic25") then
 			enrageTimer:Start()
 		end
 		self:UnscheduleMethod("WormsSubmerge")

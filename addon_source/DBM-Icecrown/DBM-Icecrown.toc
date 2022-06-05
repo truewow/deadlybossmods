@@ -59,10 +59,14 @@ ThePlagueworks\Festergut.lua
 ThePlagueworks\Rotface.lua
 ThePlagueworks\Putricide.lua
 ThePlagueworks\PlagueworksTrash.lua
+ThePlagueworks\DecayingColossus.lua
 TheCrimsonHall\BPCouncil.lua
 TheCrimsonHall\Lanathel.lua
 TheCrimsonHall\CrimsonHallTrash.lua
 FrostwingHalls\Valithria.lua
 FrostwingHalls\Sindragosa.lua
 FrostwingHalls\FrostwingHallTrash.lua
+FrostwingHalls\Rimefang.lua
+FrostwingHalls\Spinestalker.lua
+FrostwingHalls\Valkyr.lua
 TheFrozenThrone\LichKing.lua

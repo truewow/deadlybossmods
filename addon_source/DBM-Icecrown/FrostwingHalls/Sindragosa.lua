@@ -48,6 +48,7 @@ local timerChilledtotheBone		= mod:NewBuffActiveTimer(8, 70106)
 local timerMysticBuffet			= mod:NewBuffActiveTimer(8, 70128)
 local timerNextMysticBuffet		= mod:NewNextTimer(6, 70128)
 local timerMysticAchieve		= mod:NewAchievementTimer(30, 4620, "AchievementMystic")
+local timerTailSmash			= mod:NewTimer(30, "TailSmash", 71077)
 
 local berserkTimer				= mod:NewBerserkTimer(600)
 
@@ -58,6 +59,13 @@ mod:AddBoolOption("ClearIconsOnAirphase", true)
 mod:AddBoolOption("AnnounceFrostBeaconIcons", false)
 mod:AddBoolOption("AchievementCheck", false, "announce")
 mod:AddBoolOption("RangeFrame")
+mod:AddBoolOption("WhisperToBeacon", false, "announce")
+mod:AddBoolOption("WhisperToUnchained", false, "announce")
+mod:AddBoolOption("LogUnchained", false, "announce")
+mod:AddBoolOption("WhisperToChilledToTheBone", false, "announce")
+mod:AddBoolOption("LogChilled", false, "announce")
+mod:AddBoolOption("SayToBeacon", false, "announce")
+
 
 local beaconTargets		= {}
 local beaconIconTargets	= {}
@@ -67,6 +75,7 @@ local warnedfailed = false
 local phase = 0
 local unchainedIcons = 7
 local activeBeacons	= false
+local warnBeaconInPhase3 = false
 
 do
 	local function sort_by_group(v1, v2)
@@ -90,6 +99,9 @@ end
 
 local function warnBeaconTargets()
 	warnFrostBeacon:Show(table.concat(beaconTargets, "<, >"))
+	if warnBeaconInPhase3 and #beaconTargets == 1 then
+		SendChatMessage(L.SayBeacon:format(beaconTargets[#beaconTargets]), "SAY")
+	end
 	table.wipe(beaconTargets)
 end
 
@@ -101,9 +113,11 @@ local function warnUnchainedTargets()
 end
 
 function mod:OnCombatStart(delay)
+	warnBeaconInPhase3 = self.Options.SayToBeacon
 	berserkTimer:Start(-delay)
 	timerNextAirphase:Start(50-delay)
 	timerNextBlisteringCold:Start(33-delay)
+	timerTailSmash:Start(20-delay)
 	warned_P2 = false
 	warnedfailed = false
 	table.wipe(beaconTargets)
@@ -113,7 +127,7 @@ function mod:OnCombatStart(delay)
 	phase = 1
 	activeBeacons = false
 	if self.Options.RangeFrame then
-		if mod:IsRaidDifficulty("heroic10", "heroic25") then
+		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 			DBM.RangeCheck:Show(20, GetRaidTargetIndex)
 		else
 			DBM.RangeCheck:Show(10, GetRaidTargetIndex)
@@ -131,18 +145,25 @@ function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(69649, 71056, 71057, 71058) or args:IsSpellID(73061, 73062, 73063, 73064) then--Frost Breath
 		warnFrostBreath:Show()
 		timerNextFrostBreath:Start()
+	elseif args:IsSpellID(71077) then --
+		timerTailSmash:Start()
 	end
 end	
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(70126) then
+		if args:IsDestTypePlayer() then
+			if self.Options.WhisperToBeacon then
+				self:SendWhisper(L.WhisperBeacon, args.destName)
+			end
+		end
 		beaconTargets[#beaconTargets + 1] = args.destName
 		if args:IsPlayer() then
 			specWarnFrostBeacon:Show()
 		end
 		if phase == 1 and self.Options.SetIconOnFrostBeacon then
 			table.insert(beaconIconTargets, DBM:GetRaidUnitId(args.destName))
-			if (mod:IsRaidDifficulty("normal25") and #beaconIconTargets >= 5) or (mod:IsRaidDifficulty("heroic25") and #beaconIconTargets >= 6) or (mod:IsRaidDifficulty("normal10", "heroic10") and #beaconIconTargets >= 2) then
+			if (mod:IsDifficulty("normal25") and #beaconIconTargets >= 5) or (mod:IsDifficulty("heroic25") and #beaconIconTargets >= 6) or ((mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10")) and #beaconIconTargets >= 2) then
 				self:SetBeaconIcons()--Sort and fire as early as possible once we have all targets.
 			end
 		end
@@ -156,12 +177,17 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		end
 		self:Unschedule(warnBeaconTargets)
-		if phase == 2 or (mod:IsRaidDifficulty("normal25") and #beaconTargets >= 5) or (mod:IsRaidDifficulty("heroic25") and #beaconTargets >= 6) or (mod:IsRaidDifficulty("normal10", "heroic10") and #beaconTargets >= 2) then
+		if phase == 2 or (mod:IsDifficulty("normal25") and #beaconTargets >= 5) or (mod:IsDifficulty("heroic25") and #beaconTargets >= 6) or ((mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10")) and #beaconTargets >= 2) then
 			warnBeaconTargets()
 		else
 			self:Schedule(0.3, warnBeaconTargets)
 		end
 	elseif args:IsSpellID(69762) then
+		if args:IsDestTypePlayer() then
+			if self.Options.WhisperToUnchained then
+				self:SendWhisper(L.WhisperUnchained, args.destName)
+			end
+		end
 		unchainedTargets[#unchainedTargets + 1] = args.destName
 		if args:IsPlayer() then
 			specWarnUnchainedMagic:Show()
@@ -183,6 +209,18 @@ function mod:SPELL_AURA_APPLIED(args)
 			if (args.amount or 1) >= 4 then
 				specWarnChilledtotheBone:Show(args.amount)
 			end
+		else
+			if self.Options.WhisperToChilledToTheBone and ((args.amount or 1) >= 7 and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) or (args.amount or 1) >= 10 and (mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25"))) then
+				self:SendWhisper(L.WhisperChilledToTheBone, args.destName)
+			end
+			
+			if self.Options.LogChilled and ((args.amount or 1) >= 7 and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) or (args.amount or 1) >= 10 and (mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25"))) then
+				SendChatMessage(string.format("%d stacks of Chilled to the bone on %s", args.amount or 1, args.destName or ""), "RAID", nil, nil)
+			-- else
+			-- 	DEFAULT_CHAT_FRAME:AddMessage(string.format("%d stacks of Instability on %s", args.amount or 1, args.destName or ""))
+			end
+
+			-- 	DEFAULT_CHAT_FRAME:AddMessage(string.format("%d stacks of Chilled to the bone on %s", args.amount or 1, args.destName or ""))
 		end
 	elseif args:IsSpellID(69766) then	--Instability (casters)
 		if args:IsPlayer() then
@@ -190,6 +228,17 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerInstability:Start()
 			if (args.amount or 1) >= 4 then
 				specWarnInstability:Show(args.amount)
+			end
+		else
+			if args:IsDestTypePlayer() then
+				if self.Options.WhisperToUnchained and ((args.amount or 1) >= 3 and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) or (args.amount or 1) >= 5 and (mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25"))) then
+					self:SendWhisper(L.WhisperUnchainedRemind:format(args.amount or 1), args.destName)
+				end
+				if self.Options.LogUnchained and ((args.amount or 1) >= 3 and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) or (args.amount or 1) >= 5 and (mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25"))) then
+					SendChatMessage(string.format("%d stacks of Instability on %s", args.amount or 1, args.destName or ""), "RAID", nil, nil)
+				-- else
+				-- 	DEFAULT_CHAT_FRAME:AddMessage(string.format("%d stacks of Instability on %s", args.amount or 1, args.destName or ""))
+				end
 			end
 		end
 	elseif args:IsSpellID(70127, 72528, 72529, 72530) then	--Mystic Buffet (phase 3 - everyone)
@@ -270,6 +319,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerNextBlisteringCold:Start(80)--Not exact anywhere from 80-110seconds after airphase begin
 		timerNextAirphase:Start()
 		timerNextGroundphase:Start()
+		timerTailSmash:Start(65)
 		warnGroundphaseSoon:Schedule(40)
 		activeBeacons = true
 	elseif (msg == L.YellPhase2 or msg:find(L.YellPhase2)) or (msg == L.YellPhase2Dem or msg:find(L.YellPhase2Dem)) then

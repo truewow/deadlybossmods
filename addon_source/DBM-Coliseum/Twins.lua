@@ -49,7 +49,7 @@ function mod:OnCombatStart(delay)
 	timerSpecial:Start(-delay)
 	warnSpecial:Schedule(40-delay)
 	timerAchieve:Start(-delay)
-	if mod:IsRaidDifficulty("heroic10", "heroic25") then
+	if self:IsDifficulty("heroic10", "heroic25") then
 		enrageTimer:Start(360-delay)
 	else
 		enrageTimer:Start(480-delay)
@@ -59,25 +59,33 @@ end
 
 local lightEssence = GetSpellInfo(67223)
 local darkEssence = GetSpellInfo(67176)
-
+function mod:sendRaidWarning(text)
+	if DBM:GetRaidRank() >= 1 then
+		SendChatMessage(text, "RAID_WARNING", nil, nil) 	
+	end
+end
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(66046, 67206, 67207, 67208) then 			-- Light Vortex
 		local debuff = UnitDebuff("player", lightEssence)
 		self:SpecialAbility(debuff)
+		self:sendRaidWarning("Take light, DPS dark!") 	
 	elseif args:IsSpellID(66058, 67182, 67183, 67184) then		-- Dark Vortex
 		local debuff = UnitDebuff("player", darkEssence)
 		self:SpecialAbility(debuff)
+		self:sendRaidWarning("Take dark, DPS light!") 	
 	elseif args:IsSpellID(65875, 67303, 67304, 67305) then 		-- Twin's Pact
 		timerHeal:Start()
 		self:SpecialAbility(true)
 		if self:GetUnitCreatureId("target") == 34497 then	-- if lightbane, then switch to darkbane
 			specWarnSwitch:Show()	
+			self:sendRaidWarning("Take light, DPS dark!") 	
 		end
 	elseif args:IsSpellID(65876, 67306, 67307, 67308) then		-- Light Pact
 		timerHeal:Start()
 		self:SpecialAbility(true)
 		if self:GetUnitCreatureId("target") == 34496 then	-- if darkbane, then switch to lightbane
 			specWarnSwitch:Show()
+			self:sendRaidWarning("Take dark, DPS light!") 	
 		end
 	end
 end
@@ -197,11 +205,13 @@ function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(65874, 67256, 67257, 67258) then			-- Shield of Darkness
 		if UnitCastingInfo("target") and self:GetUnitCreatureId("target") == 34496 then
 			specWarnKickNow:Show()
+			self:sendRaidWarning("Interrupt Dark")
 		end
 		hideShieldHealthBar()
 	elseif args:IsSpellID(65858, 67259, 67260, 67261) then		-- Shield of Lights
 		if UnitCastingInfo("target") and self:GetUnitCreatureId("target") == 34497 then
 			specWarnKickNow:Show()
+			self:sendRaidWarning("Interrupt Light")
 		end
 		hideShieldHealthBar()
 	elseif args:IsSpellID(65950, 67296, 67297, 67298) then	-- Touch of Light

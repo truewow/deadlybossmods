@@ -23,7 +23,7 @@ local specWarnBlightBomb	= mod:NewSpecialWarningSpell(71088)
 
 local timerZombies		= mod:NewNextTimer(20, 71159)
 local timerMortalWound	= mod:NewTargetTimer(15, 71127)
-local timerDecimate		= mod:NewNextTimer(33, 71123)
+local timerDecimate		= mod:NewNextTimer(23, 71123)
 local timerBlightBomb	= mod:NewCastTimer(5, 71088)
 
 mod:RemoveOption("HealthFrame")

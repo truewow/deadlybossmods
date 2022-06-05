@@ -68,7 +68,7 @@ local specWarnValkyrLow		= mod:NewSpecialWarning("SpecWarnValkyrLow")
 local timerCombatStart		= mod:NewTimer(53.5, "TimerCombatStart", 2457)
 local timerPhaseTransition	= mod:NewTimer(62, "PhaseTransition", 72262)
 local timerSoulreaper	 	= mod:NewTargetTimer(5.1, 73797, nil, mod:IsTank() or mod:IsHealer())
-local timerSoulreaperCD	 	= mod:NewCDTimer(30.5, 73797, nil, mod:IsTank() or mod:IsHealer())
+local timerSoulreaperCD	 	= mod:NewCDTimer(33, 73797, nil, mod:IsTank() or mod:IsHealer())
 local timerHarvestSoul	 	= mod:NewTargetTimer(6, 74325)
 local timerHarvestSoulCD	= mod:NewCDTimer(75, 74325)
 local timerInfestCD			= mod:NewCDTimer(22.5, 73779, nil, mod:IsHealer())
@@ -79,15 +79,20 @@ local timerEnrageCD			= mod:NewCDTimer(20, 72143, nil, mod:IsTank() or mod:CanRe
 local timerShamblingHorror 	= mod:NewNextTimer(60, 70372)
 local timerDrudgeGhouls 	= mod:NewNextTimer(20, 70358)
 local timerRagingSpiritCD	= mod:NewCDTimer(22, 69200)
+local timerSoulShriekCD		= mod:NewCDTimer(14, 69242)
 local timerSummonValkyr 	= mod:NewCDTimer(45, 71844)
 local timerVileSpirit 		= mod:NewNextTimer(30.5, 70498)
+local timerVileSpiritActivation = mod:NewTimer(18, "TimerVileSpiritActivation", 70503)
 local timerTrapCD		 	= mod:NewCDTimer(15.5, 73539)
 local timerRestoreSoul 		= mod:NewCastTimer(40, 73650)
 local timerRoleplay			= mod:NewTimer(162, "TimerRoleplay", 72350)
+local timerPlagueDeath		= mod:NewTimer (5, "PlagueKillsPlayer")
 
 local berserkTimer			= mod:NewBerserkTimer(900)
 
 local soundDefile			= mod:NewSound(72762)
+
+local lastSpiritCastTime = 0
 
 mod:AddBoolOption("SpecWarnHealerGrabbed", mod:IsTank() or mod:IsHealer(), "announce")
 mod:AddBoolOption("DefileIcon")
@@ -103,6 +108,8 @@ mod:AddBoolOption("AnnouncePlagueStack", false, "announce")
 --mod:AddBoolOption("DefileArrow")
 mod:AddBoolOption("TrapArrow")
 mod:AddBoolOption("LKBugWorkaround", true)--Use old scan method without syncing or latency check (less reliable but not dependant on other DBM users in raid)
+mod:AddBoolOption("WhisperToDefileTarget", false, "announce")
+mod:AddBoolOption("SayWhoHasNecroticPlague", false, "announce")
 
 local phase	= 0
 local lastPlagueCast = 0
@@ -179,6 +186,9 @@ function mod:OldDefileTarget()
 --					DBM.Arrow:ShowRunAway(x, y, 15, 5)
 --				end
 			end
+			if self.Options.WhisperToDefileTarget then
+				self:SendWhisper(L.WhisperDefile, targetname)
+			end
 		end
 	end
 end
@@ -248,6 +258,7 @@ function mod:OldTrapTarget()
 	end
 end
 
+
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(68981, 74270, 74271, 74272) or args:IsSpellID(72259, 74273, 74274, 74275) then -- Remorseless Winter (phase transition start)
 		warnRemorselessWinter:Show()
@@ -266,6 +277,8 @@ function mod:SPELL_CAST_START(args)
 		warnQuake:Show()
 		timerRagingSpiritCD:Cancel()
 		self:NextPhase()
+	elseif args:IsSpellID(69242) then
+		timerSoulShriekCD:Start(14)		
 	elseif args:IsSpellID(70372) then -- Shambling Horror
 		warnShamblingSoon:Cancel()
 		warnShamblingHorror:Show()
@@ -277,6 +290,8 @@ function mod:SPELL_CAST_START(args)
 	elseif args:IsSpellID(70498) then -- Vile Spirits
 		warnSummonVileSpirit:Show()
 		timerVileSpirit:Start()
+    lastSpiritCastTime = GetTime()
+    timerVileSpiritActivation:Start()
 	elseif args:IsSpellID(70541, 73779, 73780, 73781) then -- Infest
 		warnInfest:Show()
 		specWarnInfest:Show()
@@ -318,9 +333,12 @@ function mod:SPELL_CAST_START(args)
 	elseif args:IsSpellID(73650) then -- Restore Soul (Heroic)
 		warnRestoreSoul:Show()
 		timerRestoreSoul:Start()
+		timerSoulreaperCD:Start(48)
+		timerHarvestSoulCD:Start(100)
 	elseif args:IsSpellID(72350) then -- Fury of Frostmourne
 		mod:SetWipeTime(160)--Change min wipe time mid battle to force dbm to keep module loaded for this long out of combat roleplay, hopefully without breaking mod.
 		timerRoleplay:Start()
+    timerVileSpiritActication:Cancel()
 		timerVileSpirit:Cancel()
 		timerSoulreaperCD:Cancel()
 		timerDefileCD:Cancel()
@@ -335,9 +353,13 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnNecroticPlague:Show(args.destName)
 		timerNecroticPlagueCD:Start()
 		timerNecroticPlagueCleanse:Start()
+		timerPlagueDeath:Start()
 		lastPlagueCast = GetTime()
 		if args:IsPlayer() then
 			specWarnNecroticPlague:Show()
+		end
+		if self.Options.SayWhoHasNecroticPlague then
+			SendChatMessage(L.YellNecroticPlague:format(args.destName), "SAY")
 		end
 		if self.Options.NecroticPlagueIcon then
 			self:SetIcon(args.destName, 5, 5)
@@ -363,6 +385,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		if self.Options.RagingSpiritIcon then
 			self:SetIcon(args.destName, 7, 5)
 		end
+		timerSoulShriekCD:Start(14)
 	elseif args:IsSpellID(68980, 74325, 74326, 74327) then -- Harvest Soul
 		warnHarvestSoul:Show(args.destName)
 		timerHarvestSoul:Start(args.destName)
@@ -376,6 +399,10 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args:IsSpellID(73654, 74295, 74296, 74297) then -- Harvest Souls (Heroic)
 		specWarnHarvestSouls:Show()
 		timerVileSpirit:Cancel()
+    timerVileSpiritActivation:Cancel()
+    if GetTime() - lastSpiritCastTime < 32 then -- if they didn't become active yet (18 sec) then they will be after next transition - which is 23 sec for the last to become active + ~9 sec for last spirit to reach the raid (estimate) - it may be conservative and misreport if any viles are still active though
+      timerVileSpiritActivation:Start(70)
+    end
 		timerSoulreaperCD:Cancel()
 		timerDefileCD:Cancel()
 		warnDefileSoon:Cancel()
@@ -397,12 +424,26 @@ do
 		if args:IsSpellID(72143, 72146, 72147, 72148) then -- Shambling Horror enrage effect.
 			warnShamblingEnrage:Show(args.destName)
 			timerEnrageCD:Start()
+		elseif args:IsSpellID(70337, 73912, 73913, 73914) then -- Necrotic Plague
+			warnNecroticPlague:Show(args.destName)
+			timerNecroticPlagueCD:Start()
+			timerNecroticPlagueCleanse:Start()
+			lastPlagueCast = GetTime()
+			if args:IsPlayer() then
+				specWarnNecroticPlague:Show()
+			end
+			if self.Options.SayWhoHasNecroticPlague then
+				SendChatMessage(L.YellNecroticPlague:format(args.destName), "SAY")
+			end
+			if self.Options.NecroticPlagueIcon then
+				self:SetIcon(args.destName, 5, 5)
+			end
 		elseif args:IsSpellID(72754, 73708, 73709, 73710) and args:IsPlayer() and time() - lastDefile > 2 then		-- Defile Damage
 			specWarnDefile:Show()
 			lastDefile = time()
 		elseif args:IsSpellID(73650) and time() - lastRestore > 3 then		-- Restore Soul (Heroic)
 			lastRestore = time()
-			timerHarvestSoulCD:Start(60)
+			timerHarvestSoulCD:Start(75)
 			timerVileSpirit:Start(10)--May be wrong too but we'll see, didn't have enough log for this one.
 		end
 	end
@@ -488,7 +529,7 @@ do
 	end
 	
 	mod:RegisterOnUpdateHandler(function(self)
-		if self.Options.ValkyrIcon and (DBM:GetRaidRank() > 0 and not (iconsSet == 3 and mod:IsRaidDifficulty("normal25", "heroic25") or iconsSet == 1 and mod:IsRaidDifficulty("normal10", "heroic10"))) then
+		if self.Options.ValkyrIcon and (DBM:GetRaidRank() > 0 and not (iconsSet == 3 and self:IsDifficulty("normal25", "heroic25") or iconsSet == 1 and self:IsDifficulty("normal10", "heroic10"))) then
 			for i = 1, GetNumRaidMembers() do
 				local uId = "raid"..i.."target"
 				local guid = UnitGUID(uId)
@@ -513,7 +554,7 @@ do
 end
 
 function mod:UNIT_HEALTH(uId)
-	if mod:IsRaidDifficulty("heroic10", "heroic25") and uId == "target" and self:GetUnitCreatureId(uId) == 36609 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.55 and not warnedValkyrGUIDs[UnitGUID(uId)] then
+	if (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) and uId == "target" and self:GetUnitCreatureId(uId) == 36609 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.55 and not warnedValkyrGUIDs[UnitGUID(uId)] then
 		warnedValkyrGUIDs[UnitGUID(uId)] = true
 		specWarnValkyrLow:Show()
 	end
@@ -534,19 +575,19 @@ function mod:NextPhase()
 		timerShamblingHorror:Start(20)
 		timerDrudgeGhouls:Start(10)
 		timerNecroticPlagueCD:Start(27)
-		if mod:IsRaidDifficulty("heroic10", "heroic25") then
+		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 			timerTrapCD:Start()
 		end
 	elseif phase == 2 then
 		timerSummonValkyr:Start(20)
-		timerSoulreaperCD:Start(40)
-		timerDefileCD:Start(38)
+		timerSoulreaperCD:Start(31)
+		timerDefileCD:Start(35)
 		timerInfestCD:Start(14)
 		warnDefileSoon:Schedule(33)
 	elseif phase == 3 then
 		timerVileSpirit:Start(20)
 		timerSoulreaperCD:Start(40)
-		timerDefileCD:Start(38)
+		timerDefileCD:Start(33)
 		timerHarvestSoulCD:Start(14)
 		warnDefileSoon:Schedule(33)
 	end

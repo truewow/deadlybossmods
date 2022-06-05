@@ -32,6 +32,8 @@ local timerNextSurgeofDarkness	= mod:NewBuffActiveTimer(62, 62662)
 local timerSaroniteVapors		= mod:NewNextTimer(30, 63322)
 local timerLifeLeech			= mod:NewTargetTimer(10, 63276)
 local timerHardmode				= mod:NewTimer(189, "hardmodeSpawn")
+local timerShadowMissile		= mod:NewTimer(10, "Next Shadow Missile", 62660)
+local timerSearingFlames		= mod:NewTimer(15,"Next Searing Flames", 62661)
 
 mod:AddBoolOption("YellOnLifeLeech", true, "announce")
 mod:AddBoolOption("YellOnShadowCrash", true, "announce")
@@ -45,11 +47,14 @@ function mod:OnCombatStart(delay)
 	timerEnrage:Start(-delay)
 	timerHardmode:Start(-delay)
 	timerNextSurgeofDarkness:Start(-delay)
+	timerShadowMissle:Start(10-delay)
+	timerSearingFlames:Start(15-delay)
 end
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(62661) then	-- Searing Flames
 		timerSearingFlamesCast:Start()
+		timerSearingFlames:Start()
 	elseif args:IsSpellID(62662) then 
 		specWarnSurgeDarkness:Show()
 		timerNextSurgeofDarkness:Start()
@@ -116,6 +121,7 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(62660) then		-- Shadow Crash
+			timerShadowMissile:Start()
 		if self.Options.BypassLatencyCheck then
 			self:ScheduleMethod(0.1, "OldShadowCrashTarget")
 		else

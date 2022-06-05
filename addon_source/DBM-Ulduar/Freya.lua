@@ -39,6 +39,13 @@ local timerAlliesOfNature	= mod:NewNextTimer(60, 62678)
 local timerSimulKill		= mod:NewTimer(12, "TimerSimulKill")
 local timerFury				= mod:NewTargetTimer(10, 63571)
 local timerTremorCD 		= mod:NewCDTimer(28, 62859)
+local timerAdds1 		= mod:NewTimer(10, "1st Round of Adds")
+local timerAdds2 		= mod:NewTimer(70, "2nd Round of Adds")
+local timerAdds3 		= mod:NewTimer(130, "3rd Round of Adds")
+local timerAdds4 		= mod:NewTimer(190, "4th Round of Adds")
+local timerAdds5 		= mod:NewTimer(250, "5th Round of Adds")
+local timerAdds6 		= mod:NewTimer(310, "6th Round of Adds")
+
 
 mod:AddBoolOption("HealthFrame", true)
 mod:AddBoolOption("PlaySoundOnFury")
@@ -52,6 +59,12 @@ local iconId		= 6
 function mod:OnCombatStart(delay)
 	enrage:Start()
 	table.wipe(adds)
+	timerAdds1:Start(-delay)
+	timerAdds2:Start(-delay)
+	timerAdds3:Start(-delay)
+	timerAdds4:Start(-delay)
+	timerAdds5:Start(-delay)
+	timerAdds6:Start(-delay)
 end
 
 function mod:OnCombatEnd(wipe)

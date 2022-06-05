@@ -99,10 +99,13 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarningSplitSoon	= "Show pre-warning for Split",
 	RangeFrame			= "Show range frame (12 yards)",
-	SetIconOnBrand		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74505)
+	SetIconOnBrand		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74505),
+	WhisperMarked		= "Run away, you have debuff!",
+	WhisperOnBaltharus	= "Send whisper to marked targets"
 })
 
 L:SetMiscLocalization({
+	WhisperMarked		= "Run away, you have debuff!"
 })
 
 -------------------------
@@ -121,10 +124,12 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	SpecialWarningTranq		= "Show special warning for $spell:78722 (to tranq)",
 	RangeFrame				= "Show range frame (10 yards)",
-	BeaconIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74453)
+	BeaconIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74453),
+	WhisperOnSaviana		= "Send whisper to marked targets"
 })
 
 L:SetMiscLocalization{
+	WhisperMarked			= "Run away, you have debuff!"
 }
 
 --------------------------
@@ -164,6 +169,10 @@ L:SetGeneralLocalization({
 	name = "Halion the Twilight Destroyer"
 })
 
+L:SetTimerLocalization({
+	TimerCutter	= "Next Twilight Cutter"
+})
+
 L:SetWarningLocalization({
 	WarnPhase2Soon		= "Phase 2 soon",
 	WarnPhase3Soon		= "Phase 3 soon",
@@ -178,7 +187,8 @@ L:SetOptionLocalization({
 	SoundOnConsumption		= "Play sound on $spell:74562 or $spell:74792",--We use localized text for these functions
 	SetIconOnConsumption	= "Set icons on $spell:74562 or $spell:74792 targets",--So we can use single functions for both versions of spell.
 	YellOnConsumption		= "Yell on $spell:74562 or $spell:74792",
-	WhisperOnConsumption	= "Send whisper to $spell:74562 or $spell:74792\ntargets"
+	WhisperOnConsumption	= "Send whisper to $spell:74562 or $spell:74792\ntargets",
+	RaidWarningAboutCutter	= "Warn raid about cutter\n(requires promoted status)"
 })
 
 L:SetMiscLocalization({
@@ -192,5 +202,8 @@ L:SetMiscLocalization({
 	WhisperCombustion		= "Combustion on you! Run to the wall!",
 	YellConsumption			= "Consumption on me!",
 	WhisperConsumption		= "Consumption on you! Run to the wall!",
-	Kill					= "Relish this victory, mortals, for it will be your last. This world will burn with the master's return!"
+	Kill					= "Relish this victory, mortals, for it will be your last. This world will burn with the master's return!",
+	WhisperMarked			= "Run away, you have debuff!",
+	RaidWarningCutterStart	= "Cutter in %d",
+	RaidWarningCutterNumber	= "%d"
 })

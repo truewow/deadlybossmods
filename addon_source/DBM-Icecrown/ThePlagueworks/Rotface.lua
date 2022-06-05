@@ -40,7 +40,7 @@ local timerWallSlime			= mod:NewTimer(20, "NextPoisonSlimePipes", 69789)
 local timerSlimeSpray			= mod:NewNextTimer(21, 69508)
 local timerMutatedInfection		= mod:NewTargetTimer(12, 71224)
 local timerOozeExplosion		= mod:NewCastTimer(4, 69839)
-local timerVileGasCD			= mod:NewNextTimer(30, 72272)
+local timerVileGasCD			= mod:NewNextTimer(28, 72272)
 
 local soundMutatedInfection		= mod:NewSound(71224)
 mod:AddBoolOption("RangeFrame", mod:IsRanged())
@@ -61,10 +61,11 @@ function mod:OnCombatStart(delay)
 	self:ScheduleMethod(25-delay, "WallSlime")
 	InfectionIcon = 8
 	spamOoze = 0
-	if mod:IsRaidDifficulty("heroic10", "heroic25") then
-		timerVileGasCD:Start(22-delay)
+	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+		timerVileGasCD:Start(28-delay)
+	timerWallSlime:Start(5-delay)
 		if self.Options.RangeFrame then
-			DBM.RangeCheck:Show(8)
+			DBM.RangeCheck:Show(10)
 		end
 	end
 end
@@ -83,9 +84,9 @@ end--]]
 
 function mod:WallSlime()
 	if self:IsInCombat() then
-		timerWallSlime:Start()
+		timerWallSlime:Start(25)
 		self:UnscheduleMethod("WallSlime")
-		self:ScheduleMethod(20, "WallSlime")
+		self:ScheduleMethod(25, "WallSlime")
 	end
 end
 

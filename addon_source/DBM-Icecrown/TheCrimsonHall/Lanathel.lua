@@ -51,12 +51,22 @@ mod:AddBoolOption("SwarmingShadowsIcon", true)
 mod:AddBoolOption("SetIconOnDarkFallen", true)
 mod:AddBoolOption("RangeFrame", true)
 mod:AddBoolOption("YellOnFrenzy", false, "announce")
+mod:AddBoolOption("WhisperToLinked", false, "announce")
+mod:AddBoolOption("WhisperToFire", false, "announce")
+mod:AddBoolOption("SayToLinked", false, "announce")
+mod:AddBoolOption("SayToFire", false, "announce")
 
 local pactTargets = {}
 local pactIcons = 6
+local pactSayTargets = ""
+local shouldSayToLinked = false
 
 local function warnPactTargets()
 	warnPactDarkfallen:Show(table.concat(pactTargets, "<, >"))
+	if shouldSayToLinked then
+		pactSayTargets = table.concat(pactTargets, ", ")
+		SendChatMessage(L.SayPact:format(pactSayTargets), "SAY")
+	end
 	table.wipe(pactTargets)
 	timerNextPactDarkfallen:Start(30)
 	pactIcons = 6
@@ -72,7 +82,7 @@ function mod:OnCombatStart(delay)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(8)
 	end
-	if mod:IsRaidDifficulty("normal10", "heroic10") then
+	if mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10") then
 		timerNextInciteTerror:Start(124-delay)
 	else
 		timerNextInciteTerror:Start(127-delay)
@@ -88,6 +98,9 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(71340) then		--Pact of the Darkfallen
 		pactTargets[#pactTargets + 1] = args.destName
+		if self.Options.WhisperToLinked then
+			self:SendWhisper(L.WhisperLinked, args.destName)
+		end
 		if args:IsPlayer() then
 			specWarnPactDarkfallen:Show()
 		end
@@ -96,6 +109,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			pactIcons = pactIcons - 1--then you're probably dead anyways
 		end
 		self:Unschedule(warnPactTargets)
+		shouldSayToLinked = self.Options.SayToLinked
 		if #pactTargets >= 3 then
 			warnPactTargets()
 		else
@@ -113,7 +127,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			if self.Options.YellOnFrenzy then
 				SendChatMessage(L.YellFrenzy, "SAY")
 			end
-			if mod:IsRaidDifficulty("normal10", "heroic10") then
+			if mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10") then
 				timerBloodThirst:Start(15)--15 seconds on 10 man
 			else
 				timerBloodThirst:Start()--10 seconds on 25 man
@@ -123,7 +137,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnEssenceoftheBloodQueen:Show(args.destName)
 		if args:IsPlayer() then
 			specWarnEssenceoftheBloodQueen:Show()
-			if mod:IsRaidDifficulty("normal10", "heroic10") then
+			if mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10") then
 				timerEssenceoftheBloodQueen:Start(75)--75 seconds on 10 man
 				warnBloodthirstSoon:Schedule(70)
 			else
@@ -162,7 +176,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerInciteTerror:Start()
 		timerNextSwarmingShadows:Start()--This resets the swarming shadows timer
 		timerNextPactDarkfallen:Start(25)--and the Pact timer also reset -5 seconds
-		if mod:IsRaidDifficulty("normal10", "heroic10") then
+		if mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10") then
 			timerNextInciteTerror:Start(120)--120 seconds in between first and second on 10 man
 		else
 			timerNextInciteTerror:Start()--100 seconds in between first and second on 25 man
@@ -192,6 +206,12 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if msg:match(L.SwarmingShadows) then
 		warnSwarmingShadows:Show(target)
 		timerNextSwarmingShadows:Start()
+		if self.Options.WhisperToFire then
+			self:SendWhisper(L.WhisperFire, target)
+		end
+		if self.Options.SayToFire then
+			SendChatMessage(L.SayFire:format(target), "SAY")
+		end
 		if target == UnitName("player") then
 			specWarnSwarmingShadows:Show()
 			soundSwarmingShadows:Play()

@@ -231,7 +231,7 @@ end
 function mod:OnSync(msg, target)
 	if msg == "KineticBomb" then
 		warnKineticBomb:Show()
-		if mod:IsRaidDifficulty("normal10", "heroic10") then
+		if mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10") then
 			timerKineticBombCD:Start(27)
 		else
 			timerKineticBombCD:Start()

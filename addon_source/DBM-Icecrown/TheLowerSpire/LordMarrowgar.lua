@@ -31,6 +31,7 @@ local berserkTimer			= mod:NewBerserkTimer(600)
 
 local soundWhirlwind = mod:NewSound(69076)
 mod:AddBoolOption("SetIconOnImpale", true)
+mod:AddBoolOption("RaidWarningAboutBonestorm", false)
 
 local impaleTargets = {}
 local impaleIcon	= 8
@@ -49,12 +50,19 @@ function mod:OnCombatStart(delay)
 	table.wipe(impaleTargets)
 end
 
+function mod:sendRaidWarningAboutBonestorm(text)
+	if DBM:GetRaidRank() >= 1 and self.Options.RaidWarningAboutBonestorm then
+		SendChatMessage(text, "RAID_WARNING", nil, nil) 	
+	end
+end
+
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(69076) then						-- Bone Storm (Whirlwind)
+		self:sendRaidWarningAboutBonestorm(L.RaidWarningBonestorm)
 		specWarnWhirlwind:Show()
 		timerWhirlwindCD:Start()
 		preWarnWhirlwind:Schedule(85)
-		if mod:IsRaidDifficulty("heroic10", "heroic25") then
+		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 			timerWhirlwind:Show(30)						-- Approx 30seconds on heroic
 		else
 			timerWhirlwind:Show()						-- Approx 20seconds on normal.
@@ -70,7 +78,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:SetIcon(args.destName, 0)
 		end
 	elseif args:IsSpellID(69076) then
-		if mod:IsRaidDifficulty("normal10", "normal25") then
+		if mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25") then
 			timerBoneSpike:Start(15)			-- He will do Bone Spike Graveyard 15 seconds after whirlwind ends on normal
 		end
 	end
@@ -102,7 +110,7 @@ function mod:SPELL_SUMMON(args)
 			impaleIcon = impaleIcon - 1
 		end
 		self:Unschedule(showImpaleWarning)
-		if mod:IsRaidDifficulty("normal10", "normal25") and #impaleTargets >= 3 then
+		if mod:IsDifficulty("normal10") or (mod:IsDifficulty("normal25") and #impaleTargets >= 3) then
 			showImpaleWarning()
 		else
 			self:Schedule(0.3, showImpaleWarning)

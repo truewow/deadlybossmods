@@ -27,9 +27,9 @@ local specWarnGoo			= mod:NewSpecialWarningSpell(72549, false)
 
 local timerGasSpore			= mod:NewBuffActiveTimer(12, 69279)
 local timerVileGas			= mod:NewBuffActiveTimer(6, 71218, nil, mod:IsRanged())
-local timerGasSporeCD		= mod:NewNextTimer(40, 69279)		-- Every 40 seconds except after 3rd and 6th cast, then it's 50sec CD
-local timerPungentBlight	= mod:NewNextTimer(33, 71219)		-- 33 seconds after 3rd stack of inhaled
-local timerInhaledBlight	= mod:NewNextTimer(34, 71912)		-- 34 seconds'ish
+local timerGasSporeCD		= mod:NewNextTimer(42, 69279)		-- Every 40 seconds except after 3rd and 6th cast, then it's 50sec CD
+local timerPungentBlight	= mod:NewNextTimer(31, 71219)		-- 33 seconds after 3rd stack of inhaled
+local timerInhaledBlight	= mod:NewNextTimer(31, 71912)		-- 34 seconds'ish
 local timerGastricBloat		= mod:NewTargetTimer(100, 72551, nil, mod:IsTank() or mod:IsHealer())	-- 100 Seconds until expired
 local timerGastricBloatCD	= mod:NewCDTimer(11, 72551, nil, mod:IsTank() or mod:IsHealer()) 		-- 10 to 14 seconds
 
@@ -49,6 +49,7 @@ local vileGasTargets	= {}
 local gasSporeCast 	= 0
 local lastGoo = 0
 local warnedfailed = false
+
 
 do
 	local function sort_by_group(v1, v2)
@@ -84,8 +85,10 @@ end
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
-	timerInhaledBlight:Start(-delay)
-	timerGasSporeCD:Start(20-delay)--This may need tweaking
+	timerInhaledBlight:Start(28-delay)
+	timerGastricBloatCD:Start(14-delay)
+	timerGasSporeCD:Start(22-delay)--This may need tweaking
+	timerVileGas:Start(53-delay)
 	table.wipe(gasSporeTargets)
 	table.wipe(vileGasTargets)
 	gasSporeIcon = 8
@@ -93,10 +96,10 @@ function mod:OnCombatStart(delay)
 	lastGoo = 0
 	warnedfailed = false
 	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(8)
+		DBM.RangeCheck:Show(10)
 	end
-	if mod:IsRaidDifficulty("heroic10", "heroic25") then
-		timerGooCD:Start(13-delay)
+	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+		timerGooCD:Start(17-delay)
 	end
 end
 
@@ -109,7 +112,7 @@ end
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(69195, 71219, 73031, 73032) then	-- Pungent Blight
 		specWarnPungentBlight:Show()
-		timerInhaledBlight:Start(38)
+		timerInhaledBlight:Start(28)
 	end
 end
 
@@ -124,8 +127,8 @@ function mod:OnSync(event, arg)
 		if time() - lastGoo > 5 then
 			warnGoo:Show()
 			specWarnGoo:Show()
-			if mod:IsRaidDifficulty("heroic25") then
-				timerGooCD:Start()
+			if mod:IsDifficulty("heroic25") then
+				timerGooCD:Start(14)
 			else
 				timerGooCD:Start(30)--30 seconds in between goos on 10 man heroic
 			end
@@ -134,13 +137,15 @@ function mod:OnSync(event, arg)
 	end
 end
 
+
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(69279) then	-- Gas Spore
 		gasSporeTargets[#gasSporeTargets + 1] = args.destName
 		gasSporeCast = gasSporeCast + 1
-		if (gasSporeCast < 9 and mod:IsRaidDifficulty("normal25", "heroic25")) or (gasSporeCast < 6 and mod:IsRaidDifficulty("normal10", "heroic10")) then
+		if (gasSporeCast < 9 and (mod:IsDifficulty("normal25") or mod:IsDifficulty("heroic25"))) or (gasSporeCast < 6 and (mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10"))) then
 			timerGasSporeCD:Start()
-		elseif (gasSporeCast >= 9 and mod:IsRaidDifficulty("normal25", "heroic25")) or (gasSporeCast >= 6 and mod:IsRaidDifficulty("normal10", "heroic10")) then
+			timerVileGas:Start(31)
+		elseif (gasSporeCast >= 9 and (mod:IsDifficulty("normal25") or mod:IsDifficulty("heroic25"))) or (gasSporeCast >= 6 and (mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10"))) then
 			timerGasSporeCD:Start(50)--Basically, the third time spores are placed on raid, it'll be an extra 10 seconds before he applies first set of spores again.
 			gasSporeCast = 0
 		end
@@ -149,7 +154,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		if self.Options.SetIconOnGasSpore then
 			table.insert(gasSporeIconTargets, DBM:GetRaidUnitId(args.destName))
-			if (mod:IsRaidDifficulty("normal25", "heroic25") and #gasSporeIconTargets >= 3) or (mod:IsRaidDifficulty("normal10", "heroic10") and #gasSporeIconTargets >= 2) then
+			if ((mod:IsDifficulty("normal25") or mod:IsDifficulty("heroic25")) and #gasSporeIconTargets >= 3) or ((mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10")) and #gasSporeIconTargets >= 2) then
 				self:SetSporeIcons()--Sort and fire as early as possible once we have all targets.
 			end
 		end
@@ -171,7 +176,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(72219, 72551, 72552, 72553) then	-- Gastric Bloat
 		warnGastricBloat:Show(args.spellName, args.destName, args.amount or 1)
 		timerGastricBloat:Start(args.destName)
-		timerGastricBloatCD:Start()
+		timerGastricBloatCD:Start(16)
 		if args:IsPlayer() and (args.amount or 1) >= 9 then
 			specWarnGastricBloat:Show(args.amount)
 		end
