@@ -153,7 +153,6 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	YellPull				= "Как вы смеете ступать в эти священные покои? Это место станет вашей могилой!",
 	YellReanimatedFanatic	= "Восстань и обрети истинную форму!",
 	ShieldPercent			= "Барьер маны",--Translate Spell id 70842
 	Fanatic1				= "Фанатик культа",

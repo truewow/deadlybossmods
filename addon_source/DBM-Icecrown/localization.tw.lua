@@ -153,7 +153,6 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	YellPull			= "這騷動是怎麼回事?你竟敢擅闖聖地?這裡將是你的最終之地!",
 	YellReanimatedFanatic		= "起來，在純粹的形態中感受狂喜!",
 	ShieldPercent			= "法力屏障",
 	Fanatic1			= "神教狂熱者",

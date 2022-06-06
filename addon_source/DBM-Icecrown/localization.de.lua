@@ -157,7 +157,6 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	YellPull				= "Was soll die Störung? Ihr wagt es, heiligen Boden zu betreten? Dies wird der Ort Eurer letzten Ruhe sein!",
 	YellReanimatedFanatic	= "Erhebt Euch und frohlocket ob Eurer reinen Form!",
 	ShieldPercent			= "Manabarriere", --Translate Spell id 70842
 	Fanatic1				= "Fanatischer Kultist",

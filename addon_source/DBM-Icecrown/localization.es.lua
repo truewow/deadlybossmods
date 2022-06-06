@@ -159,7 +159,6 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	YellPull				= "¿Qué es este alboroto? ¿Osáis entrar en suelo sagrado? ¡Este será vuestro lugar de reposo final!",
 	YellReanimatedFanatic	= "¡Álzate y goza de tu verdadera forma!",
 	ShieldPercent			= "Barrera de maná",
 	Fanatic1				= "Fanático del Culto",

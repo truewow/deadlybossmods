@@ -5,9 +5,10 @@ mod:SetRevision(("$Revision: 4409 $"):sub(12, -3))
 mod:SetCreatureID(36612)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
+-- base events
 mod:RegisterCombat("combat")
-
-mod:RegisterEvents(
+mod:RegisterEvents
+(
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED",
 	"SPELL_CAST_START",
@@ -15,18 +16,18 @@ mod:RegisterEvents(
 	"SPELL_SUMMON"
 )
 
+-- warnings
 local preWarnWhirlwind   	= mod:NewSoonAnnounce(69076, 3)
 local warnBoneSpike			= mod:NewCastAnnounce(69057, 2)
 local warnImpale			= mod:NewAnnounce("WarnImpale", 4, 72669)
-
 local specWarnColdflame		= mod:NewSpecialWarningMove(70825)
 local specWarnWhirlwind		= mod:NewSpecialWarningRun(69076)
 
+-- timers
 local timerBoneSpike		= mod:NewCDTimer(18, 69057)
 local timerWhirlwindCD		= mod:NewCDTimer(90, 69076)
 local timerWhirlwind		= mod:NewBuffActiveTimer(20, 69076)
 local timerBoned			= mod:NewAchievementTimer(8, 4610, "AchievementBoned")
-
 local berserkTimer			= mod:NewBerserkTimer(600)
 
 local soundWhirlwind = mod:NewSound(69076)
@@ -52,7 +53,7 @@ end
 
 function mod:sendRaidWarningAboutBonestorm(text)
 	if DBM:GetRaidRank() >= 1 and self.Options.RaidWarningAboutBonestorm then
-		SendChatMessage(text, "RAID_WARNING", nil, nil) 	
+		SendChatMessage(text, "RAID_WARNING", nil, nil)
 	end
 end
 
@@ -62,7 +63,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		specWarnWhirlwind:Show()
 		timerWhirlwindCD:Start()
 		preWarnWhirlwind:Schedule(85)
-		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+		if mod:IsRaidDifficulty("heroic10", "heroic25") then
 			timerWhirlwind:Show(30)						-- Approx 30seconds on heroic
 		else
 			timerWhirlwind:Show()						-- Approx 20seconds on normal.
@@ -78,7 +79,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:SetIcon(args.destName, 0)
 		end
 	elseif args:IsSpellID(69076) then
-		if mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25") then
+		if mod:IsRaidDifficulty("normal10", "normal25") then
 			timerBoneSpike:Start(15)			-- He will do Bone Spike Graveyard 15 seconds after whirlwind ends on normal
 		end
 	end
@@ -110,7 +111,7 @@ function mod:SPELL_SUMMON(args)
 			impaleIcon = impaleIcon - 1
 		end
 		self:Unschedule(showImpaleWarning)
-		if mod:IsDifficulty("normal10") or (mod:IsDifficulty("normal25") and #impaleTargets >= 3) then
+		if mod:IsRaidDifficulty("normal10", "normal25") and #impaleTargets >= 3 then
 			showImpaleWarning()
 		else
 			self:Schedule(0.3, showImpaleWarning)
