@@ -28,6 +28,7 @@ local timerWhirlwindCD		= mod:NewCDTimer(90, 69076)
 local timerWhirlwind		= mod:NewBuffActiveTimer(20, 69076)
 local timerBoned			= mod:NewAchievementTimer(8, 4610, "AchievementBoned")
 local berserkTimer			= mod:NewBerserkTimer(600)
+local boneSliceTimer        = mod:NewCastTimer(10, 69055)
 
 local soundWhirlwind = mod:NewSound(69076)
 mod:AddBoolOption("SetIconOnImpale", true)
@@ -47,6 +48,7 @@ function mod:OnCombatStart(delay)
 	timerWhirlwindCD:Start(45-delay)
 	timerBoneSpike:Start(15-delay)
 	berserkTimer:Start(-delay)
+	boneSliceTimer:Start();
 	table.wipe(impaleTargets)
 end
 
@@ -77,7 +79,8 @@ function mod:SPELL_AURA_REMOVED(args)
 		if self.Options.SetIconOnImpale then
 			self:SetIcon(args.destName, 0)
 		end
-	elseif args:IsSpellID(69076) then
+	elseif args:IsSpellID(69076) then		-- Bone Storm
+		boneSliceTimer:Start();
 		if mod:IsRaidDifficulty("normal10", "normal25") then
 			timerBoneSpike:Start(15)			-- He will do Bone Spike Graveyard 15 seconds after whirlwind ends on normal
 		end
