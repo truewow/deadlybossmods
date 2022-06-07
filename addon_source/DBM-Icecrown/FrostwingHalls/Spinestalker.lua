@@ -25,7 +25,8 @@ function mod:SPELL_CAST_START(args)
 	timerBellowingRoar:Start(25)
 	timerBellowingRoar2:Start()
 	end
-end	
+end
+
 
 
 

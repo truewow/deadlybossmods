@@ -127,7 +127,7 @@ function mod:OnCombatStart(delay)
 	phase = 1
 	activeBeacons = false
 	if self.Options.RangeFrame then
-		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+		if mod:IsInRaidDifficulty("heroic10", "heroic25") then
 			DBM.RangeCheck:Show(20, GetRaidTargetIndex)
 		else
 			DBM.RangeCheck:Show(10, GetRaidTargetIndex)
@@ -148,7 +148,7 @@ function mod:SPELL_CAST_START(args)
 	elseif args:IsSpellID(71077) then --
 		timerTailSmash:Start()
 	end
-end	
+end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(70126) then
@@ -163,7 +163,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		if phase == 1 and self.Options.SetIconOnFrostBeacon then
 			table.insert(beaconIconTargets, DBM:GetRaidUnitId(args.destName))
-			if (mod:IsDifficulty("normal25") and #beaconIconTargets >= 5) or (mod:IsDifficulty("heroic25") and #beaconIconTargets >= 6) or ((mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10")) and #beaconIconTargets >= 2) then
+			if (mod:IsInRaidDifficulty("normal25") and #beaconIconTargets >= 5) or (mod:IsInRaidDifficulty("heroic25") and #beaconIconTargets >= 6) or (mod:IsInRaidDifficulty("normal10", "heroic10") and #beaconIconTargets >= 2) then
 				self:SetBeaconIcons()--Sort and fire as early as possible once we have all targets.
 			end
 		end
@@ -177,7 +177,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		end
 		self:Unschedule(warnBeaconTargets)
-		if phase == 2 or (mod:IsDifficulty("normal25") and #beaconTargets >= 5) or (mod:IsDifficulty("heroic25") and #beaconTargets >= 6) or ((mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10")) and #beaconTargets >= 2) then
+		if phase == 2 or (mod:IsInRaidDifficulty("normal25") and #beaconTargets >= 5) or (mod:IsInRaidDifficulty("heroic25") and #beaconTargets >= 6) or (mod:IsInRaidDifficulty("normal10", "heroic10") and #beaconTargets >= 2) then
 			warnBeaconTargets()
 		else
 			self:Schedule(0.3, warnBeaconTargets)
@@ -210,11 +210,11 @@ function mod:SPELL_AURA_APPLIED(args)
 				specWarnChilledtotheBone:Show(args.amount)
 			end
 		else
-			if self.Options.WhisperToChilledToTheBone and ((args.amount or 1) >= 7 and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) or (args.amount or 1) >= 10 and (mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25"))) then
+			if self.Options.WhisperToChilledToTheBone and ((args.amount or 1) >= 7 and (mod:IsInRaidDifficulty("heroic10", "heroic25")) or (args.amount or 1) >= 10 and mod:IsInRaidDifficulty("normal10", "normal25")) then
 				self:SendWhisper(L.WhisperChilledToTheBone, args.destName)
 			end
-			
-			if self.Options.LogChilled and ((args.amount or 1) >= 7 and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) or (args.amount or 1) >= 10 and (mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25"))) then
+
+			if self.Options.LogChilled and ((args.amount or 1) >= 7 and mod:IsInRaidDifficulty("heroic10", "heroic25") or (args.amount or 1) >= 10 and mod:IsInRaidDifficulty("normal10", "normal25")) then
 				SendChatMessage(string.format("%d stacks of Chilled to the bone on %s", args.amount or 1, args.destName or ""), "RAID", nil, nil)
 			-- else
 			-- 	DEFAULT_CHAT_FRAME:AddMessage(string.format("%d stacks of Instability on %s", args.amount or 1, args.destName or ""))
@@ -231,10 +231,10 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		else
 			if args:IsDestTypePlayer() then
-				if self.Options.WhisperToUnchained and ((args.amount or 1) >= 3 and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) or (args.amount or 1) >= 5 and (mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25"))) then
+				if self.Options.WhisperToUnchained and ((args.amount or 1) >= 3 and mod:IsInRaidDifficulty("heroic10", "heroic25") or (args.amount or 1) >= 5 and mod:IsInRaidDifficulty("normal10", "normal25")) then
 					self:SendWhisper(L.WhisperUnchainedRemind:format(args.amount or 1), args.destName)
 				end
-				if self.Options.LogUnchained and ((args.amount or 1) >= 3 and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) or (args.amount or 1) >= 5 and (mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25"))) then
+				if self.Options.LogUnchained and ((args.amount or 1) >= 3 and mod:IsInRaidDifficulty("heroic10", "heroic25") or (args.amount or 1) >= 5 and mod:IsInRaidDifficulty("normal10", "normal25")) then
 					SendChatMessage(string.format("%d stacks of Instability on %s", args.amount or 1, args.destName or ""), "RAID", nil, nil)
 				-- else
 				-- 	DEFAULT_CHAT_FRAME:AddMessage(string.format("%d stacks of Instability on %s", args.amount or 1, args.destName or ""))
@@ -276,7 +276,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerNextBlisteringCold:Start()
 		soundBlisteringCold:Play()
 	end
-end	
+end
 
 function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(69762) then
@@ -304,7 +304,7 @@ end
 function mod:UNIT_HEALTH(uId)
 	if not warned_P2 and self:GetUnitCreatureId(uId) == 36853 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.38 then
 		warned_P2 = true
-		warnPhase2soon:Show()	
+		warnPhase2soon:Show()
 	end
 end
 

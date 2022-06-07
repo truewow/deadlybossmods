@@ -149,7 +149,7 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)--We use spell cast success for debuff timers in case it gets resisted by a player we still get CD timer for next one
 	if args:IsSpellID(74792) then
-		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+		if mod:IsInRaidDifficulty("heroic10", "heroic25") then
 			timerShadowConsumptionCD:Start(25)
 		else
 			timerShadowConsumptionCD:Start(25)
@@ -158,7 +158,7 @@ function mod:SPELL_CAST_SUCCESS(args)--We use spell cast success for debuff time
 			self:SendSync("ShadowCD")
 		end
 	elseif args:IsSpellID(74562) then
-		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+		if mod:IsInRaidDifficulty("heroic10", "heroic25") then
 			timerFieryConsumptionCD:Start(25)
 		else
 			timerFieryConsumptionCD:Start(25)
@@ -177,7 +177,7 @@ function mod:SPELL_AURA_APPLIED(args)--We don't use spell cast success for actua
 				SendChatMessage(L.WhisperConsumption, "WHISPER", "COMMON", args.destName)
 			end
 		end
-		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+		if mod:IsInRaidDifficulty("heroic10", "heroic25") then
       time_of_last_consumption = GetTime()
 			timerShadowConsumptionCD:Start(TIME_BETWEEN_CONSUMPTIONS)
 		else
@@ -213,7 +213,7 @@ function mod:SPELL_AURA_APPLIED(args)--We don't use spell cast success for actua
 				SendChatMessage(L.WhisperCombustion, "WHISPER", "COMMON", args.destName)
 			end
 		end
-		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+		if mod:IsInRaidDifficulty("heroic10", "heroic25") then
 			timerFieryConsumptionCD:Start(TIME_BETWEEN_COMBUSTIONS)
 		else
 			timerFieryConsumptionCD:Start(TIME_BETWEEN_COMBUSTIONS)
@@ -342,7 +342,7 @@ function mod:OnSync(msg, target)
 			timerMeteorCast:Start()
 			timerMeteorCD:Start()
 		end
-		if mod:IsDifficulty("heroic25") then
+		if mod:IsInRaidDifficulty("heroic25") then
 			timerInfernoDead:Start()
 		end
 	elseif msg == "ShadowTarget" then
@@ -361,7 +361,7 @@ function mod:OnSync(msg, target)
 		end
 	elseif msg == "ShadowCD" then
 		if self.Options.AnnounceAlternatePhase then
-			if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+			if mod:IsInRaidDifficulty("heroic10", "heroic25") then
 				timerShadowConsumptionCD:Start(25)
 			else
 				timerShadowConsumptionCD:Start(25)
@@ -369,7 +369,7 @@ function mod:OnSync(msg, target)
 		end
 	elseif msg == "FieryCD" then
 		if self.Options.AnnounceAlternatePhase then
-			if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+			if mod:IsInRaidDifficulty("heroic10", "heroic25") then
 				timerFieryConsumptionCD:Start(25)
 			else
 				timerFieryConsumptionCD:Start(25)

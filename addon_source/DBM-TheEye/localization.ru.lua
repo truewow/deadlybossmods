@@ -1,54 +1,54 @@
 ﻿if (GetLocale() == "ruRU") then
-DBM_EYE_TAB			= "EyeTab"
-DBM_TEMPEST_KEEP	= "Крепость Бурь";
+DBM_EYE_TAB            = "EyeTab"
+DBM_TEMPEST_KEEP    = "Крепость Бурь";
 
 -- Void Reaver
-DBM_VOIDREAVER_NAME						= "Страж Бездны";
-DBM_VOIDREAVER_DESCRIPTION				= "Объявляет Чародейский шар и Тяжкий удар.";
-DBM_VOIDREAVER_OPTION_WARN_ORB			= "Объявить цель Чародейский шар";
-DBM_VOIDREAVER_OPTION_YELL_ORB			= "Отправить сообщение в чат, если бросается Чародейский шар на вас";
-DBM_VOIDREAVER_OPTION_ORB_ICON			= "Установить метку на цель Чародейский шар";
-DBM_VOIDREAVER_OPTION_WARN_POUNDING		= "Объявить Тяжкий удар";
-DBM_VOIDREAVER_OPTION_WARN_POUNDINGSOON	= "Показать предупреждение \"Скоро Тяжкий удар\"";
-DBM_VOIDREAVER_OPTION_SOUND				= "Звуковое уведомление, если бросается Чародейский шар на вас"
+DBM_VOIDREAVER_NAME                        = "Страж Бездны";
+DBM_VOIDREAVER_DESCRIPTION                = "Объявляет Чародейский шар и Тяжкий удар.";
+DBM_VOIDREAVER_OPTION_WARN_ORB            = "Объявить цель Чародейский шар";
+DBM_VOIDREAVER_OPTION_YELL_ORB            = "Отправить сообщение в чат, если бросается Чародейский шар на вас";
+DBM_VOIDREAVER_OPTION_ORB_ICON            = "Установить метку на цель Чародейский шар";
+DBM_VOIDREAVER_OPTION_WARN_POUNDING        = "Объявить Тяжкий удар";
+DBM_VOIDREAVER_OPTION_WARN_POUNDINGSOON    = "Показать предупреждение \"Скоро Тяжкий удар\"";
+DBM_VOIDREAVER_OPTION_SOUND                = "Звуковое уведомление, если бросается Чародейский шар на вас"
 
-DBM_VOIDREAVER_POUNDING					= "Тяжкий удар";
+DBM_VOIDREAVER_POUNDING                    = "Тяжкий удар";
 
-DBM_VOIDREAVER_WARN_ORB					= "*** Чародейский шар на >%s< ***";
-DBM_VOIDREAVER_YELL_ORB					= "Чародейский шар приближается! Бегите от меня!";
-DBM_VOIDREAVER_WARN_ENRAGE				= "*** Ярость через %s %s ***";
-DBM_VOIDREAVER_WARN_POUNDING			= "*** Тяжкий удар ***";
-DBM_VOIDREAVER_WARN_POUNDING_SOON		= "*** Скоро Тяжкий удар ***";
-DBM_VOIDREAVER_SPECWARN_ORB				= "Чародейский шар на вас!";
+DBM_VOIDREAVER_WARN_ORB                    = "*** Чародейский шар на >%s< ***";
+DBM_VOIDREAVER_YELL_ORB                    = "Чародейский шар приближается! Бегите от меня!";
+DBM_VOIDREAVER_WARN_ENRAGE                = "*** Ярость через %s %s ***";
+DBM_VOIDREAVER_WARN_POUNDING            = "*** Тяжкий удар ***";
+DBM_VOIDREAVER_WARN_POUNDING_SOON        = "*** Скоро Тяжкий удар ***";
+DBM_VOIDREAVER_SPECWARN_ORB                = "Чародейский шар на вас!";
 
-DBM_VOIDREAVER_R_FURY					= "Праведное неистовство"
+DBM_VOIDREAVER_R_FURY                    = "Праведное неистовство"
 
-DBM_SBT["Enrage"]			= "Ярость";
-DBM_SBT["Next Pounding"]	= "Следующий Тяжкий удар";
-DBM_SBT["Pounding"]			= "Тяжкий удар";
+DBM_SBT["Enrage"]            = "Ярость";
+DBM_SBT["Next Pounding"]    = "Следующий Тяжкий удар";
+DBM_SBT["Pounding"]            = "Тяжкий удар";
 
 -- Solarian
-DBM_SOLARIAN_NAME						= "Верховный звездочет Солариан";
-DBM_SOLARIAN_DESCRIPTION				= "Объявляет Гнев и призыв приспешников.";
-DBM_SOLARIAN_OPTION_WARN_WRATH			= "Объявить Гнев";
-DBM_SOLARIAN_OPTION_ICON_WRATH			= "Установить метку на цель Гнев";
-DBM_SOLARIAN_OPTION_SPECWARN_WRATH		= "Показать спец-предупреждение, когда на вас Гнев";
-DBM_SOLARIAN_OPTION_WARN_PHASE			= "Объявить призыв приспешников";
-DBM_SOLARIAN_OPTION_WHISPER_WRATH		= "Сообщить шепотом цели, если Гнев на нем"
-DBM_SOLARIAN_OPTION_SOUND				= "Звуковое уведомление, если Гнев на вас"
+DBM_SOLARIAN_NAME                        = "Верховный звездочет Солариан";
+DBM_SOLARIAN_DESCRIPTION                = "Объявляет Гнев и призыв приспешников.";
+DBM_SOLARIAN_OPTION_WARN_WRATH            = "Объявить Гнев";
+DBM_SOLARIAN_OPTION_ICON_WRATH            = "Установить метку на цель Гнев";
+DBM_SOLARIAN_OPTION_SPECWARN_WRATH        = "Показать спец-предупреждение, когда на вас Гнев";
+DBM_SOLARIAN_OPTION_WARN_PHASE            = "Объявить призыв приспешников";
+DBM_SOLARIAN_OPTION_WHISPER_WRATH        = "Сообщить шепотом цели, если Гнев на нем"
+DBM_SOLARIAN_OPTION_SOUND                = "Звуковое уведомление, если Гнев на вас"
 
-DBM_SOLARIAN_YELL_ENRAGE				= "Enough of this!%s*Now I call upon the fury of the cosmos itself."
+DBM_SOLARIAN_YELL_ENRAGE                = "Enough of this!%s*Now I call upon the fury of the cosmos itself."
 
-DBM_SOLARIAN_SPECWARN_WRATH				= "Гнев на вас!";
-DBM_SOLARIAN_ANNOUNCE_WRATH				= "*** Гнев на >%s< ***";
-DBM_SOLARIAN_ANNOUNCE_SPLIT				= "*** Приспешники на подходе ***";
-DBM_SOLARIAN_ANNOUNCE_PRIESTS_SOON		= "*** Жрецы и Солариан через 5 секунд ***";
-DBM_SOLARIAN_ANNOUNCE_PRIESTS_NOW		= "*** Жрецы и Солариан появились ***";
-DBM_SOLARIAN_ANNOUNCE_AGENTS_NOW		= "*** Пособники появились ***";
-DBM_SOLARIAN_ANNOUNCE_SPLIT_SOON		= "*** Разделение через 5 секунд ***";
-DBM_SOLARIAN_ANNOUNCE_ENRAGE_PHASE		= "*** Фаза демона Бездны ***";
+DBM_SOLARIAN_SPECWARN_WRATH                = "Гнев на вас!";
+DBM_SOLARIAN_ANNOUNCE_WRATH                = "*** Гнев на >%s< ***";
+DBM_SOLARIAN_ANNOUNCE_SPLIT                = "*** Приспешники на подходе ***";
+DBM_SOLARIAN_ANNOUNCE_PRIESTS_SOON        = "*** Жрецы и Солариан через 5 секунд ***";
+DBM_SOLARIAN_ANNOUNCE_PRIESTS_NOW        = "*** Жрецы и Солариан появились ***";
+DBM_SOLARIAN_ANNOUNCE_AGENTS_NOW        = "*** Пособники появились ***";
+DBM_SOLARIAN_ANNOUNCE_SPLIT_SOON        = "*** Разделение через 5 секунд ***";
+DBM_SOLARIAN_ANNOUNCE_ENRAGE_PHASE        = "*** Фаза демона Бездны ***";
 
-DBM_SBT["Split"] 				= "Разделение";
+DBM_SBT["Split"]         		= "Разделение";
 DBM_SBT["Priests & Solarian"] 	= "Жрецы и Солариан";
 DBM_SBT["Agents"] 				= "Пособники";
 DBM_SBT["Solarian"] = {

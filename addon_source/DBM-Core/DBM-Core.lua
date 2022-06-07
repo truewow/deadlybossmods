@@ -2503,7 +2503,7 @@ function bossModPrototype:IsDifficulty(...)
 	return false
 end
 
-function bossModPrototype:IsRaidDifficulty(...)
+function bossModPrototype:IsInRaidDifficulty(...)
 	local diff = self:GetRaidDifficulty()
 	for i = 1, select("#", ...) do
 		if diff == select(i, ...) then

@@ -7,14 +7,14 @@ local L
 L = DBM:GetModLocalization("Venoxis")
 
 L:SetGeneralLocalization{
-	name = "Sumo sacerdote Venoxis"
+    name = "Sumo sacerdote Venoxis"
 }
 L:SetWarningLocalization{
-	warnPhase2Soon	= "Fase 2 pronto"
+    warnPhase2Soon    = "Fase 2 pronto"
 }
 L:SetOptionLocalization{
-	warnPhase2Soon	= "Anunciar cuando la fase 2 esté a punto de comenzar",
-	RangeFrame		= "Mostrar distancia"
+    warnPhase2Soon    = "Anunciar cuando la fase 2 esté a punto de comenzar",
+    RangeFrame        = "Mostrar distancia"
 }
 
 -------------------
@@ -23,7 +23,7 @@ L:SetOptionLocalization{
 L = DBM:GetModLocalization("Jeklik")
 
 L:SetGeneralLocalization{
-	name = "Suma sacerdotisa Jeklik"
+    name = "Suma sacerdotisa Jeklik"
 }
 
 -------------------
@@ -32,7 +32,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Marli")
 
 L:SetGeneralLocalization{
-	name = "Suma sacerdotisa Mar'li"
+    name = "Suma sacerdotisa Mar'li"
 }
 
 -------------------
@@ -41,26 +41,26 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Thekal")
 
 L:SetGeneralLocalization{
-	name = "Sumo sacerdote Thekal"
+    name = "Sumo sacerdote Thekal"
 }
 
 L:SetWarningLocalization({
-	WarnSimulKill	= "Primer add muerto - Resurrección en ~12 segundos"
+    WarnSimulKill    = "Primer add muerto - Resurrección en ~12 segundos"
 })
 
 L:SetTimerLocalization({
-	TimerSimulKill	= "Resurrección"
+    TimerSimulKill    = "Resurrección"
 })
 
 L:SetOptionLocalization({
-	WarnSimulKill	= "Anunciar primer add muerto",
-	TimerSimulKill	= "Mostrar tiempo para resurrección de sacerdote"
+    WarnSimulKill    = "Anunciar primer add muerto",
+    TimerSimulKill    = "Mostrar tiempo para resurrección de sacerdote"
 })
 
 L:SetMiscLocalization({
-	PriestDied	= "%s muere.",
-	YellPhase2	= "Shirvallah, ¡lléname de IRA!",
-	YellKill	= "¡Hakkar ya no me controla! ¡Por fin algo de paz!"
+    PriestDied    = "%s muere.",
+    YellPhase2    = "Shirvallah, ¡lléname de IRA!",
+    YellKill    = "¡Hakkar ya no me controla! ¡Por fin algo de paz!"
 })
 
 -------------------
@@ -69,7 +69,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Arlokk")
 
 L:SetGeneralLocalization{
-	name = "Suma sacerdotisa Arlokk"
+    name = "Suma sacerdotisa Arlokk"
 }
 
 -------------------
@@ -78,7 +78,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Hakkar")
 
 L:SetGeneralLocalization{
-	name = "Hakkar"
+    name = "Hakkar"
 }
 
 -------------------
@@ -87,11 +87,11 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Bloodlord")
 
 L:SetGeneralLocalization{
-	name = "Señor sangriento Mandokir"
+    name = "Señor sangriento Mandokir"
 }
 L:SetMiscLocalization{
-	Bloodlord 	= "Señor sangriento Mandokir",
-	Ohgan		= "Ohgan"
+    Bloodlord     = "Señor sangriento Mandokir",
+    Ohgan        = "Ohgan"
 }
 
 -------------------
@@ -100,13 +100,13 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("EdgeOfMadness")
 
 L:SetGeneralLocalization{
-	name = "Blandón de la Locura"
+    name = "Blandón de la Locura"
 }
 L:SetMiscLocalization{
-	Hazzarah = "Hazza'rah",
-	Renataki = "Renataki",
-	Wushoolay = "Wushoolay",
-	Grilek = "Gri'lek"
+    Hazzarah = "Hazza'rah",
+    Renataki = "Renataki",
+    Wushoolay = "Wushoolay",
+    Grilek = "Gri'lek"
 }
 
 -------------------
@@ -115,7 +115,7 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Gahzranka")
 
 L:SetGeneralLocalization{
-	name = "Gahz'ranka"
+    name = "Gahz'ranka"
 }
 
 -------------------
@@ -124,5 +124,5 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Jindo")
 
 L:SetGeneralLocalization{
-	name = "Jin'do el Aojador"
+    name = "Jin'do el Aojador"
 }

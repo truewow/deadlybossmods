@@ -6,24 +6,24 @@ local L
 L = DBM:GetModLocalization("Archavon")
 
 L:SetGeneralLocalization({
-	name = "Archavon the Stone Watcher"
+    name = "Archavon the Stone Watcher"
 })
 
 L:SetWarningLocalization({
-	WarningGrab	= "Archavon grabbed >%s<"
+    WarningGrab    = "Archavon grabbed >%s<"
 })
 
 L:SetTimerLocalization({
-	ArchavonEnrage	= "Archavon berserk"
+    ArchavonEnrage    = "Archavon berserk"
 })
 
 L:SetMiscLocalization({
-	TankSwitch	= "%%s lunges for (%S+)!"
+    TankSwitch    = "%%s lunges for (%S+)!"
 })
 
 L:SetOptionLocalization({
-	WarningGrab		= "Announce grab targets",
-	ArchavonEnrage	= "Show timer for $spell:26662"
+    WarningGrab        = "Announce grab targets",
+    ArchavonEnrage    = "Show timer for $spell:26662"
 })
 
 --------------------------------
@@ -32,22 +32,22 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Emalon")
 
 L:SetGeneralLocalization{
-	name = "Emalon the Storm Watcher"
+    name = "Emalon the Storm Watcher"
 }
 
 L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
-	timerMobOvercharge	= "Overcharge explosion",
-	EmalonEnrage		= "Emalon berserk"
+    timerMobOvercharge    = "Overcharge explosion",
+    EmalonEnrage        = "Emalon berserk"
 }
 
 L:SetOptionLocalization{
-	NovaSound			= "Play sound on $spell:65279",
-	timerMobOvercharge	= "Show timer for Overcharged mob (stacking debuff)",
-	EmalonEnrage		= "Show timer for $spell:26662",
-	RangeFrame			= "Show range frame (10)"
+    NovaSound            = "Play sound on $spell:65279",
+    timerMobOvercharge    = "Show timer for Overcharged mob (stacking debuff)",
+    EmalonEnrage        = "Show timer for $spell:26662",
+    RangeFrame            = "Show range frame (10)"
 }
 
 ---------------------------------
@@ -56,25 +56,25 @@ L:SetOptionLocalization{
 L = DBM:GetModLocalization("Koralon")
 
 L:SetGeneralLocalization{
-	name = "Koralon the Flame Watcher"
+    name = "Koralon the Flame Watcher"
 }
 
 L:SetWarningLocalization{
-	BurningFury		= "Burning Fury >%d<"
+    BurningFury        = "Burning Fury >%d<"
 }
 
 L:SetTimerLocalization{
-	KoralonEnrage	= "Koralon berserk"
+    KoralonEnrage    = "Koralon berserk"
 }
 
 L:SetOptionLocalization{
-	PlaySoundOnCinder	= "Play sound when you are affected by $spell:67332",
-	BurningFury			= "Show warning for $spell:66721",
-	KoralonEnrage		= "Show timer for $spell:26662"
+    PlaySoundOnCinder    = "Play sound when you are affected by $spell:67332",
+    BurningFury            = "Show warning for $spell:66721",
+    KoralonEnrage        = "Show timer for $spell:26662"
 }
 
 L:SetMiscLocalization{
-	Meteor	= "%s casts Meteor Fists!"
+    Meteor    = "%s casts Meteor Fists!"
 }
 
 -------------------------------
@@ -83,21 +83,21 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Toravon")
 
 L:SetGeneralLocalization{
-	name = "Toravon the Ice Watcher"
+    name = "Toravon the Ice Watcher"
 }
 
 L:SetWarningLocalization{
-	Frostbite	= "Frostbite on >%s< (%d)"
+    Frostbite    = "Frostbite on >%s< (%d)"
 }
 
 L:SetTimerLocalization{
-	ToravonEnrage	= "Toravon berserk"
+    ToravonEnrage    = "Toravon berserk"
 }
 
 L:SetOptionLocalization{
-	Frostbite	= "Show warning for $spell:72098",
+    Frostbite    = "Show warning for $spell:72098",
 }
 
 L:SetMiscLocalization{
-	ToravonEnrage	= "Show timer for enrage"
+    ToravonEnrage    = "Show timer for enrage"
 }

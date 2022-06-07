@@ -6,14 +6,14 @@ local L
 L = DBM:GetModLocalization("Venoxis")
 
 L:SetGeneralLocalization{
-	name = "High Priest Venoxis"
+    name = "High Priest Venoxis"
 }
 L:SetWarningLocalization{
-	warnPhase2Soon	= "Phase 2 soon"
+    warnPhase2Soon    = "Phase 2 soon"
 }
 L:SetOptionLocalization{
-	warnPhase2Soon	= "Announce when phase 2 is about to start",
-	RangeFrame		= "Show range frame"
+    warnPhase2Soon    = "Announce when phase 2 is about to start",
+    RangeFrame        = "Show range frame"
 }
 
 -------------------
@@ -22,7 +22,7 @@ L:SetOptionLocalization{
 L = DBM:GetModLocalization("Jeklik")
 
 L:SetGeneralLocalization{
-	name = "High Priestess Jeklik"
+    name = "High Priestess Jeklik"
 }
 
 -------------------
@@ -31,7 +31,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Marli")
 
 L:SetGeneralLocalization{
-	name = "High Priestess Mar'li"
+    name = "High Priestess Mar'li"
 }
 
 -------------------
@@ -40,29 +40,29 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Thekal")
 
 L:SetGeneralLocalization{
-	name = "High Priest Thekal"
+    name = "High Priest Thekal"
 }
 
 L:SetWarningLocalization({
-	WarnSimulKill	= "First add down - Resurrection in ~15 seconds"
+    WarnSimulKill    = "First add down - Resurrection in ~15 seconds"
 })
 
 L:SetTimerLocalization({
-	TimerSimulKill	= "Resurrection"
+    TimerSimulKill    = "Resurrection"
 })
 
 L:SetOptionLocalization({
-	WarnSimulKill	= "Announce first mob down, resurrection soon",
-	TimerSimulKill	= "Show timer for priest resurrection"
+    WarnSimulKill    = "Announce first mob down, resurrection soon",
+    TimerSimulKill    = "Show timer for priest resurrection"
 })
 
 L:SetMiscLocalization({
-	PriestDied	= "%s dies.",
-	YellPhase2	= "Shirvallah, fill me with your RAGE!",
-	YellKill	= "Hakkar binds me no more!  Peace at last!",
-	Thekal		= "High Priest Thekal",
-	Zath		= "Zealot Zath",
-	LorKhan		= "Zealot Lor'Khan"
+    PriestDied    = "%s dies.",
+    YellPhase2    = "Shirvallah, fill me with your RAGE!",
+    YellKill    = "Hakkar binds me no more!  Peace at last!",
+    Thekal        = "High Priest Thekal",
+    Zath        = "Zealot Zath",
+    LorKhan        = "Zealot Lor'Khan"
 })
 
 -------------------
@@ -71,7 +71,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Arlokk")
 
 L:SetGeneralLocalization{
-	name = "High Priestess Arlokk"
+    name = "High Priestess Arlokk"
 }
 
 -------------------
@@ -80,7 +80,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Hakkar")
 
 L:SetGeneralLocalization{
-	name = "Hakkar the Soulflayer"
+    name = "Hakkar the Soulflayer"
 }
 
 -------------------
@@ -89,11 +89,11 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Bloodlord")
 
 L:SetGeneralLocalization{
-	name = "Bloodlord Mandokir"
+    name = "Bloodlord Mandokir"
 }
 L:SetMiscLocalization{
-	Bloodlord 	= "Bloodlord Mandokir",
-	Ohgan		= "Ohgan"
+    Bloodlord     = "Bloodlord Mandokir",
+    Ohgan        = "Ohgan"
 }
 
 -------------------
@@ -102,13 +102,13 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("EdgeOfMadness")
 
 L:SetGeneralLocalization{
-	name = "Edge of Madness"
+    name = "Edge of Madness"
 }
 L:SetMiscLocalization{
-	Hazzarah = "Hazza'rah",
-	Renataki = "Renataki",
-	Wushoolay = "Wushoolay",
-	Grilek = "Gri'lek"
+    Hazzarah = "Hazza'rah",
+    Renataki = "Renataki",
+    Wushoolay = "Wushoolay",
+    Grilek = "Gri'lek"
 }
 
 -------------------
@@ -117,7 +117,7 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Gahzranka")
 
 L:SetGeneralLocalization{
-	name = "Gahz'ranka"
+    name = "Gahz'ranka"
 }
 
 -------------------
@@ -126,5 +126,5 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Jindo")
 
 L:SetGeneralLocalization{
-	name = "Jin'do the Hexxer"
+    name = "Jin'do the Hexxer"
 }

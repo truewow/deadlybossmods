@@ -59,23 +59,4 @@ function mod:SPELL_CAST_START(args)
 			icyBlastCounter = 0
 		end
 	end
-end	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+end
