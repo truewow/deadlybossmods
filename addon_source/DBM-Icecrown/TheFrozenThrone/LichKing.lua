@@ -64,6 +64,7 @@ local specWarnTrap            = mod:NewSpecialWarningYou(73539) --Heroic Ability
 local specWarnTrapNear        = mod:NewSpecialWarning("SpecWarnTrapNear") --Heroic Ability
 local specWarnHarvestSouls    = mod:NewSpecialWarningSpell(74297) --Heroic Ability
 local specWarnValkyrLow        = mod:NewSpecialWarning("SpecWarnValkyrLow")
+local specWarnIcePulse          = mod:NewSpecialWarningMove(69091) -- Transition (Ice Sphere)
 
 local timerCombatStart        = mod:NewTimer(72, "TimerCombatStart", 2457)
 local timerPhaseTransition    = mod:NewTimer(62, "PhaseTransition", 72262)
@@ -130,7 +131,10 @@ end
 
 function mod:DefileTarget()
     local target = self:GetBossTarget(36597)
-    if not target then return end
+    if not target then
+        return
+    end
+
     if mod:LatencyCheck() then--Only send sync if you have low latency.
         self:SendSync("DefileOn", target)
     end
@@ -399,13 +403,17 @@ function mod:SPELL_CAST_SUCCESS(args)
     elseif args:IsSpellID(73654, 74295, 74296, 74297) then -- Harvest Souls (Heroic)
         specWarnHarvestSouls:Show()
         timerVileSpirit:Cancel()
-    timerVileSpiritActivation:Cancel()
-    if GetTime() - lastSpiritCastTime < 32 then -- if they didn't become active yet (18 sec) then they will be after next transition - which is 23 sec for the last to become active + ~9 sec for last spirit to reach the raid (estimate) - it may be conservative and misreport if any viles are still active though
-      timerVileSpiritActivation:Start(70)
-    end
+        timerVileSpiritActivation:Cancel()
+        if GetTime() - lastSpiritCastTime < 32 then -- if they didn't become active yet (18 sec) then they will be after next transition - which is 23 sec for the last to become active + ~9 sec for last spirit to reach the raid (estimate) - it may be conservative and misreport if any viles are still active though
+            timerVileSpiritActivation:Start(70)
+        end
         timerSoulreaperCD:Cancel()
         timerDefileCD:Cancel()
         warnDefileSoon:Cancel()
+    elseif args:IsSpellID(69091) then   -- Ice Pulse
+        if (args:IsPlayer()) then
+            specWarnIcePulse:Show()
+        end
     end
 end
 
