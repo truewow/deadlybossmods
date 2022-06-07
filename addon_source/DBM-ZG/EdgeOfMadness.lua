@@ -19,44 +19,43 @@ mod:RegisterEvents(
     "SPELL_SUMMON"
 )
 
-local warnIllusions    = mod:NewSpellAnnounce(24728)
-local warnSleep        = mod:NewSpellAnnounce(24664)
-local warnChainBurn    = mod:NewSpellAnnounce(24684)
-local warnFrenzy    = mod:NewSpellAnnounce(8269)
-local warnVanish    = mod:NewSpellAnnounce(24699)
-local warnCloud        = mod:NewSpellAnnounce(24683)
+-- Warnings
+local warnIllusions     = mod:NewSpellAnnounce(24728)
+local warnSleep         = mod:NewSpellAnnounce(24664)
+local warnChainBurn     = mod:NewSpellAnnounce(24684)
+local warnFrenzy        = mod:NewSpellAnnounce(8269)
+local warnVanish        = mod:NewSpellAnnounce(24699)
+local warnCloud         = mod:NewSpellAnnounce(24683)
 
-local timerSleep    = mod:NewBuffActiveTimer(6, 24664)
-local timerCloud    = mod:NewBuffActiveTimer(15, 24683)
+-- Timers
+local timerSleep        = mod:NewBuffActiveTimer(6, 24664)
+local timerCloud        = mod:NewBuffActiveTimer(15, 24683)
 
 local spamSleep = 0
-function mod:OnCombatStart(delay)
-end
 
 function mod:SPELL_CAST_SUCCESS(args)
-    if args:IsSpellID(24684) then
+    if args:IsSpellID(24684) then       -- Chain Burn
         warnChainBurn:Show()
-    elseif args:IsSpellID(24699) then
+    elseif args:IsSpellID(24699) then   -- Vanish
         warnVanish:Show()
-    elseif args:IsSpellID(24699) then
         warnCloud:Show()
         timerCloud:Start()
     end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-    if args:IsSpellID(24664) and GetTime() - spamSleep > 5 then
+    if args:IsSpellID(24664) and GetTime() - spamSleep > 5 then -- Sleep
         warnSleep:Show()
         timerSleep:Start()
-    elseif args:IsSpellID(8269) and self:IsInCombat() then
+    elseif args:IsSpellID(8269) and self:IsInCombat() then      -- Frenzy
         warnFrenzy:Show()
     end
 end
 
 function mod:SPELL_SUMMON(args)
-    if args:IsSpellID(24684) then
+    if args:IsSpellID(24684) then       -- Chain Burn
         warnIllusions:Show()
-    elseif args:IsSpellID(24699) then
+    elseif args:IsSpellID(24699) then   -- Vanish
         warnCloud:Show()
         timerCloud:Start()
     end
