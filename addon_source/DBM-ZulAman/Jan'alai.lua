@@ -16,7 +16,7 @@ Jan:SetCreatureID(23578)
 Jan:RegisterCombat("yell", DBM_JANALAI_YELL_PULL)
 
 function Jan:OnCombatStart()
-    self:StartStatusBarTimer(300, "Enrage", "Interface\\Icons\\Spell_Shadow_UnholyFrenzy") 
+    self:StartStatusBarTimer(300, "Enrage", "Interface\\Icons\\Spell_Shadow_UnholyFrenzy")
     self:ScheduleAnnounce(120, DBM_GENERIC_ENRAGE_WARN:format(3, DBM_MIN), 1)
     self:ScheduleAnnounce(240, DBM_GENERIC_ENRAGE_WARN:format(1, DBM_MIN), 2)
     self:ScheduleAnnounce(270, DBM_GENERIC_ENRAGE_WARN:format(30, DBM_SEC), 3)
@@ -36,7 +36,7 @@ function Jan:OnEvent(event)
             self:Announce(DBM_JANALAI_WARN_HATCHER, 2)
             self:ScheduleAnnounce(80, DBM_JANALAI_WARN_HATCHER_SOON, 1)
             self:StartStatusBarTimer(90, "Hatcher", "Interface\\Icons\\INV_Misc_Head_Troll_01")
-        end        
+        end
 --    elseif event == "UNIT_SPELLCAST_START" then -- doesn't work + useless!
 --        self:AddMsg(arg1, arg2)
 --        self:AddMsg(UnitName(arg1.."target"))

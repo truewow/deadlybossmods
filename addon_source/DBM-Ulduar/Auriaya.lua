@@ -79,13 +79,13 @@ function mod:SPELL_AURA_APPLIED(args)
     elseif args:IsSpellID(64455) then -- Feral Essence
         DBM.BossHealth:AddBoss(34035, L.Defender:format(9))
     elseif args:IsSpellID(64386) and args:IsPlayer() then
-        isFeared = true        
+        isFeared = true
     end
 end
 
 function mod:SPELL_AURA_REMOVED(args)
     if args:IsSpellID(64386) and args:IsPlayer() then
-        isFeared = false    
+        isFeared = false
     end
 end
 

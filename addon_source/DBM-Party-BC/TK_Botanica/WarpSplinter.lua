@@ -7,8 +7,8 @@ mod:SetCreatureID(17977)
 mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
-	"SPELL_CAST_SUCCESS",
-	"SPELL_SUMMON"
+    "SPELL_CAST_SUCCESS",
+    "SPELL_SUMMON"
 )
 
 local warnTreants    = mod:NewSpellAnnounce(34727)
@@ -21,15 +21,15 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(34716) then
-		warnStomp:Show()
-		timerStomp:Start()
-	end
+    if args:IsSpellID(34716) then
+        warnStomp:Show()
+        timerStomp:Start()
+    end
 end
 
 function mod:SPELL_SUMMON(args)
-	if args:IsSpellID(34727) then
-		warnTreants:Show()
-		timerTreants:Start()
-	end
+    if args:IsSpellID(34727) then
+        warnTreants:Show()
+        timerTreants:Start()
+    end
 end

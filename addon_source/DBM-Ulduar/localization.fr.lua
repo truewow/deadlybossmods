@@ -14,7 +14,7 @@ L:SetGeneralLocalization{
 
 L:SetTimerLocalization{
 }
-    
+
 L:SetMiscLocalization{
     YellPull        = "Entités hostiles détectées. Protocole d'estimation de menace actif. Acquisition de la cible primaire. Décompte avant réévaluation : 30 secondes.",
     Emote            = "%%s poursuit (%S+)%."
@@ -68,14 +68,14 @@ L = DBM:GetModLocalization("Razorscale")
 
 L:SetGeneralLocalization{
     name = "Tranchécaille"
-}     
+}
 
 L:SetWarningLocalization{
     SpecWarnDevouringFlame        = "Flamme dévorante - BOUGEZ",
     warnTurretsReadySoon        = "Quatrième tourelle à harpon prête dans 20 Sec",
     warnTurretsReady            = "Quatrième tourelle à harpon prête",
     SpecWarnDevouringFlameCast    = "Flamme dévorante sur Vous",
-    WarnDevouringFlameCast        = "Flamme dévorante sur >%s<" 
+    WarnDevouringFlameCast        = "Flamme dévorante sur >%s<"
 }
 
 L:SetTimerLocalization{
@@ -351,7 +351,7 @@ L:SetMiscLocalization{
     YellPhase2        = "Avortons impertinents, vous osez me défier sur mon piédestal ? Je vais vous écraser moi-même !",
     YellKill        = "Retenez vos coups ! Je me rends !",
     ChargeOn        = "Charge(s) de foudre: %s",
-    Charge            = "Charge(s) de foudre non évitée(s) (cet essai): %s" 
+    Charge            = "Charge(s) de foudre non évitée(s) (cet essai): %s"
 }
 
 -------------
@@ -544,7 +544,7 @@ L:SetWarningLocalization{
     SpecWarnSanity                     = "%d de Santé mentale restant",
     SpecWarnGuardianLow                = "Arretez d'attaquer ce gardien !",
     SpecWarnMadnessOutNow            = "Incantation de Susciter la folie fini - SORTEZ",
-    WarnBrainPortalSoon                = "Portail dans 3 sec",    
+    WarnBrainPortalSoon                = "Portail dans 3 sec",
     SpecWarnFervor                    = "Ferveur de Sara sur VOUS",
     SpecWarnFervorCast                = "Ferveur de Sara commence a incanter sur vous",
     WarnEmpowerSoon                    = "Renforcement des ombres Bientôt !",
@@ -582,4 +582,3 @@ L:SetOptionLocalization{
     SpecWarnDeafeningRoar            = "Montre une alerte spéciale pour le Rugissement assourdissant (silence et haut-fait)",
     SetIconOnBrainLinkTarget        = "Met une icone sur la cible des Cerveaux liés"
 }
-

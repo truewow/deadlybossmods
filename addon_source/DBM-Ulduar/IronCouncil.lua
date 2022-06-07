@@ -30,7 +30,7 @@ local timerOverload                = mod:NewCastTimer(6, 63481)
 local timerLightningWhirl        = mod:NewCastTimer(5, 63483)
 local specwarnLightningTendrils    = mod:NewSpecialWarningRun(63486)
 local timerLightningTendrils    = mod:NewBuffActiveTimer(27, 63486)
-local specwarnOverload            = mod:NewSpecialWarningRun(63481) 
+local specwarnOverload            = mod:NewSpecialWarningRun(63481)
 mod:AddBoolOption("AlwaysWarnOnOverload", false, "announce")
 mod:AddBoolOption("PlaySoundOnOverload", true)
 mod:AddBoolOption("PlaySoundLightningTendrils", true)
@@ -42,7 +42,7 @@ local timerFusionPunchCast        = mod:NewCastTimer(3, 61903)
 local timerFusionPunchActive    = mod:NewTargetTimer(4, 61903)
 local warnOverwhelmingPower        = mod:NewTargetAnnounce(61888, 2)
 local timerOverwhelmingPower    = mod:NewTargetTimer(25, 61888)
-local warnStaticDisruption        = mod:NewTargetAnnounce(61912, 3) 
+local warnStaticDisruption        = mod:NewTargetAnnounce(61912, 3)
 mod:AddBoolOption("SetIconOnOverwhelmingPower")
 mod:AddBoolOption("SetIconOnStaticDisruption")
 
@@ -128,7 +128,7 @@ function mod:SPELL_AURA_APPLIED(args)
             end
         end
     elseif args:IsSpellID(62277, 63967) and not args:IsDestTypePlayer() then        -- Shield of Runes
-        timerShieldofRunes:Start()        
+        timerShieldofRunes:Start()
     elseif args:IsSpellID(64637, 61888) then    -- Overwhelming Power
         warnOverwhelmingPower:Show(args.destName)
         if mod:IsDifficulty("heroic10") then
@@ -151,7 +151,7 @@ function mod:SPELL_AURA_APPLIED(args)
         end
     elseif args:IsSpellID(61912, 63494) then    -- Static Disruption (Hard Mode)
         disruptTargets[#disruptTargets + 1] = args.destName
-        if self.Options.SetIconOnStaticDisruption then 
+        if self.Options.SetIconOnStaticDisruption then
             self:SetIcon(args.destName, disruptIcon, 20)
             disruptIcon = disruptIcon - 1
         end

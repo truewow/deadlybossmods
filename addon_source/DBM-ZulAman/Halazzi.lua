@@ -30,5 +30,5 @@ function Halazzi:OnEvent(event, args)
         if args.spellName == DBM_HALAZZI_SPELL_FRENZY and args.destName == DBM_HALAZZI_NAME and self.Options.Frenzy then
             self:Announce(DBM_HALAZZI_WARN_FRENZY, 3)
         end
-    end    
+    end
 end

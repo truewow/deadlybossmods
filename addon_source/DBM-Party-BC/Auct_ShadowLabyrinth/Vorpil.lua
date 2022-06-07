@@ -7,7 +7,7 @@ mod:SetCreatureID(18732)
 mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
-	"SPELL_CAST_SUCCESS"
+    "SPELL_CAST_SUCCESS"
 )
 
 local warnTeleport         = mod:NewSpellAnnounce(33563)
@@ -18,8 +18,8 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 33563 then
-		warnTeleport:Show()
-		timerTeleport:Start()
-	end
+    if args.spellId == 33563 then
+        warnTeleport:Show()
+        timerTeleport:Start()
+    end
 end

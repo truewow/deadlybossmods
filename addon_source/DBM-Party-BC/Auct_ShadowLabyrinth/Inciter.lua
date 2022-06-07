@@ -7,7 +7,7 @@ mod:SetCreatureID(18667)
 mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
-	"SPELL_CAST_SUCCESS"
+    "SPELL_CAST_SUCCESS"
 )
 
 local warnChaos         = mod:NewSpellAnnounce(33676)
@@ -19,9 +19,9 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 33676 then
-		warnChaos:Show()
-		timerChaos:Start()
-		timerNextChaos:Start()
-	end
+    if args.spellId == 33676 then
+        warnChaos:Show()
+        timerChaos:Start()
+        timerNextChaos:Start()
+    end
 end

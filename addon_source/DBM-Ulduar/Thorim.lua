@@ -27,13 +27,13 @@ mod:AddBoolOption("AnnounceFails", false, "announce")
 
 local enrageTimer                = mod:NewBerserkTimer(369)
 local timerStormhammer            = mod:NewCastTimer(16, 62042)
-local timerLightningCharge         = mod:NewCDTimer(16, 62466) 
+local timerLightningCharge         = mod:NewCDTimer(16, 62466)
 local timerUnbalancingStrike    = mod:NewCastTimer(26, 62130)
 local timerHardmode                = mod:NewTimer(175, "TimerHardmode", 62042)
 
 mod:AddBoolOption("RangeFrame")
 
-local lastcharge                = {} 
+local lastcharge                = {}
 
 function mod:OnCombatStart(delay)
     enrageTimer:Start()
@@ -41,7 +41,7 @@ function mod:OnCombatStart(delay)
     if self.Options.RangeFrame then
         DBM.RangeCheck:Show(10)
     end
-    table.wipe(lastcharge) 
+    table.wipe(lastcharge)
 end
 
 local sortedFailsC = {}
@@ -74,7 +74,6 @@ function mod:SPELL_AURA_APPLIED(args)
 
     elseif args:IsSpellID(62130) then                -- Unbalancing Strike
         warnUnbalancingStrike:Show(args.destName)
-        
     elseif args:IsSpellID(62526, 62527) then    -- Runic Detonation
         self:SetIcon(args.destName, 8, 5)
         warningBomb:Show(args.destName)
@@ -86,7 +85,7 @@ function mod:SPELL_CAST_SUCCESS(args)
         timerStormhammer:Schedule(2)
     elseif args:IsSpellID(62466) then       -- Lightning Charge
         warnLightningCharge:Show()
-        timerLightningCharge:Start()    
+        timerLightningCharge:Start()
     elseif args:IsSpellID(62130) then    -- Unbalancing Strike
         timerUnbalancingStrike:Start()
     end

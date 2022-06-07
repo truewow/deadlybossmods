@@ -20,13 +20,13 @@ Nalorakk:AddBarOption("Normal Form")
 
 function Nalorakk:OnCombatStart()
 -- ??
---[[self:StartStatusBarTimer(600, "Enrage", "Interface\\Icons\\Spell_Shadow_UnholyFrenzy") 
+--[[self:StartStatusBarTimer(600, "Enrage", "Interface\\Icons\\Spell_Shadow_UnholyFrenzy")
     self:ScheduleAnnounce(300, DBM_GENERIC_ENRAGE_WARN:format(5, DBM_MIN), 1)
     self:ScheduleAnnounce(420, DBM_GENERIC_ENRAGE_WARN:format(3, DBM_MIN), 1)
     self:ScheduleAnnounce(540, DBM_GENERIC_ENRAGE_WARN:format(1, DBM_MIN), 2)
     self:ScheduleAnnounce(570, DBM_GENERIC_ENRAGE_WARN:format(30, DBM_SEC), 3)
     self:ScheduleAnnounce(590, DBM_GENERIC_ENRAGE_WARN:format(10, DBM_SEC), 4)]]--
-    
+
     self:StartStatusBarTimer(45, "Bear Form", "Interface\\Icons\\Ability_Hunter_Pet_Bear")
     self:ScheduleAnnounce(40, DBM_NALO_WARN_BEAR_SOON, 1)
 end

@@ -8,7 +8,7 @@ local L
 L = DBM:GetModLocalization("Lucifron")
 
 L:SetGeneralLocalization{
-	name = "Люцифрон"
+    name = "Люцифрон"
 }
 
 ----------------
@@ -17,7 +17,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Magmadar")
 
 L:SetGeneralLocalization{
-	name = "Магмадар"
+    name = "Магмадар"
 }
 
 ----------------
@@ -26,7 +26,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Gehennas")
 
 L:SetGeneralLocalization{
-	name = "Гееннас"
+    name = "Гееннас"
 }
 
 ------------
@@ -35,7 +35,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Garr")
 
 L:SetGeneralLocalization{
-	name = "Гарр"
+    name = "Гарр"
 }
 
 --------------
@@ -44,11 +44,11 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Geddon")
 
 L:SetGeneralLocalization{
-	name = "Барон Геддон"
+    name = "Барон Геддон"
 }
 
 L:SetOptionLocalization{
-	SetIconOnBombTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(20475)
+    SetIconOnBombTarget    = DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(20475)
 }
 
 ----------------
@@ -57,7 +57,7 @@ L:SetOptionLocalization{
 L = DBM:GetModLocalization("Shazzrah")
 
 L:SetGeneralLocalization{
-	name = "Шаззрах"
+    name = "Шаззрах"
 }
 
 ----------------
@@ -66,7 +66,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Sulfuron")
 
 L:SetGeneralLocalization{
-	name = "Предвестник Сульфурон"
+    name = "Предвестник Сульфурон"
 }
 
 ----------------
@@ -75,13 +75,13 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Golemagg")
 
 L:SetGeneralLocalization{
-	name = "Големагг Испепелитель"
+    name = "Големагг Испепелитель"
 }
 L:SetWarningLocalization{
-	WarnP2Soon	= "Скоро 2-ая фаза"
+    WarnP2Soon    = "Скоро 2-ая фаза"
 }
 L:SetOptionLocalization{
-	WarnP2Soon 	= "Предупреждать о скором начале второй фазы"
+    WarnP2Soon     = "Предупреждать о скором начале второй фазы"
 }
 
 -----------------
@@ -90,11 +90,11 @@ L:SetOptionLocalization{
 L = DBM:GetModLocalization("Majordomo")
 
 L:SetGeneralLocalization{
-	name = "Мажордом Экзекутус"
+    name = "Мажордом Экзекутус"
 }
 
 L:SetMiscLocalization{
-	Kill	= "Impossible! Stay your attack, mortals... I submit! I submit!"
+    Kill    = "Impossible! Stay your attack, mortals... I submit! I submit!"
 }
 
 ----------------
@@ -103,29 +103,29 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Ragnaros")
 
 L:SetGeneralLocalization{
-	name = "Рагнарос"
+    name = "Рагнарос"
 }
 L:SetWarningLocalization{
-	WarnSubmerge		= "Погружение",
-	WarnSubmergeSoon	= "Скоро погружение",
-	WarnEmerge			= "Появление",
-	WarnEmergeSoon		= "Скоро появление"
+    WarnSubmerge        = "Погружение",
+    WarnSubmergeSoon    = "Скоро погружение",
+    WarnEmerge            = "Появление",
+    WarnEmergeSoon        = "Скоро появление"
 }
 L:SetTimerLocalization{
-	TimerCombatStart	= "Начало боя",
-	TimerSubmerge		= "Погружение",
-	TimerEmerge			= "Появление"
+    TimerCombatStart    = "Начало боя",
+    TimerSubmerge        = "Погружение",
+    TimerEmerge            = "Появление"
 }
 L:SetOptionLocalization{
-	TimerCombatStart	= "Показывать время до начала боя",
-	WarnSubmerge		= "Показывать предупреждение о погружении",
-	WarnSubmergeSoon	= "Показывать предварительное предупреждение о погружении",
-	TimerSubmerge		= "Показывать время до погружения",
-	WarnEmerge			= "Показывать предупреждение о появлении",
-	WarnEmergeSoon		= "Показывать предварительное предупреждение о появлении",
-	TimerEmerge			= "Показывать время до появления"
+    TimerCombatStart    = "Показывать время до начала боя",
+    WarnSubmerge        = "Показывать предупреждение о погружении",
+    WarnSubmergeSoon    = "Показывать предварительное предупреждение о погружении",
+    TimerSubmerge        = "Показывать время до погружения",
+    WarnEmerge            = "Показывать предупреждение о появлении",
+    WarnEmergeSoon        = "Показывать предварительное предупреждение о появлении",
+    TimerEmerge            = "Показывать время до появления"
 }
 L:SetMiscLocalization{
-	Submerge	= "COME FORTH, MY SERVANTS! DEFEND YOUR MASTER!",
-	Pull		= "Impudent whelps! You've rushed headlong to your own deaths! See now, the master stirs!\r\n"
+    Submerge    = "COME FORTH, MY SERVANTS! DEFEND YOUR MASTER!",
+    Pull        = "Impudent whelps! You've rushed headlong to your own deaths! See now, the master stirs!\r\n"
 }

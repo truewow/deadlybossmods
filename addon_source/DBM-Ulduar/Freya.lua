@@ -71,8 +71,8 @@ function mod:OnCombatEnd(wipe)
     DBM.BossHealth:Hide()
     if not wipe then
         if DBM.Bars:GetBar(L.TrashRespawnTimer) then
-            DBM.Bars:CancelBar(L.TrashRespawnTimer) 
-        end    
+            DBM.Bars:CancelBar(L.TrashRespawnTimer)
+        end
     end
 end
 
@@ -86,7 +86,7 @@ function mod:SPELL_CAST_START(args)
         specWarnTremor:Show()
         timerTremorCD:Start()
     end
-end 
+end
 
 function mod:SPELL_CAST_SUCCESS(args)
     if args:IsSpellID(62678) then -- Summon Allies of Nature
@@ -119,7 +119,7 @@ function mod:SPELL_AURA_APPLIED(args)
 
     elseif args:IsSpellID(62451, 62865) and args:IsPlayer() then
         specWarnBeam:Show()
-    end 
+    end
 end
 
 function mod:SPELL_AURA_REMOVED(args)

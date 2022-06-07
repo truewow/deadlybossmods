@@ -7,7 +7,7 @@ local L
 L = DBM:GetModLocalization("Lucifron")
 
 L:SetGeneralLocalization{
-	name = "Lucifron"
+    name = "Lucifron"
 }
 
 ----------------
@@ -16,7 +16,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Magmadar")
 
 L:SetGeneralLocalization{
-	name = "Magmadar"
+    name = "Magmadar"
 }
 
 ----------------
@@ -25,7 +25,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Gehennas")
 
 L:SetGeneralLocalization{
-	name = "Gehennas"
+    name = "Gehennas"
 }
 
 ------------
@@ -34,7 +34,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Garr")
 
 L:SetGeneralLocalization{
-	name = "Garr"
+    name = "Garr"
 }
 
 --------------
@@ -43,11 +43,11 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Geddon")
 
 L:SetGeneralLocalization{
-	name = "Barón Geddon"
+    name = "Barón Geddon"
 }
 
 L:SetOptionLocalization{
-	SetIconOnBombTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(20475)
+    SetIconOnBombTarget    = DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(20475)
 }
 
 ----------------
@@ -56,7 +56,7 @@ L:SetOptionLocalization{
 L = DBM:GetModLocalization("Shazzrah")
 
 L:SetGeneralLocalization{
-	name = "Shazzrah"
+    name = "Shazzrah"
 }
 
 ----------------
@@ -65,7 +65,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Sulfuron")
 
 L:SetGeneralLocalization{
-	name = "Sulfuron Presagista"
+    name = "Sulfuron Presagista"
 }
 
 ----------------
@@ -74,13 +74,13 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Golemagg")
 
 L:SetGeneralLocalization{
-	name = "Golemagg el Incinerador"
+    name = "Golemagg el Incinerador"
 }
 L:SetWarningLocalization{
-	WarnP2Soon	= "Fase 2 pronto"
+    WarnP2Soon    = "Fase 2 pronto"
 }
 L:SetOptionLocalization{
-	WarnP2Soon 	= "Mostrar un pre-aviso para la fase 2"
+    WarnP2Soon     = "Mostrar un pre-aviso para la fase 2"
 }
 
 -----------------
@@ -89,11 +89,11 @@ L:SetOptionLocalization{
 L = DBM:GetModLocalization("Majordomo")
 
 L:SetGeneralLocalization{
-	name = "Mayordomo Executus"
+    name = "Mayordomo Executus"
 }
 
 L:SetMiscLocalization{
-	Kill	= "¡Imposible! Deponed el ataque mortales... ¡Me rindo! ¡Me rindo!"
+    Kill    = "¡Imposible! Deponed el ataque mortales... ¡Me rindo! ¡Me rindo!"
 }
 
 ----------------
@@ -102,29 +102,29 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Ragnaros")
 
 L:SetGeneralLocalization{
-	name = "Ragnaros"
+    name = "Ragnaros"
 }
 L:SetWarningLocalization{
-	WarnSubmerge		= "Sumersión",
-	WarnSubmergeSoon	= "Sumersión pronto",
-	WarnEmerge			= "Emerge",
-	WarnEmergeSoon		= "Emerge pronto"
+    WarnSubmerge        = "Sumersión",
+    WarnSubmergeSoon    = "Sumersión pronto",
+    WarnEmerge            = "Emerge",
+    WarnEmergeSoon        = "Emerge pronto"
 }
 L:SetTimerLocalization{
-	TimerCombatStart	= "Empieza el combate",
-	TimerSubmerge		= "Sumersión",
-	TimerEmerge			= "Emerge"
+    TimerCombatStart    = "Empieza el combate",
+    TimerSubmerge        = "Sumersión",
+    TimerEmerge            = "Emerge"
 }
 L:SetOptionLocalization{
-	TimerCombatStart	= "Mostrar tiempo para inicio del combate",
-	WarnSubmerge		= "Mostrar aviso para sumersión",
-	WarnSubmergeSoon	= "Mostrar pre-aviso para sumersión",
-	TimerSubmerge		= "Mostrar tiempo para sumersión",
-	WarnEmerge			= "Mostrar aviso para emersión",
-	WarnEmergeSoon		= "Mostrar pre-aviso para emersión",
-	TimerEmerge			= "Mostrar tiempo para emersión"
+    TimerCombatStart    = "Mostrar tiempo para inicio del combate",
+    WarnSubmerge        = "Mostrar aviso para sumersión",
+    WarnSubmergeSoon    = "Mostrar pre-aviso para sumersión",
+    TimerSubmerge        = "Mostrar tiempo para sumersión",
+    WarnEmerge            = "Mostrar aviso para emersión",
+    WarnEmergeSoon        = "Mostrar pre-aviso para emersión",
+    TimerEmerge            = "Mostrar tiempo para emersión"
 }
 L:SetMiscLocalization{
-	Submerge	= "¡AVANZAD, MIS SIRVIENTES! ¡DEFENDED A VUESTRO MAESTRO!",
-	Pull		= "¡Crías imprudentes! ¡Os habéis precipitado hasta vuestra propia muerte! ¡Ahora mirad, el maestro se agita!"
+    Submerge    = "¡AVANZAD, MIS SIRVIENTES! ¡DEFENDED A VUESTRO MAESTRO!",
+    Pull        = "¡Crías imprudentes! ¡Os habéis precipitado hasta vuestra propia muerte! ¡Ahora mirad, el maestro se agita!"
 }

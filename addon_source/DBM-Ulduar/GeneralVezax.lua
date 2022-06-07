@@ -55,7 +55,7 @@ function mod:SPELL_CAST_START(args)
     if args:IsSpellID(62661) then    -- Searing Flames
         timerSearingFlamesCast:Start()
         timerSearingFlames:Start()
-    elseif args:IsSpellID(62662) then 
+    elseif args:IsSpellID(62662) then
         specWarnSurgeDarkness:Show()
         timerNextSurgeofDarkness:Start()
     end
@@ -74,7 +74,7 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-    if args:IsSpellID(62662) then    
+    if args:IsSpellID(62662) then
         timerSurgeofDarkness:Stop()
     end
 end

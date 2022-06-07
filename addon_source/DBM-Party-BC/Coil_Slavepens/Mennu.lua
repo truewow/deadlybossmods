@@ -1,5 +1,5 @@
-local mod	= DBM:NewMod("Mennu", "DBM-Party-BC", 4)
-local L		= mod:GetLocalizedStrings()
+local mod    = DBM:NewMod("Mennu", "DBM-Party-BC", 4)
+local L        = mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 128 $"):sub(12, -3))
 mod:SetCreatureID(17941)
@@ -7,13 +7,13 @@ mod:SetCreatureID(17941)
 mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
-	"SPELL_SUMMON"
+    "SPELL_SUMMON"
 )
 
 local WarnCorruptedNova   = mod:NewSpellAnnounce(31991)
 
 function mod:SPELL_SUMMON(args)
-	if args:IsSpellID(31991) then
-		WarnCorruptedNova:Show()
-	end
+    if args:IsSpellID(31991) then
+        WarnCorruptedNova:Show()
+    end
 end

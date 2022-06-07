@@ -85,7 +85,7 @@ function mod:OnCombatStart(delay)
     timeBeforeAddsCome = 3
     self:ScheduleMethod(5, "addsTimer")
 
-    if not mod:("normal10") then
+    if not mod:IsInRaidDifficulty("normal10") then
         timerDominateMindCD:Start(27)        -- Sometimes 1 fails at the start, then the next will be applied 70 secs after start ?? :S
     end
 
@@ -93,7 +93,7 @@ function mod:OnCombatStart(delay)
     dominateMindIcon = 6
     deformedFanatic = nil
     empoweredAdherent = nil
-    if mod:("heroic10", "normal10") then
+    if mod:IsInRaidDifficulty("heroic10", "normal10") then
         addsSide = ADDS_SIDE_LEFT
     else
         addsSide = ADDS_SIDE_BOTH
@@ -217,7 +217,7 @@ do
                 dominateMindIcon = dominateMindIcon - 1
             end
             self:Unschedule(showDominateMindWarning)
-            if mod:("heroic10", "normal25", "heroic25") and #dominateMindTargets >= 3 then
+            if mod:IsInRaidDifficulty("heroic10", "normal25", "heroic25") and #dominateMindTargets >= 3 then
                 showDominateMindWarning()
             else
                 self:Schedule(0.9, showDominateMindWarning)
@@ -237,9 +237,9 @@ do
         elseif args:IsSpellID(71204) then
             warnTouchInsignificance:Show(args.spellName, args.destName, args.amount or 1)
             timerTouchInsignificance:Start(args.destName)
-            if args:IsPlayer() and (args.amount or 1) >= 3 and mod:("normal10", "normal25") then
+            if args:IsPlayer() and (args.amount or 1) >= 3 and mod:IsInRaidDifficulty("normal10", "normal25") then
                 specWarnTouchInsignificance:Show(args.amount)
-            elseif args:IsPlayer() and (args.amount or 1) >= 5 and mod:("heroic10", "heroic25") then
+            elseif args:IsPlayer() and (args.amount or 1) >= 5 and mod:IsInRaidDifficulty("heroic10", "heroic25") then
                 specWarnTouchInsignificance:Show(args.amount)
             end
         end

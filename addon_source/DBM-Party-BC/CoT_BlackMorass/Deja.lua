@@ -1,5 +1,5 @@
-local mod	= DBM:NewMod("Deja", "DBM-Party-BC", 12)
-local L		= mod:GetLocalizedStrings()
+local mod    = DBM:NewMod("Deja", "DBM-Party-BC", 12)
+local L        = mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 128 $"):sub(12, -3))
 mod:SetCreatureID(17879)
@@ -7,6 +7,6 @@ mod:SetCreatureID(17879)
 mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
-	"SPELL_CAST_SUCCESS",
-	"SPELL_AURA_APPLIED"
+    "SPELL_CAST_SUCCESS",
+    "SPELL_AURA_APPLIED"
 )

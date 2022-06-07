@@ -1,5 +1,5 @@
-local mod	= DBM:NewMod("Kargath", "DBM-Party-BC", 3)
-local L		= mod:GetLocalizedStrings()
+local mod    = DBM:NewMod("Kargath", "DBM-Party-BC", 3)
+local L        = mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 128 $"):sub(12, -3))
 mod:SetCreatureID(16808)

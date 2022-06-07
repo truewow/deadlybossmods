@@ -7,11 +7,11 @@ mod:SetCreatureID(23035)
 mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_REMOVED",
-	"UNIT_HEALTH",
-	"CHAT_MSG_MONSTER_EMOTE"
+    "SPELL_CAST_START",
+    "SPELL_AURA_APPLIED",
+    "SPELL_AURA_REMOVED",
+    "UNIT_HEALTH",
+    "CHAT_MSG_MONSTER_EMOTE"
 )
 
 local warnBirds             = mod:NewAnnounce("warnBirds", 2, 32038)
@@ -29,49 +29,49 @@ local warnedbirds1 = false
 local warnedbirds2 = false
 
 function mod:OnCombatStart(delay)
-	timerScreechCD:Start()
+    timerScreechCD:Start()
     warnedbirds1 = false
     warnedbirds2 = false
 end
 
 function mod:SPELL_CAST_START(args)
-	if args.spellId == 40184 then
-		warnScreech:Show()
-		timerScreech:Start()
-		timerScreechCD:Start()
-	end
+    if args.spellId == 40184 then
+        warnScreech:Show()
+        timerScreech:Start()
+        timerScreechCD:Start()
+    end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 40321 then
-		warnCyclone:Show(args.destName)
-		timerCyclone:Start(args.destName)
-	elseif args.spellId == 40184 then
-		timerScreechDebuff:Show()
-	elseif args.spellId == 40303 then
-		warnSpellBomb:Show(args.destName)
-		timerSpellBomb:Start(args.destName)
-	end
+    if args.spellId == 40321 then
+        warnCyclone:Show(args.destName)
+        timerCyclone:Start(args.destName)
+    elseif args.spellId == 40184 then
+        timerScreechDebuff:Show()
+    elseif args.spellId == 40303 then
+        warnSpellBomb:Show(args.destName)
+        timerSpellBomb:Start(args.destName)
+    end
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args.spellId == 40303 then
-		timerSpellBomb:Cancel(args.destName)
-	end
+    if args.spellId == 40303 then
+        timerSpellBomb:Cancel(args.destName)
+    end
 end
 
 function mod:UNIT_HEALTH(uId)
-	if not warnedbirds1 and self:GetUnitCreatureId(uId) == 23035 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.70 then
-		warnedbirds1 = true
-		warnBirds:Show()	
-	elseif not warnedbirds2 and self:GetUnitCreatureId(uId) == 23035 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.37 then
-		warnedbirds2 = true
-		warnBirds:Show()	
-	end
+    if not warnedbirds1 and self:GetUnitCreatureId(uId) == 23035 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.70 then
+        warnedbirds1 = true
+        warnBirds:Show()
+    elseif not warnedbirds2 and self:GetUnitCreatureId(uId) == 23035 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.37 then
+        warnedbirds2 = true
+        warnBirds:Show()
+    end
 end
 
 function mod:CHAT_MSG_MONSTER_EMOTE(msg, target)
-	if msg == L.BirdStone then		-- Spirits returning to stone.
-		warnStoned:Show(target)
-	end
+    if msg == L.BirdStone then        -- Spirits returning to stone.
+        warnStoned:Show(target)
+    end
 end

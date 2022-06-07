@@ -91,16 +91,16 @@ function Vashj:OnEvent(event, arg1)
         end
     elseif event == "ClearIcon" and arg1 then
         usedIcons[arg1] = false;
-    
+
     elseif event == "CHAT_MSG_MONSTER_YELL" and arg1 then
         if string.find(arg1, DBM_VASHJ_YELL_PHASE2) then
             phase = 2;
             self:Announce(DBM_VASHJ_WARN_PHASE2, 1);
-            
+
             self:StartStatusBarTimer(62, "Strider", "Interface\\Icons\\INV_Misc_Fish_13");
             self:StartStatusBarTimer(53, "Tainted Elemental", "Interface\\Icons\\Spell_Nature_ElementalShields");
             self:StartStatusBarTimer(47.5, "Naga", "Interface\\Icons\\INV_Misc_MonsterHead_02");
-            
+
             self:ScheduleSelf(47.5, "Spawn", "Naga");
             self:ScheduleSelf(53, "Spawn", "Elemental");
             self:ScheduleSelf(62, "Spawn", "Strider");
@@ -110,8 +110,8 @@ function Vashj:OnEvent(event, arg1)
         elseif string.find(arg1, DBM_VASHJ_YELL_PHASE3) then
             self:SendSync("Phase3");
         end
-        
-    elseif event == "SpawnSoonWarn" and arg1 and self.Options.WarnSpawns then        
+
+    elseif event == "SpawnSoonWarn" and arg1 and self.Options.WarnSpawns then
         if arg1 == "Elemental" then
             self:Announce(DBM_VASHJ_WARN_ELE_SOON, 1);
         elseif arg1 == "Strider" then
@@ -119,7 +119,7 @@ function Vashj:OnEvent(event, arg1)
         elseif arg1 == "Naga" then
             self:Announce(DBM_VASHJ_WARN_NAGA_SOON, 1);
         end
-        
+
     elseif event == "Spawn" and arg1 and phase == 2 then
         -- break loop after wipes
         local wipeCounter = 0;
@@ -134,7 +134,7 @@ function Vashj:OnEvent(event, arg1)
         if wipeCounter >= 20 then
             return;
         end
-        
+
         if arg1 == "Elemental" then
             if self.Options.WarnSpawns then
                 self:Announce(DBM_VASHJ_WARN_ELE_NOW, 3);
@@ -154,7 +154,7 @@ function Vashj:OnEvent(event, arg1)
             self:ScheduleSelf(42.5, "SpawnSoonWarn", "Naga");
             self:StartStatusBarTimer(47.5, "Naga", "Interface\\Icons\\INV_Misc_MonsterHead_02");
         end
-    
+
     elseif event == "UNIT_DIED" then
         if arg1.destName == DBM_VASHJ_ELEMENT_DIES then
             self:SendSync("ElementDies");
@@ -164,7 +164,7 @@ function Vashj:OnEvent(event, arg1)
         if arg1.spellId == 38112 then
             self:SendSync("ShieldDown");
         end
-        
+
     elseif event == "CHAT_MSG_LOOT" and arg1 then
         local _, _, player, itemID = string.find(arg1, DBM_VASHJ_LOOT);
         if player and itemID and tonumber(itemID) == 31088 then
@@ -178,8 +178,8 @@ end
 
 function Vashj:OnSync(msg)
     if string.sub(msg, 0, 6) == "Charge" then
-        local target = string.sub(msg, 7);        
-        
+        local target = string.sub(msg, 7);
+
         self:StartStatusBarTimer(20.5, "Static Charge: "..target, "Interface\\Icons\\Spell_Nature_LightningOverload");
         if target == UnitName("player") then
             self:AddSpecialWarning(DBM_VASHJ_SPECWARN_CHARGE);
@@ -188,7 +188,7 @@ function Vashj:OnSync(msg)
             self:Announce(string.format(DBM_VASHJ_WARN_CHARGE, target), 1);
             self:SendHiddenWhisper(DBM_VASHJ_SPECWARN_CHARGE, target)
         end
-        
+
         local iconID = 0;
         for i = 8, 1, -1 do
             if not usedIcons[i] then
@@ -201,12 +201,12 @@ function Vashj:OnSync(msg)
             self:SetIcon(target, 20, iconID);
             self:ScheduleSelf(20, "ClearIcon", iconID);
         end
-        
+
     elseif msg == "ElementDies" then
         self:StartStatusBarTimer(53, "Tainted Elemental", "Interface\\Icons\\Spell_Nature_ElementalShields");
         self:ScheduleSelf(53, "Spawn", "Elemental");
         self:ScheduleSelf(48, "SpawnSoonWarn", "Elemental");
-    
+
     elseif msg == "ShieldDown" then
         shieldsDown = shieldsDown + 1;
         if shieldsDown < 4 then
@@ -225,7 +225,7 @@ function Vashj:OnSync(msg)
         self:EndStatusBarTimer("Elemental");
         self:EndStatusBarTimer("Strider");
         self:EndStatusBarTimer("Naga");
-        self:Announce(DBM_VASHJ_WARN_PHASE3, 3);        
+        self:Announce(DBM_VASHJ_WARN_PHASE3, 3);
 
     elseif string.sub(msg, 0, 4) == "Loot" then
         local target = string.sub(msg, 5);

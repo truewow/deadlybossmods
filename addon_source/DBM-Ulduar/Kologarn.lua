@@ -36,7 +36,7 @@ local timerRespawnRightArm        = mod:NewTimer(48, "timerRightArm")
 local timerTimeForDisarmed        = mod:NewTimer(10, "achievementDisarmed")    -- 10 HC / 12 nonHC
 
 -- 5/23 00:33:48.648  SPELL_AURA_APPLIED,0x0000000000000000,nil,0x80000000,0x0480000001860FAC,"Hâzzad",0x4000512,63355,"Crunch Armor",0x1,DEBUFF
--- 6/3 21:41:56.140 UNIT_DIED,0x0000000000000000,nil,0x80000000,0xF1500080A60274A0,"Rechter Arm",0xa48 
+-- 6/3 21:41:56.140 UNIT_DIED,0x0000000000000000,nil,0x80000000,0xF1500080A60274A0,"Rechter Arm",0xa48
 
 mod:AddBoolOption("HealthFrame", true)
 mod:AddBoolOption("SetIconOnGripTarget", true)
@@ -87,9 +87,9 @@ function mod:OnSync(msg, target)
             if self.Options.YellOnBeam then
                 SendChatMessage(L.YellBeam, "SAY")
             end
-        end 
+        end
         if self.Options.SetIconOnEyebeamTarget then
-            self:SetIcon(target, 5, 8) 
+            self:SetIcon(target, 5, 8)
         end
     end
 end
@@ -122,7 +122,7 @@ end
 function mod:SPELL_AURA_APPLIED_DOSE(args)
     if args:IsSpellID(64002) then                -- Crunch Armor (25-man only)
         warnCrunchArmor:Show(args.destName)
-        if args.amount >= 2 then 
+        if args.amount >= 2 then
             if args:IsPlayer() then
                 specWarnCrunchArmor2:Show(args.amount)
             end

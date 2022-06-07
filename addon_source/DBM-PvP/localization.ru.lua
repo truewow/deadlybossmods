@@ -60,7 +60,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetTimerLocalization({
-    TimerStart    = "Битва начнется через", 
+    TimerStart    = "Битва начнется через",
     TimerTower    = "%s",
     TimerGY        = "%s"
 })
@@ -100,7 +100,7 @@ L:SetMiscLocalization({
 })
 
 L:SetTimerLocalization({
-    TimerStart    = "Битва начнется через", 
+    TimerStart    = "Битва начнется через",
     TimerCap    = "%s"
 })
 
@@ -137,7 +137,7 @@ L:SetMiscLocalization({
 })
 
 L:SetTimerLocalization({
-    TimerStart    = "Битва начнется через", 
+    TimerStart    = "Битва начнется через",
     TimerFlag    = "Флаг восстановлен"
 })
 
@@ -173,7 +173,7 @@ L:SetMiscLocalization({
 })
 
 L:SetTimerLocalization({
-    TimerStart    = "Битва начнется через", 
+    TimerStart    = "Битва начнется через",
     TimerFlag    = "Восстановление флага"
 })
 
@@ -199,13 +199,13 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-    TimerStart            = "Битва начнется через", 
+    TimerStart            = "Битва начнется через",
     TimerPOI            = "%s",
     TimerSiegeEngine    = "Siege Engine ready"
 })
 
 L:SetOptionLocalization({
-    TimerStart            = "Отсчет времени до начала битвы", 
+    TimerStart            = "Отсчет времени до начала битвы",
     TimerPOI            = "Отсчет времени до захвата",
     TimerSiegeEngine    = "Show timer for Siege Engine construction",
     WarnSiegeEngine        = "Show warning when Siege Engine is ready",

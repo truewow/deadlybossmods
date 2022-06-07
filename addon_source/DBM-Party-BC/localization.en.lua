@@ -8,7 +8,7 @@ local L
 L = DBM:GetModLocalization("Gargolmar")
 
 L:SetGeneralLocalization({
-	name = "Watchkeeper Gargolmar"
+    name = "Watchkeeper Gargolmar"
 })
 
 L:SetWarningLocalization({
@@ -26,7 +26,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Omor")
 
 L:SetGeneralLocalization({
-	name = "Omor the Unscarred"
+    name = "Omor the Unscarred"
 })
 
 L:SetWarningLocalization({
@@ -36,7 +36,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	SetIconOnBaneTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(37566)
+    SetIconOnBaneTarget    = DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(37566)
 })
 
 ------------------------
@@ -45,7 +45,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Vazruden")
 
 L:SetGeneralLocalization({
-	name = "Nazan & Vazruden"
+    name = "Nazan & Vazruden"
 })
 
 L:SetWarningLocalization({
@@ -65,7 +65,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Maker")
 
 L:SetGeneralLocalization({
-	name = "The Maker"
+    name = "The Maker"
 })
 
 L:SetWarningLocalization({
@@ -83,7 +83,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Broggok")
 
 L:SetGeneralLocalization({
-	name = "Broggok"
+    name = "Broggok"
 })
 
 L:SetWarningLocalization({
@@ -101,7 +101,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Keli'dan")
 
 L:SetGeneralLocalization({
-	name = "Keli'dan the Breaker"
+    name = "Keli'dan the Breaker"
 })
 
 L:SetWarningLocalization({
@@ -121,7 +121,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Nethekurse")
 
 L:SetGeneralLocalization({
-	name = "Grand Warlock Nethekurse"
+    name = "Grand Warlock Nethekurse"
 })
 
 L:SetWarningLocalization({
@@ -139,7 +139,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Porung")
 
 L:SetGeneralLocalization({
-	name = "Blood Guard Porung"
+    name = "Blood Guard Porung"
 })
 
 L:SetWarningLocalization({
@@ -157,7 +157,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("O'mrogg")
 
 L:SetGeneralLocalization({
-	name = "Warbringer O'mrogg"
+    name = "Warbringer O'mrogg"
 })
 
 L:SetWarningLocalization({
@@ -175,7 +175,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Kargath")
 
 L:SetGeneralLocalization({
-	name = "Warchief Kargath Bladefist"
+    name = "Warchief Kargath Bladefist"
 })
 
 L:SetWarningLocalization({
@@ -195,7 +195,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Mennu")
 
 L:SetGeneralLocalization({
-	name = "Mennu the Betrayer"
+    name = "Mennu the Betrayer"
 })
 
 L:SetWarningLocalization({
@@ -213,7 +213,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Rokmar")
 
 L:SetGeneralLocalization({
-	name = "Rokmar the Crackler"
+    name = "Rokmar the Crackler"
 })
 
 L:SetWarningLocalization({
@@ -231,7 +231,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Quagmirran")
 
 L:SetGeneralLocalization({
-	name = "Quagmirran"
+    name = "Quagmirran"
 })
 
 L:SetWarningLocalization({
@@ -251,7 +251,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Hungarfen")
 
 L:SetGeneralLocalization({
-	name = "Hungarfen"
+    name = "Hungarfen"
 })
 
 L:SetWarningLocalization({
@@ -269,7 +269,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Ghazan")
 
 L:SetGeneralLocalization({
-	name = "Ghaz'an"
+    name = "Ghaz'an"
 })
 
 L:SetWarningLocalization({
@@ -287,7 +287,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Muselek")
 
 L:SetGeneralLocalization({
-	name = "Swamplord Musel'ek"
+    name = "Swamplord Musel'ek"
 })
 
 L:SetWarningLocalization({
@@ -305,7 +305,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Stalker")
 
 L:SetGeneralLocalization({
-	name = "The Black Stalker"
+    name = "The Black Stalker"
 })
 
 L:SetWarningLocalization({
@@ -325,7 +325,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Thespia")
 
 L:SetGeneralLocalization({
-	name = "Hydromancer Thespia"
+    name = "Hydromancer Thespia"
 })
 
 L:SetWarningLocalization({
@@ -343,22 +343,22 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Steamrigger")
 
 L:SetGeneralLocalization({
-	name = "Mekgineer Steamrigger"
+    name = "Mekgineer Steamrigger"
 })
 
 L:SetWarningLocalization({
-	WarnSummon	= "Steamrigger Mechanics incomming"
+    WarnSummon    = "Steamrigger Mechanics incomming"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	WarnSummon	= "Show warning for Steamrigger Mechanics"
+    WarnSummon    = "Show warning for Steamrigger Mechanics"
 })
 
 L:SetMiscLocalization({
-	Mechs	= "Tune 'em up good boys!"
+    Mechs    = "Tune 'em up good boys!"
 })
 
 --------------------------
@@ -367,18 +367,18 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Kalithresh")
 
 L:SetGeneralLocalization({
-	name = "Warlord Kalithresh"
+    name = "Warlord Kalithresh"
 })
 
 L:SetWarningLocalization({
-	WarnChannel	= "Channeling"
+    WarnChannel    = "Channeling"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	WarnChannel	= "Show warning when channeling"
+    WarnChannel    = "Show warning when channeling"
 })
 
 -----------------------
@@ -389,7 +389,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Shirrak")
 
 L:SetGeneralLocalization({
-	name = "Shirrak the Dead Watcher"
+    name = "Shirrak the Dead Watcher"
 })
 
 L:SetWarningLocalization({
@@ -407,7 +407,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Maladaar")
 
 L:SetGeneralLocalization({
-	name = "Exarch Maladaar"
+    name = "Exarch Maladaar"
 })
 
 L:SetWarningLocalization({
@@ -427,7 +427,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Pandemonius")
 
 L:SetGeneralLocalization({
-	name = "Pandemonius"
+    name = "Pandemonius"
 })
 
 L:SetWarningLocalization({
@@ -445,7 +445,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Tavarok")
 
 L:SetGeneralLocalization({
-	name = "Tavarok"
+    name = "Tavarok"
 })
 
 L:SetWarningLocalization({
@@ -463,7 +463,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Shaffar")
 
 L:SetGeneralLocalization({
-	name = "Nexus-Prince Shaffar"
+    name = "Nexus-Prince Shaffar"
 })
 
 L:SetWarningLocalization({
@@ -481,7 +481,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Yor")
 
 L:SetGeneralLocalization({
-	name = "Yor"
+    name = "Yor"
 })
 
 L:SetWarningLocalization({
@@ -501,18 +501,18 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Syth")
 
 L:SetGeneralLocalization({
-	name = "Darkweaver Syth"
+    name = "Darkweaver Syth"
 })
 
 L:SetWarningLocalization({
-	SummonElementals	= "Elementals spawned"
+    SummonElementals    = "Elementals spawned"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	SummonElementals	= "Show warning for Elemental spawns"
+    SummonElementals    = "Show warning for Elemental spawns"
 })
 
 ------------
@@ -521,24 +521,24 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Anzu")
 
 L:SetGeneralLocalization({
-	name = "Anzu"
+    name = "Anzu"
 })
 
 L:SetWarningLocalization({
-	warnBirds	= "Brood of Anzu soon",
-	warnStoned	= "%s returned to stone"
+    warnBirds    = "Brood of Anzu soon",
+    warnStoned    = "%s returned to stone"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	warnBirds	= "Show pre-warning for Brood of Anzu",
-	warnStoned	= "Show warning for spirits returning to stone"
+    warnBirds    = "Show pre-warning for Brood of Anzu",
+    warnStoned    = "Show warning for spirits returning to stone"
 })
 
 L:SetMiscLocalization({
-    BirdStone	= "%s returns to stone."
+    BirdStone    = "%s returns to stone."
 })
 
 ------------------------
@@ -547,7 +547,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Ikiss")
 
 L:SetGeneralLocalization({
-	name = "Talon King Ikiss"
+    name = "Talon King Ikiss"
 })
 
 L:SetWarningLocalization({
@@ -567,7 +567,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Hellmaw")
 
 L:SetGeneralLocalization({
-	name = "Ambassador Hellmaw"
+    name = "Ambassador Hellmaw"
 })
 
 L:SetWarningLocalization({
@@ -585,7 +585,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Inciter")
 
 L:SetGeneralLocalization({
-	name = "Blackheart the Inciter"
+    name = "Blackheart the Inciter"
 })
 
 L:SetWarningLocalization({
@@ -603,7 +603,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Vorpil")
 
 L:SetGeneralLocalization({
-	name = "Grandmaster Vorpil"
+    name = "Grandmaster Vorpil"
 })
 
 L:SetWarningLocalization({
@@ -621,7 +621,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Murmur")
 
 L:SetGeneralLocalization({
-	name = "Murmur"
+    name = "Murmur"
 })
 
 L:SetWarningLocalization({
@@ -631,7 +631,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	SetIconOnTouchTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(33711)
+    SetIconOnTouchTarget    = DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(33711)
 })
 
 -------------------------------
@@ -642,7 +642,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Drake")
 
 L:SetGeneralLocalization({
-	name = "Lieutenant Drake"
+    name = "Lieutenant Drake"
 })
 
 L:SetWarningLocalization({
@@ -660,7 +660,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Skarloc")
 
 L:SetGeneralLocalization({
-	name = "Captain Skarloc"
+    name = "Captain Skarloc"
 })
 
 L:SetWarningLocalization({
@@ -678,7 +678,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("EpochHunter")
 
 L:SetGeneralLocalization({
-	name = "Epoch Hunter"
+    name = "Epoch Hunter"
 })
 
 L:SetWarningLocalization({
@@ -698,7 +698,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Deja")
 
 L:SetGeneralLocalization({
-	name = "Chrono Lord Deja"
+    name = "Chrono Lord Deja"
 })
 
 L:SetWarningLocalization({
@@ -715,7 +715,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Temporus")
 
 L:SetGeneralLocalization({
-	name = "Temporus"
+    name = "Temporus"
 })
 
 L:SetWarningLocalization({
@@ -732,22 +732,22 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Aeonus")
 
 L:SetGeneralLocalization({
-	name = "Aeonus"
+    name = "Aeonus"
 })
 
 L:SetWarningLocalization({
-    warnFrenzy	= "Frenzy"
+    warnFrenzy    = "Frenzy"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-    warnFrenzy	= "Show warning for Frenzy"
+    warnFrenzy    = "Show warning for Frenzy"
 })
 
 L:SetMiscLocalization({
-    AeonusFrenzy	= "%s goes into a frenzy!"
+    AeonusFrenzy    = "%s goes into a frenzy!"
 })
 
 ---------------------
@@ -756,30 +756,30 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("PT")
 
 L:SetGeneralLocalization({
-	name = "Portal Timers (CoT)"
+    name = "Portal Timers (CoT)"
 })
 
 L:SetWarningLocalization({
-    WarnWavePortalSoon	= "New portal soon",
-    WarnWavePortal		= "Portal %d",
-    WarnBossPortal		= "Boss incoming"
+    WarnWavePortalSoon    = "New portal soon",
+    WarnWavePortal        = "Portal %d",
+    WarnBossPortal        = "Boss incoming"
 })
 
 L:SetTimerLocalization({
-	TimerNextPortal		= "Portal %d",
+    TimerNextPortal        = "Portal %d",
 })
 
 L:SetOptionLocalization({
-    WarnWavePortalSoon	= "Show pre-warning for new portal",
-    WarnWavePortal		= "Show warning for new portal",
-    WarnBossPortal		= "Show warning for boss incoming",
-	TimerNextPortal		= "Show timer for next portal (after Boss)",
-	ShowAllPortalTimers	= "Show timers for all portals (inaccurate)"
+    WarnWavePortalSoon    = "Show pre-warning for new portal",
+    WarnWavePortal        = "Show warning for new portal",
+    WarnBossPortal        = "Show warning for boss incoming",
+    TimerNextPortal        = "Show timer for next portal (after Boss)",
+    ShowAllPortalTimers    = "Show timers for all portals (inaccurate)"
 })
 
 L:SetMiscLocalization({
-	PortalCheck			= "Time Rifts Opened: (%d+)/18",
-	Shielddown			= "No! Damn this feeble, mortal coil!"
+    PortalCheck            = "Time Rifts Opened: (%d+)/18",
+    Shielddown            = "No! Damn this feeble, mortal coil!"
 })
 
 --------------------
@@ -790,7 +790,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Gyrokill")
 
 L:SetGeneralLocalization({
-	name = "Gatewatcher Gyro-Kill"
+    name = "Gatewatcher Gyro-Kill"
 })
 
 L:SetWarningLocalization({
@@ -808,7 +808,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Ironhand")
 
 L:SetGeneralLocalization({
-	name = "Gatewatcher Iron-Hand"
+    name = "Gatewatcher Iron-Hand"
 })
 
 L:SetWarningLocalization({
@@ -821,7 +821,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	JackHammer	= "%s raises his hammer menacingly..."
+    JackHammer    = "%s raises his hammer menacingly..."
 })
 
 ------------------------------
@@ -830,7 +830,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Capacitus")
 
 L:SetGeneralLocalization({
-	name = "Mechano-Lord Capacitus"
+    name = "Mechano-Lord Capacitus"
 })
 
 L:SetWarningLocalization({
@@ -848,7 +848,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Sepethrea")
 
 L:SetGeneralLocalization({
-	name = "Nethermancer Sepethrea"
+    name = "Nethermancer Sepethrea"
 })
 
 L:SetWarningLocalization({
@@ -866,7 +866,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Pathaleon")
 
 L:SetGeneralLocalization({
-	name = "Pathaleon the Calculator"
+    name = "Pathaleon the Calculator"
 })
 
 L:SetWarningLocalization({
@@ -886,7 +886,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Sarannis")
 
 L:SetGeneralLocalization({
-	name = "Commander Sarannis"
+    name = "Commander Sarannis"
 })
 
 L:SetWarningLocalization({
@@ -904,18 +904,18 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Freywinn")
 
 L:SetGeneralLocalization({
-	name = "High Botanist Freywinn"
+    name = "High Botanist Freywinn"
 })
 
 L:SetWarningLocalization({
-	WarnTranq	= "Tranquility - Kill Frayer Protectors"
+    WarnTranq    = "Tranquility - Kill Frayer Protectors"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	WarnTranq	= "Show warning for Tranquility"
+    WarnTranq    = "Show warning for Tranquility"
 })
 
 -----------------------------
@@ -924,7 +924,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Thorngrin")
 
 L:SetGeneralLocalization({
-	name = "Thorngrin the Tender"
+    name = "Thorngrin the Tender"
 })
 
 L:SetWarningLocalization({
@@ -942,7 +942,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Laj")
 
 L:SetGeneralLocalization({
-	name = "Laj"
+    name = "Laj"
 })
 
 L:SetWarningLocalization({
@@ -960,7 +960,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("WarpSplinter")
 
 L:SetGeneralLocalization({
-	name = "Warp Splinter"
+    name = "Warp Splinter"
 })
 
 L:SetWarningLocalization({
@@ -980,7 +980,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Zereketh")
 
 L:SetGeneralLocalization({
-	name = "Zereketh the Unbound"
+    name = "Zereketh the Unbound"
 })
 
 L:SetWarningLocalization({
@@ -998,7 +998,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Dalliah")
 
 L:SetGeneralLocalization({
-	name = "Dalliah the Doomsayer"
+    name = "Dalliah the Doomsayer"
 })
 
 L:SetWarningLocalization({
@@ -1016,7 +1016,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Soccothrates")
 
 L:SetGeneralLocalization({
-	name = "Wrath-Scryer Soccothrates"
+    name = "Wrath-Scryer Soccothrates"
 })
 
 L:SetWarningLocalization({
@@ -1034,24 +1034,24 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Skyriss")
 
 L:SetGeneralLocalization({
-	name = "Harbinger Skyriss"
+    name = "Harbinger Skyriss"
 })
 
 L:SetWarningLocalization({
-	warnSplit		= "Split",
-	warnSplitSoon	= "Split soon"
+    warnSplit        = "Split",
+    warnSplitSoon    = "Split soon"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	warnSplit		= "Show warning for Split",
-	warnSplitSoon	= "Show pre-warning for Split"
+    warnSplit        = "Show warning for Split",
+    warnSplitSoon    = "Show pre-warning for Split"
 })
 
 L:SetMiscLocalization({
-	Split	= "We span the universe, as countless as the stars!"
+    Split    = "We span the universe, as countless as the stars!"
 })
 
 --------------------------
@@ -1062,22 +1062,22 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Selin")
 
 L:SetGeneralLocalization({
-	name = "Selin Fireheart"
+    name = "Selin Fireheart"
 })
 
 L:SetWarningLocalization({
-	warnChanneling	= "Fel Crystal channeling"
+    warnChanneling    = "Fel Crystal channeling"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	warnChanneling	= "Show warning for Fel Crystal channeling"
+    warnChanneling    = "Show warning for Fel Crystal channeling"
 })
 
 L:SetMiscLocalization({
-	ChannelCrystal	= "%s begins to channel from the nearby Fel Crystal..."
+    ChannelCrystal    = "%s begins to channel from the nearby Fel Crystal..."
 })
 
 ----------------
@@ -1086,22 +1086,22 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Vexallus")
 
 L:SetGeneralLocalization({
-	name = "Vexallus"
+    name = "Vexallus"
 })
 
 L:SetWarningLocalization({
-	WarnEnergy	= "Pure Energy"
+    WarnEnergy    = "Pure Energy"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	WarnEnergy	= "Show warning for Pure Energy"
+    WarnEnergy    = "Show warning for Pure Energy"
 })
 
 L:SetMiscLocalization({
-	Discharge	= "Un...con...tainable."
+    Discharge    = "Un...con...tainable."
 })
 
 --------------------------
@@ -1110,7 +1110,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Delrissa")
 
 L:SetGeneralLocalization({
-	name = "Priestess Delrissa"
+    name = "Priestess Delrissa"
 })
 
 L:SetWarningLocalization({
@@ -1123,8 +1123,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	DelrissaPull	= "Annihilate them.",
-	DelrissaEnd		= "Not what I had... planned."
+    DelrissaPull    = "Annihilate them.",
+    DelrissaEnd        = "Not what I had... planned."
 })
 
 ------------------------------------
@@ -1133,22 +1133,22 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Kael")
 
 L:SetGeneralLocalization({
-	name = "Kael'thas Sunstrider (Party)"
+    name = "Kael'thas Sunstrider (Party)"
 })
 
 L:SetWarningLocalization({
-	specwarnPyroblast	= "Pyroblast - Interrupt now"
+    specwarnPyroblast    = "Pyroblast - Interrupt now"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	specwarnPyroblast	= "Show special warning for Pyroblast (to interrupt)"
+    specwarnPyroblast    = "Show special warning for Pyroblast (to interrupt)"
 })
 
 L:SetMiscLocalization({
-	KaelP2	= "I'll turn your world... upside... down."
+    KaelP2    = "I'll turn your world... upside... down."
 })
 
 

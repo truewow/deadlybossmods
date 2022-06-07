@@ -19,7 +19,7 @@ L:SetGeneralLocalization{
 
 L:SetTimerLocalization{
 }
-    
+
 L:SetMiscLocalization{
     YellPull        = "Feindeinheiten erkannt. Bedrohungsbewertung aktiv. Hauptziel erfasst. Neubewertung in T minus 30 Sekunden.",
     Emote            = "%%s verfolgt (%S+)%."
@@ -73,12 +73,12 @@ L:SetGeneralLocalization{
     name = "Klingenschuppe"
 }
 
-L:SetWarningLocalization{    
+L:SetWarningLocalization{
     SpecWarnDevouringFlame        = "Verschlingende Flamme - LAUF RAUS",
     warnTurretsReadySoon        = "letzer Turm bereit in 20 Sek",
     warnTurretsReady        = "letzer Turm bereit",
     SpecWarnDevouringFlameCast    = "Verschlingende Flamme auf dir",
-    WarnDevouringFlameCast        = "Verschlingende Flamme auf >%s<" 
+    WarnDevouringFlameCast        = "Verschlingende Flamme auf >%s<"
 }
 
 L:SetTimerLocalization{
@@ -106,7 +106,7 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
     YellAir                = "Gebt uns einen Moment, damit wir uns auf den Bau der Geschütze vorbereiten können.",
     YellAir2            = "Feuer einstellen! Lasst uns diese Geschütze reparieren!",
-    YellGround            = "Beeilt Euch! Sie wird nicht lange am Boden bleiben!", 
+    YellGround            = "Beeilt Euch! Sie wird nicht lange am Boden bleiben!",
     EmotePhase2            = "%%s grounded permanently!",
     FlamecastUnknown        = DBM_CORE_UNKNOWN
 }
@@ -245,7 +245,7 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-    Yell_Trigger_arm_left        = "Das ist nur ein Kratzer!",    
+    Yell_Trigger_arm_left        = "Das ist nur ein Kratzer!",
     Yell_Trigger_arm_right        = "Ist nur 'ne Fleischwunde!",
     Health_Body            = "Kologarn",
     Health_Right_Arm        = "Rechter Arm",
@@ -314,7 +314,7 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-    YellKill        = "Ich... bin von ihm befreit... endlich.", 
+    YellKill        = "Ich... bin von ihm befreit... endlich.",
     YellCloud        = "Sturmwolke auf mir!"
 }
 
@@ -347,7 +347,7 @@ L:SetMiscLocalization{
     YellPhase2        = "Ihr unverschämtes Geschmeiß! Ihr wagt es, mich in meinem Refugium herauszufordern? Ich werde Euch eigenhändig zerschmettern!",
     YellKill        = "Senkt Eure Waffen! Ich ergebe mich!",
     ChargeOn        = "Blitzladung: %s",
-    Charge            = "Blitzladung-Fehler (dieser Versuch): %s" 
+    Charge            = "Blitzladung-Fehler (dieser Versuch): %s"
 }
 
 -------------
@@ -537,7 +537,7 @@ L:SetWarningLocalization{
     SpecWarnSanity                     = "%d Geistige Gesundheit übrig",
     SpecWarnGuardianLow             = "Wächter nicht mehr angreifen!",
     SpecWarnMadnessOutNow            = "Wahnsinn hervorrufen - LAUF RAUS",
-    WarnBrainPortalSoon                = "Gehirnportale in 3 Sek",    
+    WarnBrainPortalSoon                = "Gehirnportale in 3 Sek",
     SpecWarnFervor                    = "Saras Eifer auf dir!",
     SpecWarnFervorCast                = "Saras Eifer wird auf dich gezaubert",
     WarnEmpowerSoon                    = "Machtvolle Schatten bald",
@@ -575,4 +575,3 @@ L:SetOptionLocalization{
     SetIconOnBrainLinkTarget        = "Setze Zeichen auf Ziele von Gehirnverbindung",
     MaladyArrow                        = "Zeige Pfeil wenn $spell:63881 in deiner Nähe ist"
 }
-

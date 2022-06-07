@@ -21,7 +21,7 @@ function Akilzon:OnCombatStart()
     self:ScheduleAnnounce(540, DBM_GENERIC_ENRAGE_WARN:format(1, DBM_MIN), 2)
     self:ScheduleAnnounce(570, DBM_GENERIC_ENRAGE_WARN:format(30, DBM_SEC), 3)
     self:ScheduleAnnounce(590, DBM_GENERIC_ENRAGE_WARN:format(10, DBM_SEC), 4)
-    
+
     self:StartStatusBarTimer(49, "Electrical Storm", "Interface\\Icons\\Spell_Lightning_LightningBolt01")
     self:ScheduleAnnounce(44, DBM_AKIL_WARN_STORM_SOON, 1)
     if self.Options.RangeCheck then

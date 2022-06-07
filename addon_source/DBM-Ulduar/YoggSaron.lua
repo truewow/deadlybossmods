@@ -119,7 +119,7 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-    if args:IsSpellID(64144) and self:GetUnitCreatureId(args.sourceGUID) == 33966 then 
+    if args:IsSpellID(64144) and self:GetUnitCreatureId(args.sourceGUID) == 33966 then
         warnCrusherTentacleSpawned:Show()
     end
 end
@@ -143,40 +143,40 @@ function mod:SPELL_AURA_APPLIED(args)
             specWarnBrainLink:Show()
         end
         mod:ScheduleMethod(0.2, "warnBrainLink")
-    elseif args:IsSpellID(63830, 63881) then      -- Malady of the Mind (Death Coil) 
+    elseif args:IsSpellID(63830, 63881) then      -- Malady of the Mind (Death Coil)
         if self.Options.SetIconOnFearTarget then
             self:SetIcon(args.destName, 8, 30)
         end
         local uId = DBM:GetRaidUnitId(args.destName)
-              if args:IsPlayer() then 
-               SendChatMessage(L.WarningYellMalady, "SAY") 
+              if args:IsPlayer() then
+               SendChatMessage(L.WarningYellMalady, "SAY")
         end
-        if uId then 
+        if uId then
             local inRange = CheckInteractDistance(uId, 2)
             local x, y = GetPlayerMapPosition(uId)
             if x == 0 and y == 0 then
                 SetMapToCurrentZone()
                 x, y = GetPlayerMapPosition(uId)
             end
-            if inRange then 
+            if inRange then
                 specWarnMaladyNear:Show(args.destName)
                 if self.Options.MaladyArrow then
                     DBM.Arrow:ShowRunAway(x, y, 12, 5)
                 end
-            end 
-        end 
-    elseif args:IsSpellID(64126, 64125) then    -- Squeeze        
+            end
+        end
+    elseif args:IsSpellID(64126, 64125) then    -- Squeeze
         warnSqueeze:Show(args.destName)
-        if args:IsPlayer() and self.Options.WarningSqueeze then            
-            SendChatMessage(L.WarningYellSqueeze, "SAY")            
-        end    
+        if args:IsPlayer() and self.Options.WarningSqueeze then
+            SendChatMessage(L.WarningYellSqueeze, "SAY")
+        end
     elseif args:IsSpellID(63138) then    -- Sara's Fervor
         warnFervor:Show(args.destName)
         timerFervor:Start(args.destName)
         if self.Options.SetIconOnFervorTarget then
             self:SetIcon(args.destName, 7, 15)
         end
-        if args:IsPlayer() then 
+        if args:IsPlayer() then
             specWarnFervor:Show()
         end
     elseif args:IsSpellID(63894, 64775) then    -- Shadowy Barrier of Yogg-Saron (this is happens when p2 starts)
@@ -234,7 +234,7 @@ function mod:OnSync(msg)
         phase = 3
         brainportal:Stop()
         timerEmpower:Start()
-        warnEmpowerSoon:Schedule(40)    
+        warnEmpowerSoon:Schedule(40)
         warnBrainPortalSoon:Cancel()
         timerNextDeafeningRoar:Start(30)
         warnDeafeningRoarSoon:Schedule(25)

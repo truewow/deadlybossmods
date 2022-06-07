@@ -59,7 +59,7 @@ function mod:SPELL_AURA_APPLIED(args)
         if self.Options.YellOnStormCloud and args:IsPlayer() then
             SendChatMessage(L.YellCloud, "SAY")
         end
-        if self.Options.SetIconOnStormCloud then 
+        if self.Options.SetIconOnStormCloud then
             self:SetIcon(args.destName, 8, 6)
         end
     elseif args:IsSpellID(62038, 62188) and args:IsDestTypePlayer() then
@@ -67,7 +67,7 @@ function mod:SPELL_AURA_APPLIED(args)
     end
 end
 
-do 
+do
     local lastbitingcold = 0
     function mod:SPELL_DAMAGE(args)
         if args:IsSpellID(62038, 62188) and args:IsPlayer() and time() - lastbitingcold > 4 then        -- Biting Cold

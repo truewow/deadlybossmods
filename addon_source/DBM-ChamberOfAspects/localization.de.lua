@@ -10,7 +10,7 @@ local L
 L = DBM:GetModLocalization("Shadron")
 
 L:SetGeneralLocalization({
-	name = "Shadron"
+    name = "Shadron"
 })
 
 ----------------
@@ -19,7 +19,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Tenebron")
 
 L:SetGeneralLocalization({
-	name = "Tenebron"
+    name = "Tenebron"
 })
 
 ----------------
@@ -28,7 +28,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Vesperon")
 
 L:SetGeneralLocalization({
-	name = "Vesperon"
+    name = "Vesperon"
 })
 
 ------------------
@@ -37,7 +37,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Sartharion")
 
 L:SetGeneralLocalization({
-	name = "Sartharion"
+    name = "Sartharion"
 })
 
 L:SetWarningLocalization({
@@ -91,22 +91,22 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Baltharus")
 
 L:SetGeneralLocalization({
-	name = "Baltharus der Kriegsjünger"
+    name = "Baltharus der Kriegsjünger"
 })
 
 L:SetWarningLocalization({
-	WarningSplitSoon	= "Aufspaltung bald"
+    WarningSplitSoon    = "Aufspaltung bald"
 })
 
 L:SetOptionLocalization({
-	WarningSplitSoon	= "Zeige Vorwarnun für Aufspaltung",
-	RangeFrame			= "Zeige Abstandsfenster (12 m)",
-	SetIconOnBrand		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74505)
+    WarningSplitSoon    = "Zeige Vorwarnun für Aufspaltung",
+    RangeFrame            = "Zeige Abstandsfenster (12 m)",
+    SetIconOnBrand        = DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74505)
 })
 
 
 L:SetMiscLocalization({
-	SplitTrigger		= "Doppelter Schmerz, halb soviel Spaß."
+    SplitTrigger        = "Doppelter Schmerz, halb soviel Spaß."
 })
 
 -------------------------
@@ -115,17 +115,17 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Saviana")
 
 L:SetGeneralLocalization({
-	name = "Saviana Flammenschlund"
+    name = "Saviana Flammenschlund"
 })
 
 L:SetWarningLocalization({
-	SpecialWarningTranq		= "Wutanfall - Einlullen/Beruhigen"
+    SpecialWarningTranq        = "Wutanfall - Einlullen/Beruhigen"
 })
 
 L:SetOptionLocalization({
-	SpecialWarningTranq		= "Zeige Spezialwarnung für $spell:78722",
-	RangeFrame				= "Zeige Abstandsfenster (10 m)",
-	BeaconIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74453)
+    SpecialWarningTranq        = "Zeige Spezialwarnung für $spell:78722",
+    RangeFrame                = "Zeige Abstandsfenster (10 m)",
+    BeaconIcon                = DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74453)
 })
 
 L:SetMiscLocalization{
@@ -137,24 +137,24 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Zarithrian")
 
 L:SetGeneralLocalization({
-	name = "General Zarithrian"
+    name = "General Zarithrian"
 })
 
 L:SetWarningLocalization({
-	WarnAdds	= "Neue Adds"
+    WarnAdds    = "Neue Adds"
 })
 
 L:SetTimerLocalization({
-	TimerAdds	= "Neue Adds"
+    TimerAdds    = "Neue Adds"
 })
 
 L:SetOptionLocalization({
-	WarnAdds		= "Verkünde neue Adds",
-	TimerAdds		= "Zeige Timer für neue Adds"
+    WarnAdds        = "Verkünde neue Adds",
+    TimerAdds        = "Zeige Timer für neue Adds"
 })
 
 L:SetMiscLocalization({
-	SummonMinions	= "Äschert sie ein, Lakaien!"
+    SummonMinions    = "Äschert sie ein, Lakaien!"
 })
 
 -------------------------------------
@@ -163,16 +163,16 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Halion")
 
 L:SetGeneralLocalization({
-	name = "Halion der Zwielichtzerstörer"
+    name = "Halion der Zwielichtzerstörer"
 })
 
 L:SetWarningLocalization({
-	WarnPhase2Soon		= "Phase 2 bald",
-	WarnPhase3Soon		= "Phase 3 bald"
+    WarnPhase2Soon        = "Phase 2 bald",
+    WarnPhase3Soon        = "Phase 3 bald"
 })
 
 L:SetOptionLocalization({
-	WarnPhase2Soon			= "Zeige Vorwarnung für Phase 2 (bei ~79%)",	
+    WarnPhase2Soon			= "Zeige Vorwarnung für Phase 2 (bei ~79%)",	
 	WarnPhase3Soon			= "Zeige Vorwarnung für Phase 3 (bei ~54%)",
 	SoundOnConsumption		= "Spiele Sound bei Einäschern",--We use localized text for these functions
 	SetIconOnConsumption	= "Setze Zeichen auf Ziele von Einäschern"--So we can use single functions for both versions of spell."--So we can use single functions for both versions of spell.

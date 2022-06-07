@@ -13,7 +13,7 @@ L:SetGeneralLocalization{
 
 L:SetTimerLocalization{
 }
-    
+
 L:SetMiscLocalization{
     YellPull            = "發現敵意實體。啟動威脅評估協定。首要目標接近中。30秒後將再度評估。",
     Emote                = "%%s緊追(%S+)%。"
@@ -304,7 +304,7 @@ L:SetMiscLocalization{
     YellPhase2            = "無禮的小輩，你竟敢在我的王座之上挑戰我?我會親手碾碎你們!",
     YellKill            = "住手!我認輸了!",
     ChargeOn            = "閃電充能: %s",
-    Charge                = "中了閃電充能 (這一次): %s" 
+    Charge                = "中了閃電充能 (這一次): %s"
 }
 
 -------------

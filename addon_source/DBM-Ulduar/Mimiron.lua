@@ -62,7 +62,7 @@ mod:AddBoolOption("SetIconOnPlasmaBlast", true)
 mod:AddBoolOption("RangeFrame")
 
 local hardmode = false
-local phase                        = 0 
+local phase                        = 0
 local lootmethod, masterlooterRaidID
 
 local spinningUp                = GetSpellInfo(63414)
@@ -207,7 +207,7 @@ function mod:SPELL_CAST_SUCCESS(args)
         --timerNextDarkGlare:Schedule(19)            -- 4 (cast spinup) + 15 sec (cast dark glare)
         DBM:Schedule(0.15, show_warning_for_spinup)    -- wait 0.15 and then announce it, otherwise it will sometimes fail
         lastSpinUp = GetTime()
-    
+
     elseif args:IsSpellID(65192) then
         timerNextFlameSuppressant:Start()
     end
@@ -285,7 +285,7 @@ function mod:NextPhase()
     end
 end
 
-do 
+do
     local count = 0
     local last = 0
     local lastPhaseChange = 0

@@ -60,7 +60,7 @@ function mod:SPELL_DAMAGE(args)
         specWarnDevouringFlame:Show()
         if self.Options.PlaySoundOnDevouringFlame then
             PlaySoundFile("Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav")
-        end        
+        end
     end
 end
 
@@ -121,7 +121,7 @@ function mod:UNIT_TARGET(unit)    -- I think this is useless, why would anyone i
         end
         castFlames = false
     end
-end 
+end
 
 function mod:CastFlame(target)
     warnDevouringFlameCast:Show(target)
@@ -129,4 +129,4 @@ function mod:CastFlame(target)
         specWarnDevouringFlameCast:Show()
     end
     self:SetIcon(target, 8, 9)
-end 
+end

@@ -11,7 +11,7 @@ L:SetGeneralLocalization{
 
 L:SetTimerLocalization{
 }
-    
+
 L:SetMiscLocalization{
     YellPull    = "Hostile entities detected. Threat assessment protocol active. Primary target engaged. Time minus 30 seconds to re-evaluation.",
     Emote        = "%%s pursues (%S+)%."
@@ -59,11 +59,11 @@ L:SetGeneralLocalization{
     name = "Razorscale"
 }
 
-L:SetWarningLocalization{    
+L:SetWarningLocalization{
     warnTurretsReadySoon        = "Last turret ready in 20 seconds",
     warnTurretsReady            = "Last turret ready",
     SpecWarnDevouringFlameCast    = "Devouring Flame on you",
-    WarnDevouringFlameCast        = "Devouring Flame on >%s<" 
+    WarnDevouringFlameCast        = "Devouring Flame on >%s<"
 }
 
 L:SetTimerLocalization{
@@ -480,7 +480,7 @@ L:SetWarningLocalization{
     SpecWarnSanity                     = "%d Sanity remaining",
     SpecWarnGuardianLow                = "Stop attacking this Guardian",
     SpecWarnMadnessOutNow            = "Induce Madness ending - Move out",
-    WarnBrainPortalSoon                = "Brain Portal in 3 seconds",    
+    WarnBrainPortalSoon                = "Brain Portal in 3 seconds",
     SpecWarnFervor                    = "Sara's Fervor on you",
     SpecWarnFervorCast                = "Sara's Fervor is being cast on you",
     SpecWarnMaladyNear                = "Malady of the Mind on %s near you",

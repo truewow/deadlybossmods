@@ -27,7 +27,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	ArachnophobiaTimer	= "Arachnophobie"
+    ArachnophobiaTimer    = "Arachnophobie"
 })
 
 ----------------------------
@@ -75,8 +75,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellWebWrap         = "Ich bin eingenetzt! Hilfe!",
-	ArachnophobiaTimer	= "Arachnophobie"
+    YellWebWrap         = "Ich bin eingenetzt! Hilfe!",
+    ArachnophobiaTimer    = "Arachnophobie"
 })
 
 ------------------------------
@@ -145,9 +145,9 @@ L:SetWarningLocalization({
 })
 
 L:SetOptionLocalization({
-	WarningHealSoon		= "Zeige Vorwarnung für 3-Sekunden-Heilfenster",
-	WarningHealNow		= "Zeige Warnung für 3-Sekunden-Heilfenster",
-	SporeDamageAlert	= "Sende Flüsternachricht und verkünde Spieler in Raid die Sporen beschädigen\n(benötigt aktivierte Ankündigungen und (L)- oder (A)-Status)"
+    WarningHealSoon        = "Zeige Vorwarnung für 3-Sekunden-Heilfenster",
+    WarningHealNow        = "Zeige Warnung für 3-Sekunden-Heilfenster",
+    SporeDamageAlert    = "Sende Flüsternachricht und verkünde Spieler in Raid die Sporen beschädigen\n(benötigt aktivierte Ankündigungen und (L)- oder (A)-Status)"
 })
 
 -----------------
@@ -164,9 +164,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	yell1 = "Flickwerk will spielen!", 
-	yell2 = "Kel’Thuzad macht Flickwerk zu seinem Abgesandten des Kriegs!",
-	HatefulStrike = "Hasserfüllter Stoß --> %s [%s]"
+    yell1 = "Flickwerk will spielen!",
+    yell2 = "Kel’Thuzad macht Flickwerk zu seinem Abgesandten des Kriegs!",
+    HatefulStrike = "Hasserfüllter Stoß --> %s [%s]"
 })
 
 -----------------
@@ -180,7 +180,7 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
    SpecialWarningInjection   = "Zeige Spezialwarnung wenn du Ziel der Mutagenen Injektion bist",
-   SetIconOnInjectionTarget	= "Setze Zeichen auf Ziele von Mutagene Injektion"
+   SetIconOnInjectionTarget    = "Setze Zeichen auf Ziele von Mutagene Injektion"
 })
 
 L:SetWarningLocalization({
@@ -209,13 +209,13 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	Yell   = "Stalagg zerquetschen!",
-	Emote = "%s überlädt!",
-	Emote2 = "Teslaspule überlädt!",
-	Boss1 = "Feugen",
-	Boss2 = "Stalagg",
-	Charge1 = "negativ",
-	Charge2 = "positiv"
+    Yell   = "Stalagg zerquetschen!",
+    Emote = "%s überlädt!",
+    Emote2 = "Teslaspule überlädt!",
+    Boss1 = "Feugen",
+    Boss2 = "Stalagg",
+    Charge1 = "negativ",
+    Charge2 = "positiv"
 })
 
 L:SetOptionLocalization({
@@ -245,18 +245,18 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-   Yell1 = "Show them no mercy!",	-- to be translated
-   Yell2 = "The time for practice is over! Show me what you have learned!",	-- to be translated
-   Yell3 = "Do as I taught you!",	-- to be translated
-   Yell4 = "Sweep the leg... Do you have a problem with that?"	-- to be translated
+   Yell1 = "Show them no mercy!",    -- to be translated
+   Yell2 = "The time for practice is over! Show me what you have learned!",    -- to be translated
+   Yell3 = "Do as I taught you!",    -- to be translated
+   Yell4 = "Sweep the leg... Do you have a problem with that?"    -- to be translated
 })
 
 L:SetOptionLocalization({
-	WarningShieldWallSoon	= "Zeige Warnung für Auslaufen von Schildwall"
+    WarningShieldWallSoon    = "Zeige Warnung für Auslaufen von Schildwall"
 })
 
 L:SetWarningLocalization({
-	WarningShieldWallSoon	= "Schildwall endet in 5 Sekunden"
+    WarningShieldWallSoon    = "Schildwall endet in 5 Sekunden"
 })
 
 ----------------------------
@@ -348,7 +348,7 @@ L:SetOptionLocalization({
    TimerLanding         = "Zeige Timer für Landung",
    TimerIceBlast         = "Zeige Timer für Frostatem",
    WarningDeepBreath      = "Zeige Spezialwarnung für Frostatem",
-   WarningIceblock		= "Schreie wenn du ein Eisblock bist"
+   WarningIceblock        = "Schreie wenn du ein Eisblock bist"
 })
 
 L:SetMiscLocalization({
@@ -366,7 +366,7 @@ L:SetWarningLocalization({
 L:SetTimerLocalization({
    TimerAir            = "Flugphase",
    TimerLanding         = "Landung",
-   TimerIceBlast         = "Frostatem"   
+   TimerIceBlast         = "Frostatem"
 })
 
 ------------------
@@ -381,10 +381,10 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
    TimerPhase2         = "Zeige Timer für Phase 2",
-   specwarnP2Soon	= "Zeige Spezialwarnung 10 Sekunden bevor Kel'Thuzad angreift",
-   warnAddsSoon	= "Zeige Vorwarnung für Wächter von Eiskrone",
-   BlastAlarm		= "Spiele Sirenensound wenn Frostschlag gezaubert wird",
-   ShowRange		= "Show range frame when Phase 2 starts"
+   specwarnP2Soon    = "Zeige Spezialwarnung 10 Sekunden bevor Kel'Thuzad angreift",
+   warnAddsSoon    = "Zeige Vorwarnung für Wächter von Eiskrone",
+   BlastAlarm        = "Spiele Sirenensound wenn Frostschlag gezaubert wird",
+   ShowRange        = "Show range frame when Phase 2 starts"
 })
 
 L:SetMiscLocalization({
@@ -392,8 +392,8 @@ L:SetMiscLocalization({
 })
 
 L:SetWarningLocalization({
-	specwarnP2Soon	= "Kel'Thuzad greift in 10 Sekunden an",
-	warnAddsSoon	= "Wächter von Eiskrone bald"
+    specwarnP2Soon    = "Kel'Thuzad greift in 10 Sekunden an",
+    warnAddsSoon    = "Wächter von Eiskrone bald"
 })
 
 L:SetTimerLocalization({
