@@ -42,12 +42,11 @@ mod:AddBoolOption("SetIconOnLifeLeach", true)
 mod:AddBoolOption("CrashArrow")
 mod:AddBoolOption("BypassLatencyCheck", false)--Use old scan method without syncing or latency check (less reliable but not dependant on other DBM users in raid)
 
-
 function mod:OnCombatStart(delay)
     timerEnrage:Start(-delay)
     timerHardmode:Start(-delay)
     timerNextSurgeofDarkness:Start(-delay)
-    timerShadowMissle:Start(10-delay)
+    timerShadowMissile:Start(10-delay)
     timerSearingFlames:Start(15-delay)
 end
 
