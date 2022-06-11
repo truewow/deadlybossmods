@@ -40,7 +40,7 @@ function mod:SPELL_AURA_APPLIED(args)
     if args:IsSpellID(74367) then
         warnCleaveArmor:Show(args.spellName, args.destName, args.amount or 1)
         timerCleaveArmor:Start(15)(args.destname)
-        if args:IsPlayer() and (args.amount or 1) >= 2 then
+        if args:IsPlayer() and args.amount >= 2 then
             specWarnCleaveArmor:Show(args.amount)
         end
     end

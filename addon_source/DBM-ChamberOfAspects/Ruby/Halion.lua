@@ -67,7 +67,9 @@ local lastshroud = 0
 local phases = {}
 local timeBeforeCutter
 local FIRST_WARNING_DELAY = 5
-
+local phase2Started = false
+local time_of_last_consumption = 0;
+local TIME_BETWEEN_CONSUMPTIONS = 25;
 
 function mod:LocationChecker()
     if GetTime() - lastshroud < 6 then
@@ -177,10 +179,10 @@ function mod:SPELL_AURA_APPLIED(args)--We don't use spell cast success for actua
             end
         end
         if mod:IsInRaidDifficulty("heroic10", "heroic25") then
-      time_of_last_consumption = GetTime()
+            time_of_last_consumption = GetTime()
             timerShadowConsumptionCD:Start(TIME_BETWEEN_CONSUMPTIONS)
         else
-      time_of_last_consumption = GetTime()
+            time_of_last_consumption = GetTime()
             timerShadowConsumptionCD:Start(TIME_BETWEEN_CONSUMPTIONS)
         end
         if mod:LatencyCheck() then
