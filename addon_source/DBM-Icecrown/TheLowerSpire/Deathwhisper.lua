@@ -291,7 +291,7 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_INTERRUPT(args)
-    if type(args.extraSpellId) == "number" and args.IsSpellID(71420, 72007, 72501, 72502) then
+    if type(args.extraSpellId) == "number" and args:IsSpellID(71420, 72007, 72501, 72502) then
         timerFrostboltCast:Cancel()
     end
 end
