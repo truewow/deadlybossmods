@@ -117,7 +117,8 @@ local lastPlagueCast = 0
 local warned_preP2 = false
 local warned_preP3 = false
 local warnedValkyrGUIDs = {}
-local LKTank
+local LKTank = nil
+local warnedAchievement = false
 
 function mod:OnCombatStart(delay)
     phase = 0
@@ -125,6 +126,7 @@ function mod:OnCombatStart(delay)
     warned_preP2 = false
     warned_preP3 = false
     LKTank = nil
+    warnedAchievement = false
     self:NextPhase()
     table.wipe(warnedValkyrGUIDs)
 end
@@ -342,7 +344,6 @@ function mod:SPELL_CAST_START(args)
     elseif args:IsSpellID(72350) then -- Fury of Frostmourne
         mod:SetWipeTime(160)--Change min wipe time mid battle to force dbm to keep module loaded for this long out of combat roleplay, hopefully without breaking mod.
         timerRoleplay:Start()
-    timerVileSpiritActication:Cancel()
         timerVileSpirit:Cancel()
         timerSoulreaperCD:Cancel()
         timerDefileCD:Cancel()
