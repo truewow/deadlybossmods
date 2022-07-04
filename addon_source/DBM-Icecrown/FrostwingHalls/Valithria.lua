@@ -73,9 +73,7 @@ function mod:StartAbomTimer()
 end
 
 function mod:OnCombatStart(delay)
-    if mod:IsInRaidDifficulty("heroic10", "heroic25") then
-        berserkTimer:Start(-delay)
-    end
+    berserkTimer:Start(-delay)
     timerNextPortal:Start()
     warnPortalSoon:Schedule(41)
     self:ScheduleMethod(46.5, "Portals")--This will never be perfect, since it's never same. 45-48sec variations
